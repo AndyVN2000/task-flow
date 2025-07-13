@@ -28,6 +28,7 @@ public class Task {
     @Column
     private String dueDate;
 
+    // TODO: Study @ManyToMany and @JoinTable on how they work.
     @ManyToMany
     @JoinTable(
         name = "task_label",
