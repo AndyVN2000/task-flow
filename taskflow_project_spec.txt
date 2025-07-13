@@ -1,0 +1,65 @@
+📘 Application Idea: "TaskFlow" – A Personal Task Manager API
+
+Description:
+Build a RESTful API for a personal task manager called TaskFlow. It allows users to create, update, delete, and retrieve tasks. Each task can have a status, priority, due date, and labels. Tasks can be grouped into projects.
+
+This gives you a realistic CRUD app with some complexity and relationships—perfect for practicing Onion Architecture in Java.
+
+🧱 Suggested Tech Stack
+- Language: Java 17+
+- Framework: Spring Boot
+- Build Tool: Maven or Gradle
+- Database: PostgreSQL or H2 (for simplicity)
+- ORM: JPA (Hibernate)
+- API: REST (with Spring Web)
+- Testing: JUnit, Mockito
+- Architecture: Onion (Clean)
+
+🧅 Onion Architecture Breakdown
+- Domain Layer (Core):
+  - Entities: Task, Project, Label
+  - Enums: TaskStatus, TaskPriority
+  - Interfaces: TaskRepository, ProjectRepository, LabelRepository
+  - Business rules (e.g., "a task must belong to a project")
+
+- Application Layer:
+  - Use Cases / Services: CreateTaskService, UpdateTaskStatusService, etc.
+  - Interfaces for persistence injected via constructor
+  - DTOs and Mapper interfaces
+
+- Infrastructure Layer:
+  - JPA implementations of repositories
+  - Database config, Spring Data JPA repositories
+  - Mapping logic (e.g., MapStruct or manual mapping)
+
+- Presentation Layer (API):
+  - REST Controllers
+  - Exception handlers
+  - JSON DTOs
+
+📦 Key Features to Implement
+
+🔹 Projects
+- POST /projects – Create a new project
+- GET /projects/{id} – Get project details
+- GET /projects – List all projects
+
+🔹 Tasks
+- POST /projects/{id}/tasks – Add task to a project
+- GET /projects/{id}/tasks – List tasks in a project
+- PUT /tasks/{id} – Edit task (change title, due date, priority, etc.)
+- PATCH /tasks/{id}/status – Update task status
+- DELETE /tasks/{id} – Delete a task
+
+🔹 Labels (optional for bonus)
+- Tasks can have multiple labels (many-to-many)
+- POST /labels
+- GET /labels
+- PATCH /tasks/{id}/labels – Add/remove labels on a task
+
+🧪 Bonus Practice Ideas
+- Pagination & filtering (?status=IN_PROGRESS&dueBefore=2025-08-01)
+- Basic authentication (username/password)
+- Input validation with Bean Validation (e.g., @NotNull)
+- Custom exception handling (@ControllerAdvice)
+- Testing services and controllers with mocks
