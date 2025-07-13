@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 
 import java.util.UUID;
 import java.util.Set;
+import java.time.LocalDate;
 
 @Entity
 public class Task {
@@ -24,9 +25,8 @@ public class Task {
     @Column(nullable = false)
     private TaskPriority priority;
 
-    // TODO: Perhaps String is not a fitting datatype for dates.
     @Column
-    private String dueDate;
+    private LocalDate dueDate;
 
     // TODO: Study @ManyToMany and @JoinTable on how they work.
     @ManyToMany
