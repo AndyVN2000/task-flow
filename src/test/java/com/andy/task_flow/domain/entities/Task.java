@@ -5,8 +5,12 @@ import com.andy.task_flow.domain.enums.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.JoinColumn;
 
 import java.util.UUID;
+import java.util.Set;
 
 @Entity
 public class Task {
@@ -24,8 +28,12 @@ public class Task {
     @Column
     private String dueDate;
 
-    // TODO: It is not so simple as to say that labels are Strings.
-    @Column
-    private String label;
+    @ManyToMany
+    @JoinTable(
+        name = "task_label",
+        joinColumns = @JoinColumn(name = "task_id"),
+        inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
+    private Set<Label> labels;
     
 }
