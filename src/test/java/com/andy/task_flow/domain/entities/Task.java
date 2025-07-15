@@ -29,6 +29,7 @@ public class Task {
     private LocalDate dueDate;
 
     // TODO: Study @ManyToMany and @JoinTable on how they work.
+    // This tutorial shows how to use the annotations: https://www.baeldung.com/jpa-many-to-many
     @ManyToMany
     @JoinTable(
         name = "task_label",
