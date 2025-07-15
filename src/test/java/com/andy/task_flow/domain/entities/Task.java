@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 
@@ -38,4 +39,8 @@ public class Task {
     )
     private Set<Label> labels;
     
+
+    @ManyToOne
+    private Project project;
+
 }
