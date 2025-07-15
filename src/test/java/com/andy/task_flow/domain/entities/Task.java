@@ -39,8 +39,8 @@ public class Task {
     )
     private Set<Label> labels;
     
-
     @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
 }
