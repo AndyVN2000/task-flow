@@ -11,6 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 
 import java.util.UUID;
+import java.util.HashSet;
 import java.util.Set;
 import java.time.LocalDate;
 
@@ -37,10 +38,10 @@ public class Task {
         joinColumns = @JoinColumn(name = "task_id"),
         inverseJoinColumns = @JoinColumn(name = "label_id")
     )
-    private Set<Label> labels;
+    private Set<Label> labels = new HashSet<>();
     
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
-
+    
 }
