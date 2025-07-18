@@ -1,5 +1,13 @@
 # task-flow
 
+## Maven
+
+### Build project
+
+```bash
+./mvnw clean install
+```
+
 ## Relevant tutorials
 
 ### Inspiration from other onion architecture projects
