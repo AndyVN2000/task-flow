@@ -8,6 +8,8 @@
 ./mvnw clean install
 ```
 
+This will also run all test classes.
+
 ## Relevant tutorials
 
 ### Inspiration from other onion architecture projects
