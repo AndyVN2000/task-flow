@@ -52,4 +52,8 @@ public class Task {
         return new Task(project);
     }
 
+    public Project getProject() {
+        return project;
+    }
+
 }

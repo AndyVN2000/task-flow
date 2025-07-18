@@ -3,6 +3,8 @@ package com.andy.task_flow.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.Project;
 
