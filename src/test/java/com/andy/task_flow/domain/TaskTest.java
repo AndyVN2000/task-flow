@@ -1,9 +1,11 @@
 package com.andy.task_flow.domain;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.Project;
@@ -19,8 +21,15 @@ public class TaskTest {
     }
     
     @Test
+    @Deprecated
+    @Disabled
     public void testTaskBelongsToAProject() {
         assertNotNull(task.getProject());
+    }
+
+    @Test
+    public void taskShouldBelongToProject() {
+        assertThrows(NullPointerException.class, () -> Task.of(null));
     }
 
 }

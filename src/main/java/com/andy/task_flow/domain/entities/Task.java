@@ -52,6 +52,15 @@ public class Task {
         return new Task(project);
     }
 
+    /**
+     * It is inappropriate to write a method only for the sake of testing.
+     * If having this getter is meaningful to the domain or other parts of the system might use this,
+     * then it is acceptable to have this method.
+     * But I only wrote it for the sake of testing, so this is deprecated for now and to be considered
+     * non-existent.
+     * @return
+     */
+    @Deprecated
     public Project getProject() {
         return project;
     }
