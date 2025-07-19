@@ -57,6 +57,9 @@ public class Task {
     }
     
     public static Task of(String title, Project project, Optional<TaskPriority> priority, LocalDate dueDate) {
+        if (project == null) {
+            throw new NullPointerException("Task must belong to a project");
+        }
         TaskPriority a = priority.isPresent() ? priority.get() : TaskPriority.MEDIUM;
         return new Task(title, project, a, dueDate);
     }
