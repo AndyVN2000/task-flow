@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import java.util.UUID;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Optional;
 import java.time.LocalDate;
 
 @Entity
@@ -22,7 +23,14 @@ public class Task {
     private final UUID id = UUID.randomUUID();
 
     @Column(nullable = false)
-    private TaskStatus status;
+    private String title;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
+
+    @Column(nullable = false)
+    private TaskStatus status = TaskStatus.TODO;
 
     @Column(nullable = false)
     private TaskPriority priority;
@@ -40,16 +48,17 @@ public class Task {
     )
     private Set<Label> labels = new HashSet<>();
     
-    @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
 
-    private Task(Project project) {
+    private Task(String title, Project project, TaskPriority priority, LocalDate dueDate) {
+        this.title = title;
         this.project = project;
+        this.priority = priority;
+        this.dueDate = dueDate;
     }
     
-    public static Task of(Project project) {
-        return new Task(project);
+    public static Task of(String title, Project project, Optional<TaskPriority> priority, LocalDate dueDate) {
+        TaskPriority a = priority.isPresent() ? priority.get() : TaskPriority.MEDIUM;
+        return new Task(title, project, a, dueDate);
     }
 
     /**

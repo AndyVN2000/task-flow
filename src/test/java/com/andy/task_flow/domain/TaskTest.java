@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.Project;
 
+import java.time.LocalDate;
+import java.util.Optional;
+
 public class TaskTest {
     
     private Task task;
@@ -17,7 +20,7 @@ public class TaskTest {
     @BeforeEach
     public void setup() {
         Project project = new Project();
-        task = Task.of(project);
+        Task.of("Foo", project, Optional.empty(), LocalDate.MAX);
     }
     
     @Test
@@ -29,7 +32,7 @@ public class TaskTest {
 
     @Test
     public void taskShouldBelongToProject() {
-        assertThrows(NullPointerException.class, () -> Task.of(null));
+        assertThrows(NullPointerException.class, () -> Task.of("Foo", null, Optional.empty(), LocalDate.MAX));
     }
 
 }
