@@ -32,4 +32,13 @@ public class Project {
 
     private Instant createdAt;
 
+    public Project of(String name, String description) {
+        return new Project(name, description);
+    }
+
+    private Project(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
 }
