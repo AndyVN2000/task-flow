@@ -7,15 +7,13 @@ import jakarta.persistence.OneToMany;
 import java.util.UUID;
 import java.util.HashSet;
 import java.util.Set;
+import java.time.Instant;
 
 @Entity
 public class Project {
     
     @Id
     private final UUID id = UUID.randomUUID();
-
-    @OneToMany(mappedBy = "project")
-    private Set<Task> tasks = new HashSet<>();
 
     /**
      * andistoev/onion‑architecture‑with‑spring‑boot
@@ -24,9 +22,14 @@ public class Project {
      * It comes with the advantage of ordering items based on the order they er added
      * to the set. Does it matter for Projects that contains sets of Tasks?
      */
+    @OneToMany(mappedBy = "project")
+    private Set<Task> tasks = new HashSet<>();
 
 
-    private final String name;
+    private String name;
 
-    
+    private String description;
+
+    private Instant createdAt;
+
 }
