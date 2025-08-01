@@ -3,6 +3,7 @@ package com.andy.task_flow.domain.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Column;
 
 import java.util.UUID;
 import java.util.HashSet;
@@ -11,6 +12,8 @@ import java.time.Instant;
 
 @Entity
 public class Project {
+
+    private boolean isArchived;
     
     @Id
     private final UUID id = UUID.randomUUID();
@@ -25,11 +28,13 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private Set<Task> tasks = new HashSet<>();
 
-
+    @Column
     private String name;
 
+    @Column
     private String description;
 
+    @Column
     private Instant createdAt;
 
     public Project of(String name, String description) {
@@ -39,6 +44,7 @@ public class Project {
     private Project(String name, String description) {
         this.name = name;
         this.description = description;
+        this.createdAt = Instant.now();
     }
 
 }
