@@ -1,0 +1,72 @@
+
+🧾 Domain Context: Project Management Platform
+
+We are building a lightweight internal project management system used by teams to track tasks across different projects. Our goal is simplicity, traceability, and clarity in roles and responsibilities.
+
+📘 Domain Entities Required in the First Iteration:
+
+1. Project
+
+🎯 Purpose:
+Represents a high-level initiative, typically owned by a team or department. Tasks are organized under projects.
+
+✅ Business Requirements:
+
+Property     | Type     | Constraints / Notes
+------------ | -------- | ----------------------------------------------------------
+id           | UUID     | Unique identifier. Immutable.
+name         | String   | Required. Max 100 characters. Unique per organization.
+description  | String   | Optional. Max 500 characters.
+createdAt    | Instant  | Set at creation. Immutable.
+tasks        | List<Task> | One-to-many. A project contains multiple tasks.
+
+🔐 Rules:
+- Projects cannot be renamed once archived.
+- Tasks can only be added to non-archived projects.
+
+2. Task
+
+🎯 Purpose:
+Tracks a unit of work to be completed within the context of a project.
+
+✅ Business Requirements:
+
+Property       | Type         | Constraints / Notes
+-------------- | ------------ | ---------------------------------------------------------
+id             | UUID         | Unique identifier. Immutable.
+title          | String       | Required. Max 200 characters.
+description    | String       | Optional. Max 1000 characters.
+status         | Enum         | Values: TODO, IN_PROGRESS, DONE, BLOCKED
+assignedTo     | String       | Optional. Represents a username or employee ID.
+dueDate        | LocalDate    | Optional. Must not be before creation date.
+createdAt      | Instant      | Set at creation. Immutable.
+project        | Project      | Required. Cannot be reassigned after creation.
+
+🔐 Rules:
+- A task must belong to exactly one project.
+- Once marked DONE, the task cannot be edited except for comments.
+- If dueDate is set, it must be in the future relative to createdAt.
+
+3. Enums and Value Objects
+
+TaskStatus enum:
+public enum TaskStatus {
+    TODO,
+    IN_PROGRESS,
+    BLOCKED,
+    DONE
+}
+
+📐 Domain Constraints Summary
+
+- Projects are containers for tasks.
+- Tasks are immutable in some fields after creation.
+- Validation should exist in the domain layer, not only in UI/API.
+- No use of frameworks (e.g., JPA) inside the domain layer — pure Java.
+
+🧪 Expectations for Entities
+
+- Should be pure Java classes (no persistence annotations).
+- Support domain invariants via constructors or factory methods.
+- Should support unit testing of rules without relying on infrastructure.
+- Use value types or enums where appropriate.

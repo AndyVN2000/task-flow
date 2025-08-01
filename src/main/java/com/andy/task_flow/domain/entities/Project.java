@@ -25,4 +25,8 @@ public class Project {
      * to the set. Does it matter for Projects that contains sets of Tasks?
      */
 
+
+    private final String name;
+
+    
 }
