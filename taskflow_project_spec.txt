@@ -17,10 +17,10 @@ This gives you a realistic CRUD app with some complexity and relationships—per
 
 🧅 Onion Architecture Breakdown
 - Domain Layer (Core):
-  - Entities: Task, Project, Label
-  - Enums: TaskStatus, TaskPriority
+  - [DONE] Entities: Task, Project, Label
+  - [DONE] Enums: TaskStatus, TaskPriority
   - Interfaces: TaskRepository, ProjectRepository, LabelRepository
-  - Business rules (e.g., "a task must belong to a project")
+  - [DONE] Business rules (e.g., "a task must belong to a project")
 
 - Application Layer:
   - Use Cases / Services: CreateTaskService, UpdateTaskStatusService, etc.
