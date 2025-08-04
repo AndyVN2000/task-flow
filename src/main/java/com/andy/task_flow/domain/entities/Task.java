@@ -1,6 +1,7 @@
 package com.andy.task_flow.domain.entities;
 
 import com.andy.task_flow.domain.enums.*;
+import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

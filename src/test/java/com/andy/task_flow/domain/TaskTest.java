@@ -8,7 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.andy.task_flow.domain.entities.Task;
-import com.andy.task_flow.domain.entities.Project;
+import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.ProjectImpl;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -19,8 +20,8 @@ public class TaskTest {
 
     @BeforeEach
     public void setup() {
-        Project project = new Project();
-        Task.of("Foo", project, Optional.empty(), LocalDate.MAX);
+        Project project = ProjectImpl.of("Foo", "Lorem ipsum");
+        Task.of("Bar", project, Optional.empty(), LocalDate.MAX);
     }
     
     @Test

@@ -1,5 +1,7 @@
 package com.andy.task_flow.domain.entities;
 
+import com.andy.task_flow.domain.entities.interfaces.Project;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -11,7 +13,7 @@ import java.util.Set;
 import java.time.Instant;
 
 @Entity
-public class Project {
+public class ProjectImpl implements Project {
 
     private boolean isArchived;
     
@@ -37,11 +39,11 @@ public class Project {
     @Column
     private Instant createdAt;
 
-    public Project of(String name, String description) {
-        return new Project(name, description);
+    public static Project of(String name, String description) {
+        return new ProjectImpl(name, description);
     }
 
-    private Project(String name, String description) {
+    private ProjectImpl(String name, String description) {
         this.name = name;
         this.description = description;
         this.createdAt = Instant.now();
