@@ -1,5 +1,6 @@
 package com.andy.task_flow.domain.entities;
 
+import com.andy.task_flow.domain.entities.interfaces.MutableProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.Entity;
@@ -13,7 +14,7 @@ import java.util.Set;
 import java.time.Instant;
 
 @Entity
-public class ProjectImpl implements Project {
+public class ProjectImpl implements MutableProject {
 
     private boolean isArchived;
     
