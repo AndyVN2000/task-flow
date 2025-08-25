@@ -1,5 +1,11 @@
 package com.andy.task_flow.domain;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import org.junit.jupiter.api.Test;
+
+import com.andy.task_flow.domain.entities.interfaces.Project;
+
 /**
  * This testing pattern is based on: https://www.baeldung.com/java-junit-verify-interface-contract
  * The advantage of this pattern is that it avoids duplication of test cases on methods
@@ -11,4 +17,12 @@ package com.andy.task_flow.domain;
 
 public abstract class ProjectContractTest {
     
+    protected abstract Project createProject();
+
+    @Test
+    public void projectIdShouldNotBeNull() {
+        Project project = createProject();
+        assertNotNull(project.getId());
+    }
+
 }

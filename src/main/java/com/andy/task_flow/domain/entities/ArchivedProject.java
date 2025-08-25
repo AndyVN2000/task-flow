@@ -8,12 +8,19 @@ import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
+import jakarta.persistence.Id;
+
 public class ArchivedProject implements Project {
 
+    @Id
+    private final UUID id = UUID.randomUUID();
 
+    public static Project of() {
+        return new ArchivedProject();
+    }
 
     public UUID getId() {
-        return null;
+        return id;
     }
 
     public String getName() {
