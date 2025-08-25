@@ -53,6 +53,8 @@ public class ProjectImpl implements MutableProject {
         this.createdAt = Instant.now();
     }
 
+    // Project methods
+
     public UUID getId() {
         return id;
     }
@@ -91,6 +93,27 @@ public class ProjectImpl implements MutableProject {
 
     public boolean hasOverdueTasks(Clock clock) {
         return false;
+    }
+
+    // MutableProject methods
+    public void rename(String newName) {
+
+    }
+
+    public void changeDescription(String newDescription) {
+
+    }
+
+    public void addTask(Task task) {
+
+    }
+
+    public void removeTask(UUID taskId) {
+
+    }
+
+    public ArchivedProject archive(String archivedBy, Clock clock) {
+        return null;
     }
 
 }
