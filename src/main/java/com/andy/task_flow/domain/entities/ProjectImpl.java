@@ -10,7 +10,10 @@ import jakarta.persistence.Column;
 
 import java.util.UUID;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.List;
+import java.time.Clock;
 import java.time.Instant;
 
 @Entity
@@ -48,6 +51,46 @@ public class ProjectImpl implements MutableProject {
         this.name = name;
         this.description = description;
         this.createdAt = Instant.now();
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public Optional<Instant> getArchivedAt() {
+        return Optional.empty();
+    }
+
+    public Optional<String> getArchivedBy() {
+        return Optional.empty();
+    }
+
+    public List<Task> getTasks() {
+        return null;
+    }
+
+    public boolean isArchived() {
+        return false;
+    }
+
+    public int getCompletedTaskCount() {
+        return 0;
+    }
+
+    public boolean hasOverdueTasks(Clock clock) {
+        return false;
     }
 
 }
