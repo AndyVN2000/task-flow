@@ -25,4 +25,11 @@ public abstract class ProjectContractTest {
         assertNotNull(project.getId());
     }
 
+    @Test
+    public void nameShouldNotBeNull() {
+        Project project = createProject();
+        assertNotNull(project.getName());
+    }
+    
+
 }
