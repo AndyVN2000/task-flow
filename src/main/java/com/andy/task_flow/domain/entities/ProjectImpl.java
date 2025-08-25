@@ -18,8 +18,6 @@ import java.time.Instant;
 
 @Entity
 public class ProjectImpl implements MutableProject {
-
-    private boolean isArchived;
     
     @Id
     private final UUID id = UUID.randomUUID();
