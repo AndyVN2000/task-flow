@@ -1,5 +1,7 @@
 # task-flow
 
+This project was initialized using the Spring Boot initializer.
+
 ## Maven
 
 ### Build project
