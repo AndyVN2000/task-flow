@@ -30,14 +30,23 @@ public class ArchivedProject implements Project {
     @Column
     private Instant createdAt;
 
-    public static Project of(String name, String description) {
-        return new ArchivedProject(name, description);
+    @Column
+    private Instant archivedAt;
+
+    @Column
+    private String archivedBy;
+
+    public static Project of(String name, String description, Instant createdAt, String archivedBy) {
+        return new ArchivedProject(name, description, createdAt, archivedBy);
     }
 
-    private ArchivedProject(String name, String description) {
+    private ArchivedProject(String name, String description, Instant createdAt, String archivedBy) {
         this.name = name;
         this.description = description;
-        this.createdAt = Instant.now();
+        this.createdAt = createdAt;
+        this.archivedAt = Instant.now();
+        this.archivedBy = archivedBy;
+
     }
 
     public UUID getId() {
@@ -57,11 +66,11 @@ public class ArchivedProject implements Project {
     }
 
     public Optional<Instant> getArchivedAt() {
-        return null;
+        return Optional.of(archivedAt);
     }
 
     public Optional<String> getArchivedBy() {
-        return null;
+        return Optional.of(archivedBy);
     }
 
     public List<Task> getTasks() {

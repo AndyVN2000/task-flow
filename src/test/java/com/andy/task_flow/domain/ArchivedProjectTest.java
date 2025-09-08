@@ -1,5 +1,7 @@
 package com.andy.task_flow.domain;
 
+import java.time.Instant;
+
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
@@ -7,7 +9,7 @@ public class ArchivedProjectTest extends ProjectContractTest {
 
     @Override
     protected Project createProject() {
-        return ArchivedProject.of("Foo", "Bar");
+        return ArchivedProject.of("Foo", "Bar", Instant.MIN, "John Doe");
     }
     
 }

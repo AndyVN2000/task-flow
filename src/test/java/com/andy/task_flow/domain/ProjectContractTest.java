@@ -1,6 +1,9 @@
 package com.andy.task_flow.domain;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -47,6 +50,18 @@ public abstract class ProjectContractTest {
     public void createdAtShouldNotBeNull() {
         Project project = createProject();
         assertNotNull(project.getCreatedAt());
+    }
+
+    @Test
+    public void archivedAtIsAnOptional() {
+        Project project = createProject();
+        assertTrue(project.getArchivedAt() instanceof Optional);
+    }
+
+    @Test
+    public void archivedByIsAnOptional() {
+        Project project = createProject();
+        assertTrue(project.getArchivedBy() instanceof Optional);
     }
 
 }
