@@ -27,6 +27,10 @@ public class ProjectImpl implements MutableProject {
      * So why would I use LinkedHashSet in my specific case?
      * It comes with the advantage of ordering items based on the order they er added
      * to the set. Does it matter for Projects that contains sets of Tasks?
+     * For now, we define tasks as a List, since this is what ChatGPT (our fake customer)
+     * specifies.
+     * TODO: Ask our 'customer' for user stories on what end user can do with a collection
+     *       of tasks in a project.
      */
     @OneToMany(mappedBy = "project")
     private List<Task> tasks = new ArrayList<>();
