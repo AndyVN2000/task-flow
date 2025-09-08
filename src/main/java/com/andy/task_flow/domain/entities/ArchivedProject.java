@@ -2,6 +2,7 @@ package com.andy.task_flow.domain.entities;
 
 import java.time.Clock;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,6 +15,8 @@ public class ArchivedProject implements Project {
 
     @Id
     private final UUID id = UUID.randomUUID();
+
+    private List<Task> tasks = new ArrayList<>();
 
     public static Project of() {
         return new ArchivedProject();
@@ -44,7 +47,7 @@ public class ArchivedProject implements Project {
     }
 
     public List<Task> getTasks() {
-        return null;
+        return tasks;
     }
 
     public boolean isArchived() {

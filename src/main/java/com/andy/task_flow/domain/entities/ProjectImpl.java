@@ -9,9 +9,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Column;
 
 import java.util.UUID;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Set;
 import java.util.List;
 import java.time.Clock;
 import java.time.Instant;
@@ -30,7 +29,7 @@ public class ProjectImpl implements MutableProject {
      * to the set. Does it matter for Projects that contains sets of Tasks?
      */
     @OneToMany(mappedBy = "project")
-    private Set<Task> tasks = new HashSet<>();
+    private List<Task> tasks = new ArrayList<>();
 
     @Column
     private String name;
@@ -78,7 +77,7 @@ public class ProjectImpl implements MutableProject {
     }
 
     public List<Task> getTasks() {
-        return null;
+        return tasks;
     }
 
     public boolean isArchived() {
