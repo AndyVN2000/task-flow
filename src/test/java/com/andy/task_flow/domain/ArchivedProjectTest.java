@@ -7,7 +7,7 @@ public class ArchivedProjectTest extends ProjectContractTest {
 
     @Override
     protected Project createProject() {
-        return ArchivedProject.of();
+        return ArchivedProject.of("Foo", "Bar");
     }
     
 }

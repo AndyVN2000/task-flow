@@ -9,17 +9,35 @@ import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 public class ArchivedProject implements Project {
 
     @Id
     private final UUID id = UUID.randomUUID();
 
+    @OneToMany(mappedBy = "project")
     private List<Task> tasks = new ArrayList<>();
 
-    public static Project of() {
-        return new ArchivedProject();
+    @Column
+    private String name;
+
+    @Column
+    private String description;
+
+    @Column
+    private Instant createdAt;
+
+    public static Project of(String name, String description) {
+        return new ArchivedProject(name, description);
+    }
+
+    private ArchivedProject(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.createdAt = Instant.now();
     }
 
     public UUID getId() {
@@ -27,15 +45,15 @@ public class ArchivedProject implements Project {
     }
 
     public String getName() {
-        return "";
+        return name;
     }
 
     public String getDescription() {
-        return "";
+        return description;
     }
 
     public Instant getCreatedAt() {
-        return null;
+        return createdAt;
     }
 
     public Optional<Instant> getArchivedAt() {

@@ -43,4 +43,10 @@ public abstract class ProjectContractTest {
         assertNotNull(project.getTasks());
     }
 
+    @Test
+    public void createdAtShouldNotBeNull() {
+        Project project = createProject();
+        assertNotNull(project.getCreatedAt());
+    }
+
 }
