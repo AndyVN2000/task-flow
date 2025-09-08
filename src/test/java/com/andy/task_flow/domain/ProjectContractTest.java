@@ -64,4 +64,22 @@ public abstract class ProjectContractTest {
         assertTrue(project.getArchivedBy() instanceof Optional);
     }
 
+    @Test
+    public void isArchivedShouldNotBeNull() {
+        Project project = createProject();
+        assertNotNull(project.isArchived());
+    }
+
+    @Test
+    public void getCompletedTaskCountShouldNotBeNull() {
+        Project project = createProject();
+        assertNotNull(project.getCompletedTaskCount());
+    }
+
+    @Test
+    public void hasOverdueTasksShouldNotBeNull() {
+        Project project = createProject();
+        assertNotNull(project.hasOverdueTasks(null));
+    }
+
 }
