@@ -2,6 +2,10 @@
 
 This project was initialized using the Spring Boot initializer.
 
+## TODO
+
+Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
+
 ## Maven
 
 ### Build project
