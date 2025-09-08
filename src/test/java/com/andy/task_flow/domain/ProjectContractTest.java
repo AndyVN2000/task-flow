@@ -31,5 +31,10 @@ public abstract class ProjectContractTest {
         assertNotNull(project.getName());
     }
     
+    @Test
+    public void descriptionShouldNotBeNull() {
+        Project project = createProject();
+        assertNotNull(project.getDescription());
+    }
 
 }
