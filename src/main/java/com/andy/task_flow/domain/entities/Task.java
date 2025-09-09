@@ -15,6 +15,7 @@ import java.util.UUID;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Optional;
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Entity
@@ -26,6 +27,9 @@ public class Task {
     @Column(nullable = false)
     private String title;
 
+    @Column
+    private String description;
+
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
@@ -36,8 +40,14 @@ public class Task {
     @Column(nullable = false)
     private TaskPriority priority;
 
+    @Column(nullable = false)
+    private Instant createdAt;
+
     @Column
     private Optional<LocalDate> dueDate;
+
+    @Column
+    private Optional<Instant> completedAt;
 
     // TODO: Study @ManyToMany and @JoinTable on how they work.
     // This tutorial shows how to use the annotations: https://www.baeldung.com/jpa-many-to-many
