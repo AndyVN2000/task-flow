@@ -65,6 +65,10 @@ public class Task {
         return new Task(title, project, a, dueDate);
     }
 
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
     /**
      * It is inappropriate to write a method only for the sake of testing.
      * If having this getter is meaningful to the domain or other parts of the system might use this,
