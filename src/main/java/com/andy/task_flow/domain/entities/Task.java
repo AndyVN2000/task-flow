@@ -31,7 +31,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+    private final Project project;
 
     @Column(nullable = false)
     private TaskStatus status = TaskStatus.TODO;
@@ -40,7 +40,7 @@ public class Task {
     private TaskPriority priority;
 
     @Column(nullable = false)
-    private Instant createdAt;
+    private final Instant createdAt = Instant.now();
 
     @Column
     private Optional<Instant> dueDate;
