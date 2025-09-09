@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
@@ -21,7 +22,18 @@ public class TaskTest {
     @BeforeEach
     public void setup() {
         Project project = ProjectImpl.of("Foo", "Lorem ipsum");
-        Task.of("Bar", project, Optional.empty(), LocalDate.MAX);
+        task = Task.of("Bar", project, Optional.empty(), Optional.of(LocalDate.MAX));
+    }
+
+    @Test
+    public void taskShouldBelongToProject() {
+        assertThrows(NullPointerException.class, () -> 
+            Task.of("Foo", null, Optional.empty(), Optional.of(LocalDate.MAX)));
+    }
+
+    @Test
+    public void dueDateShouldBeAnOptionalObject() {
+        assertTrue(task.getDueDate() instanceof Optional);
     }
     
     @Test
@@ -31,9 +43,6 @@ public class TaskTest {
         assertNotNull(task.getProject());
     }
 
-    @Test
-    public void taskShouldBelongToProject() {
-        assertThrows(NullPointerException.class, () -> Task.of("Foo", null, Optional.empty(), LocalDate.MAX));
-    }
+    
 
 }

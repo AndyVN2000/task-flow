@@ -15,6 +15,7 @@ import java.util.UUID;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Optional;
+import java.lang.StackWalker.Option;
 import java.time.LocalDate;
 
 @Entity
@@ -37,7 +38,7 @@ public class Task {
     private TaskPriority priority;
 
     @Column
-    private LocalDate dueDate;
+    private Optional<LocalDate> dueDate;
 
     // TODO: Study @ManyToMany and @JoinTable on how they work.
     // This tutorial shows how to use the annotations: https://www.baeldung.com/jpa-many-to-many
@@ -50,14 +51,14 @@ public class Task {
     private Set<Label> labels = new HashSet<>();
     
 
-    private Task(String title, Project project, TaskPriority priority, LocalDate dueDate) {
+    private Task(String title, Project project, TaskPriority priority, Optional<LocalDate> dueDate) {
         this.title = title;
         this.project = project;
         this.priority = priority;
         this.dueDate = dueDate;
     }
     
-    public static Task of(String title, Project project, Optional<TaskPriority> priority, LocalDate dueDate) {
+    public static Task of(String title, Project project, Optional<TaskPriority> priority, Optional<LocalDate> dueDate) {
         if (project == null) {
             throw new NullPointerException("Task must belong to a project");
         }
@@ -65,7 +66,7 @@ public class Task {
         return new Task(title, project, a, dueDate);
     }
 
-    public LocalDate getDueDate() {
+    public Optional<LocalDate> getDueDate() {
         return dueDate;
     }
 
