@@ -12,7 +12,7 @@ import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.Optional;
 
 public class TaskTest {
@@ -22,13 +22,13 @@ public class TaskTest {
     @BeforeEach
     public void setup() {
         Project project = ProjectImpl.of("Foo", "Lorem ipsum");
-        task = Task.of("Bar", project, Optional.empty(), Optional.of(LocalDate.MAX));
+        task = Task.of("Bar", project, Optional.empty(), Optional.of(Instant.MAX));
     }
 
     @Test
     public void taskShouldBelongToProject() {
         assertThrows(NullPointerException.class, () -> 
-            Task.of("Foo", null, Optional.empty(), Optional.of(LocalDate.MAX)));
+            Task.of("Foo", null, Optional.empty(), Optional.of(Instant.MAX)));
     }
 
     @Test

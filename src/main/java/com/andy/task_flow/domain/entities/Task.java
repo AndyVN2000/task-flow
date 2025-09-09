@@ -16,7 +16,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Optional;
 import java.time.Instant;
-import java.time.LocalDate;
 
 @Entity
 public class Task {
@@ -44,7 +43,7 @@ public class Task {
     private Instant createdAt;
 
     @Column
-    private Optional<LocalDate> dueDate;
+    private Optional<Instant> dueDate;
 
     @Column
     private Optional<Instant> completedAt;
@@ -60,14 +59,14 @@ public class Task {
     private Set<Label> labels = new HashSet<>();
     
 
-    private Task(String title, Project project, TaskPriority priority, Optional<LocalDate> dueDate) {
+    private Task(String title, Project project, TaskPriority priority, Optional<Instant> dueDate) {
         this.title = title;
         this.project = project;
         this.priority = priority;
         this.dueDate = dueDate;
     }
     
-    public static Task of(String title, Project project, Optional<TaskPriority> priority, Optional<LocalDate> dueDate) {
+    public static Task of(String title, Project project, Optional<TaskPriority> priority, Optional<Instant> dueDate) {
         if (project == null) {
             throw new NullPointerException("Task must belong to a project");
         }
@@ -75,7 +74,7 @@ public class Task {
         return new Task(title, project, a, dueDate);
     }
 
-    public Optional<LocalDate> getDueDate() {
+    public Optional<Instant> getDueDate() {
         return dueDate;
     }
 
