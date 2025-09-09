@@ -1,6 +1,5 @@
 package com.andy.task_flow.domain.entities;
 
-import java.time.Clock;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,10 +82,6 @@ public class ArchivedProject implements Project {
 
     public int getCompletedTaskCount() {
         return 0;
-    }
-
-    public boolean hasOverdueTasks(Clock clock) {
-        return false;
     }
     
 }

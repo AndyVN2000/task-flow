@@ -3,6 +3,9 @@ package com.andy.task_flow.domain;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -79,7 +82,7 @@ public abstract class ProjectContractTest {
     @Test
     public void hasOverdueTasksShouldNotBeNull() {
         Project project = createProject();
-        assertNotNull(project.hasOverdueTasks(null));
+        assertNotNull(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
 }

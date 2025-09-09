@@ -32,7 +32,16 @@ public interface Project {
 
     int getCompletedTaskCount();
 
-    // TODO: this method is weird. Must think about how to deal with it
-    boolean hasOverdueTasks(Clock clock);
+    default boolean hasOverdueTasks(Clock clock) {
+        Instant now = Instant.now(clock);
+        for(Task task : getTasks()) {
+            Instant dueDate = task.getDueDate().get();
+            if(now.isAfter(dueDate)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 }

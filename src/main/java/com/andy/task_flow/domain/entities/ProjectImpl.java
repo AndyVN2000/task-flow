@@ -92,10 +92,6 @@ public class ProjectImpl implements MutableProject {
         return 0;
     }
 
-    public boolean hasOverdueTasks(Clock clock) {
-        return false;
-    }
-
     // MutableProject methods
     public void rename(String newName) {
 
