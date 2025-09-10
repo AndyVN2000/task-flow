@@ -5,6 +5,7 @@ import com.andy.task_flow.domain.entities.interfaces.MutableProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import java.util.UUID;
 import java.util.Optional;
@@ -13,6 +14,9 @@ import java.time.Instant;
 
 @Entity
 public class ProjectImpl extends AbstractProject implements MutableProject {
+
+    @Id
+    private final UUID id = UUID.randomUUID();
 
     public static Project of(String name, String description) {
         return new ProjectImpl(name, description);
@@ -76,7 +80,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public ArchivedProject archive(String archivedBy, Clock clock) {
-        return (ArchivedProject) ArchivedProject.of(getName(), getDescription(), Instant.now(clock), archivedBy);
+        return new ArchivedProject.ArchivedProjectBuilder().fromProject(this).archivedAt(clock.instant()).build();
     }
 
 }

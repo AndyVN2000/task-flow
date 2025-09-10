@@ -18,9 +18,6 @@ import jakarta.persistence.OneToMany;
 
 @MappedSuperclass
 public abstract class AbstractProject implements Project {
-    
-    @Id
-    protected final UUID id = UUID.randomUUID();
 
     /**
      * andistoev/onion‑architecture‑with‑spring‑boot

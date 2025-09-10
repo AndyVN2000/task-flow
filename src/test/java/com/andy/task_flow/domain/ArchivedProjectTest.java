@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +17,7 @@ public class ArchivedProjectTest extends ProjectContractTest {
 
     @Override
     protected Project createProject() {
-        return ArchivedProject.of("Foo", "Bar", Instant.MIN, "John Doe");
+        return ArchivedProject.of("Foo", "Bar", Instant.MIN, "John Doe", UUID.randomUUID());
     }
 
     // @Test

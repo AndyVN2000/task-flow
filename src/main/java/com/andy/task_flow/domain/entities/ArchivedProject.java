@@ -2,6 +2,7 @@ package com.andy.task_flow.domain.entities;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -9,8 +10,12 @@ import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 
 public class ArchivedProject extends AbstractProject implements Project {
+
+    @Id
+    protected final UUID id;
 
     @Column
     private Instant archivedAt;
@@ -18,16 +23,17 @@ public class ArchivedProject extends AbstractProject implements Project {
     @Column
     private String archivedBy;
 
-    public static Project of(String name, String description, Instant createdAt, String archivedBy) {
-        return new ArchivedProject(name, description, createdAt, archivedBy);
+    public static Project of(String name, String description, Instant createdAt, String archivedBy, UUID id) {
+        return new ArchivedProject(name, description, createdAt, archivedBy, id);
     }
 
-    private ArchivedProject(String name, String description, Instant createdAt, String archivedBy) {
+    private ArchivedProject(String name, String description, Instant createdAt, String archivedBy, UUID id) {
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.archivedAt = Instant.now();
         this.archivedBy = archivedBy;
+        this.id = id;
 
     }
 
@@ -87,13 +93,22 @@ public class ArchivedProject extends AbstractProject implements Project {
         }
 
         public ArchivedProject build() {
+            Objects.requireNonNull(id, "id must not be null");
+            Objects.requireNonNull(name, "name must not be null");
+            Objects.requireNonNull(createdAt, "createdAt must not be null");
+            Objects.requireNonNull(archivedAt, "archivedAt must not be null");
             return new ArchivedProject(this);
         }
 
     }
 
     private ArchivedProject(ArchivedProjectBuilder builder) {
+        this.id = builder.id;
+        this.tasks = builder.tasks;
         this.name = builder.name;
+        this.description = builder.description;
+        this.createdAt = builder.createdAt;
+        this.archivedAt = builder.archivedAt;
     }
     
 }
