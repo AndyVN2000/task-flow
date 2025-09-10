@@ -76,7 +76,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public ArchivedProject archive(String archivedBy, Clock clock) {
-        return null;
+        return (ArchivedProject) ArchivedProject.of(getName(), getDescription(), Instant.now(clock), archivedBy);
     }
 
 }

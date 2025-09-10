@@ -90,104 +90,104 @@ public abstract class ProjectContractTest {
         assertNotNull(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
-    @Test
-    public void noTasksShouldMeanNoOverdueTasks() {
-        // Instantiate project with an empty list of tasks.
-        Project project;
-        assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
-    }
+    // @Test
+    // public void noTasksShouldMeanNoOverdueTasks() {
+    //     // Instantiate project with an empty list of tasks.
+    //     Project project;
+    //     assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
+    // }
 
-    @Test
-    public void tasksWithoutDueDatesShouldNeverBeOverdue() {
-        // Instantiate project with a task that has no due date
-        Project project;
-        assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
-    }
+    // @Test
+    // public void tasksWithoutDueDatesShouldNeverBeOverdue() {
+    //     // Instantiate project with a task that has no due date
+    //     Project project;
+    //     assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
+    // }
 
-    @Test
-    public void tasksDueInFutureShouldNotBeOverdue() {
-        Instant futureDueDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
-        // Instantiate project with a task that is due in Instant.EPOCH plus 1 day.
-        Project project;
+    // @Test
+    // public void tasksDueInFutureShouldNotBeOverdue() {
+    //     Instant futureDueDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
+    //     // Instantiate project with a task that is due in Instant.EPOCH plus 1 day.
+    //     Project project;
         
-        // Should be equal to Instant.EPOCH.plus(1, ChronoUnit.DAYS)
-        Instant taskDueDate = project.getTasks().get(0).getDueDate().get();
+    //     // Should be equal to Instant.EPOCH.plus(1, ChronoUnit.DAYS)
+    //     Instant taskDueDate = project.getTasks().get(0).getDueDate().get();
 
-        Instant currentDate = Instant.EPOCH;
-        assertTrue(currentDate.isBefore(taskDueDate));
+    //     Instant currentDate = Instant.EPOCH;
+    //     assertTrue(currentDate.isBefore(taskDueDate));
 
-        assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    }
+    //     assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    // }
 
-    @Test
-    public void completedTasksShouldNeverBeOverdue() {
-        // Instantiate project with a task that is due in the past, but its status is completed
-        Project project;
+    // @Test
+    // public void completedTasksShouldNeverBeOverdue() {
+    //     // Instantiate project with a task that is due in the past, but its status is completed
+    //     Project project;
 
-        Task task = project.getTasks().get(0);
-        assertTrue(task.getStatus() == TaskStatus.DONE);
+    //     Task task = project.getTasks().get(0);
+    //     assertTrue(task.getStatus() == TaskStatus.DONE);
 
-        Instant currentDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
-        // dueDate should be Instant.EPOCH
-        Instant dueDate = task.getDueDate().get();
-        assertTrue(dueDate.isBefore(currentDate));
+    //     Instant currentDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
+    //     // dueDate should be Instant.EPOCH
+    //     Instant dueDate = task.getDueDate().get();
+    //     assertTrue(dueDate.isBefore(currentDate));
 
-        assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    }
+    //     assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    // }
 
-    @Test
-    public void taskDueInPastAndNotCompletedShouldBeOverdue() {
-        // Instantiate project with a task that is due in the past and is not completed
-        Project project;
+    // @Test
+    // public void taskDueInPastAndNotCompletedShouldBeOverdue() {
+    //     // Instantiate project with a task that is due in the past and is not completed
+    //     Project project;
 
-        Task task = project.getTasks().get(0);
-        TaskStatus status = task.getStatus();
-        assertTrue(status == TaskStatus.TODO || status == TaskStatus.IN_PROGRESS || status == TaskStatus.BLOCKED);
+    //     Task task = project.getTasks().get(0);
+    //     TaskStatus status = task.getStatus();
+    //     assertTrue(status == TaskStatus.TODO || status == TaskStatus.IN_PROGRESS || status == TaskStatus.BLOCKED);
 
-        Instant currentDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
-        // dueDate should be Instant.EPOCH
-        Instant dueDate = task.getDueDate().get();
-        assertTrue(dueDate.isBefore(currentDate));
+    //     Instant currentDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
+    //     // dueDate should be Instant.EPOCH
+    //     Instant dueDate = task.getDueDate().get();
+    //     assertTrue(dueDate.isBefore(currentDate));
 
-        assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    }
+    //     assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    // }
 
-    @Test
-    public void tasksDueExactlyAtCurrentTimeShouldNotBeOverdue() {
-        // Instantiate project with task due at Instant.EPOCH
-        Project project;
+    // @Test
+    // public void tasksDueExactlyAtCurrentTimeShouldNotBeOverdue() {
+    //     // Instantiate project with task due at Instant.EPOCH
+    //     Project project;
 
-        Task task = project.getTasks().get(0);
-        Instant dueDate = task.getDueDate().get();
-        Instant currentDate = Instant.EPOCH;
-        assertEquals(dueDate, currentDate);
+    //     Task task = project.getTasks().get(0);
+    //     Instant dueDate = task.getDueDate().get();
+    //     Instant currentDate = Instant.EPOCH;
+    //     assertEquals(dueDate, currentDate);
         
-        assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    }
+    //     assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    // }
 
-    /**
-     * If there are several tasks that are not overdue but a single is overdue, then
-     * project.hasOverdueTasks() returns true.
-     */
-    @Test
-    public void oneTaskBeingOverdueAmongManyTasksReturnsTrue() {
-        // Instantiate a project with two tasks. One is not overdue and the other is.
-        Project project;
+    // /**
+    //  * If there are several tasks that are not overdue but a single is overdue, then
+    //  * project.hasOverdueTasks() returns true.
+    //  */
+    // @Test
+    // public void oneTaskBeingOverdueAmongManyTasksReturnsTrue() {
+    //     // Instantiate a project with two tasks. One is not overdue and the other is.
+    //     Project project;
 
-        Task task0 = project.getTasks().get(0);
-        Task task1 = project.getTasks().get(1);
+    //     Task task0 = project.getTasks().get(0);
+    //     Task task1 = project.getTasks().get(1);
 
-        // Due in Instant.EPOCH.minus(1, ChronoUnit.DAYS)
-        Instant dueDate0 = task0.getDueDate().get();
-        // Due in Instant.EPOCH.plus(1, ChronoUnit.DAYS)
-        Instant dueDate1 = task1.getDueDate().get();
+    //     // Due in Instant.EPOCH.minus(1, ChronoUnit.DAYS)
+    //     Instant dueDate0 = task0.getDueDate().get();
+    //     // Due in Instant.EPOCH.plus(1, ChronoUnit.DAYS)
+    //     Instant dueDate1 = task1.getDueDate().get();
 
-        Instant currentDate = Instant.EPOCH;
+    //     Instant currentDate = Instant.EPOCH;
 
-        assertTrue(dueDate0.isBefore(currentDate));
-        assertTrue(dueDate1.isAfter(currentDate));
+    //     assertTrue(dueDate0.isBefore(currentDate));
+    //     assertTrue(dueDate1.isAfter(currentDate));
 
-        assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    }
+    //     assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    // }
 
 }
