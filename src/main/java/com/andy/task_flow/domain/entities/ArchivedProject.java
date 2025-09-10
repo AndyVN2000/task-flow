@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -70,7 +71,7 @@ public class ArchivedProject extends AbstractProject implements Project {
     }
 
     // Builder
-    public static class ArchivedProjectBuilder {
+    public static class ArchivedProjectBuilder implements ProjectBuilder {
         private UUID id;
         private List<Task> tasks;
         private String name;
@@ -87,22 +88,22 @@ public class ArchivedProject extends AbstractProject implements Project {
             return this;
         }
 
-        public ArchivedProjectBuilder id(UUID id) {
+        public ProjectBuilder setId(UUID id) {
             this.id = id;
             return this;
         }
 
-        public ArchivedProjectBuilder tasks(List<Task> tasks) {
+        public ProjectBuilder setTasks(List<Task> tasks) {
             this.tasks = tasks;
             return this;
         }
 
-        public ArchivedProjectBuilder name(String name) {
+        public ProjectBuilder setName(String name) {
             this.name = name;
             return this;
         }
 
-        public ArchivedProjectBuilder description(String description) {
+        public ProjectBuilder setDescription(String description) {
             this.description = description;
             return this;
         }
@@ -112,7 +113,7 @@ public class ArchivedProject extends AbstractProject implements Project {
             return this;
         }
 
-        public ArchivedProject build() {
+        public Project build() {
             Objects.requireNonNull(id, "id must not be null");
             Objects.requireNonNull(name, "name must not be null");
             Objects.requireNonNull(createdAt, "createdAt must not be null");

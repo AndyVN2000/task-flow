@@ -80,7 +80,10 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public ArchivedProject archive(String archivedBy, Clock clock) {
-        return new ArchivedProject.ArchivedProjectBuilder().fromProject(this).archivedAt(clock.instant()).build();
+        return (ArchivedProject) new ArchivedProject.ArchivedProjectBuilder().
+            fromProject(this).
+            archivedAt(clock.instant()).
+            build();
     }
 
 }
