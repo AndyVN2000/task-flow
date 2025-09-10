@@ -1,6 +1,7 @@
 package com.andy.task_flow.domain.entities;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -60,6 +61,39 @@ public class ArchivedProject extends AbstractProject implements Project {
 
     public int getCompletedTaskCount() {
         return 0;
+    }
+
+    // Builder
+    public static class ArchivedProjectBuilder {
+        private UUID id;
+        private List<Task> tasks;
+        private String name;
+        private String description;
+        private Instant createdAt;
+        private Instant archivedAt;
+
+        public ArchivedProjectBuilder fromProject(Project project) {
+            this.id = project.getId();
+            this.tasks = project.getTasks();
+            this.name = project.getName();
+            this.description = project.getDescription();
+            this.createdAt = project.getCreatedAt();
+            return this;
+        }
+
+        public ArchivedProjectBuilder archivedAt(Instant archivedAt) {
+            this.archivedAt = archivedAt;
+            return this;
+        }
+
+        public ArchivedProject build() {
+            return new ArchivedProject(this);
+        }
+
+    }
+
+    private ArchivedProject(ArchivedProjectBuilder builder) {
+        this.name = builder.name;
     }
     
 }
