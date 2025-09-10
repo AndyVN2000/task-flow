@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 
 public class ProjectImplTest extends ProjectContractTest {
 
@@ -20,6 +21,11 @@ public class ProjectImplTest extends ProjectContractTest {
     @Override
     protected Project createProject() {
         return ProjectImpl.of("Foo", "Bar");
+    }
+
+    @Override
+    protected ProjectBuilder createBuilder() {
+        return null;
     }
 
     @BeforeEach

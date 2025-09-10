@@ -9,12 +9,16 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
 /**
@@ -29,6 +33,8 @@ import com.andy.task_flow.domain.enums.TaskStatus;
 public abstract class ProjectContractTest {
     
     protected abstract Project createProject();
+
+    protected abstract ProjectBuilder createBuilder();
 
     @Test
     public void projectIdShouldNotBeNull() {
@@ -90,12 +96,17 @@ public abstract class ProjectContractTest {
         assertNotNull(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
-    // @Test
-    // public void noTasksShouldMeanNoOverdueTasks() {
-    //     // Instantiate project with an empty list of tasks.
-    //     Project project;
-    //     assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
-    // }
+    @Test
+    public void noTasksShouldMeanNoOverdueTasks() {
+        // Instantiate project with an empty list of tasks.
+        List<Task> tasks = new ArrayList<>();
+        ProjectBuilder builder = createBuilder();
+        Project project = builder.
+            setTasks(tasks).
+            build();
+
+        assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
+    }
 
     // @Test
     // public void tasksWithoutDueDatesShouldNeverBeOverdue() {

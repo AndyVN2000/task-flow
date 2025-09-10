@@ -1,6 +1,7 @@
 package com.andy.task_flow.domain.entities;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -73,7 +74,7 @@ public class ArchivedProject extends AbstractProject implements Project {
     // Builder
     public static class ArchivedProjectBuilder implements ProjectBuilder {
         private UUID id;
-        private List<Task> tasks;
+        private List<Task> tasks = new ArrayList<>();
         private String name;
         private String description;
         private Instant createdAt;
@@ -88,21 +89,31 @@ public class ArchivedProject extends AbstractProject implements Project {
             return this;
         }
 
+        @Override
         public ProjectBuilder setId(UUID id) {
             this.id = id;
             return this;
         }
 
+        @Override
         public ProjectBuilder setTasks(List<Task> tasks) {
             this.tasks = tasks;
             return this;
         }
 
+        @Override
+        public ProjectBuilder addTask(Task task) {
+            this.tasks.add(task);
+            return this;
+        }
+
+        @Override
         public ProjectBuilder setName(String name) {
             this.name = name;
             return this;
         }
 
+        @Override
         public ProjectBuilder setDescription(String description) {
             this.description = description;
             return this;
@@ -114,10 +125,6 @@ public class ArchivedProject extends AbstractProject implements Project {
         }
 
         public Project build() {
-            Objects.requireNonNull(id, "id must not be null");
-            Objects.requireNonNull(name, "name must not be null");
-            Objects.requireNonNull(createdAt, "createdAt must not be null");
-            Objects.requireNonNull(archivedAt, "archivedAt must not be null");
             return new ArchivedProject(this);
         }
 

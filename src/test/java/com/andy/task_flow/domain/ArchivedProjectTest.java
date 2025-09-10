@@ -12,12 +12,18 @@ import org.junit.jupiter.api.Test;
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 
 public class ArchivedProjectTest extends ProjectContractTest {
 
     @Override
     protected Project createProject() {
         return ArchivedProject.of("Foo", "Bar", Instant.MIN, "John Doe", UUID.randomUUID());
+    }
+
+    @Override
+    protected ProjectBuilder createBuilder() {
+        return new ArchivedProject.ArchivedProjectBuilder();
     }
 
     // @Test

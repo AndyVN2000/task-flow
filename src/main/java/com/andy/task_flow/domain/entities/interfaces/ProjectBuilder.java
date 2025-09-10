@@ -11,6 +11,8 @@ public interface ProjectBuilder {
 
     ProjectBuilder setTasks(List<Task> tasks);
 
+    ProjectBuilder addTask(Task task);
+
     ProjectBuilder setName(String name);
 
     ProjectBuilder setDescription(String description);
