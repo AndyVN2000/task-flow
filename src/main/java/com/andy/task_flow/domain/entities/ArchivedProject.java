@@ -87,6 +87,26 @@ public class ArchivedProject extends AbstractProject implements Project {
             return this;
         }
 
+        public ArchivedProjectBuilder id(UUID id) {
+            this.id = id;
+            return this;
+        }
+
+        public ArchivedProjectBuilder tasks(List<Task> tasks) {
+            this.tasks = tasks;
+            return this;
+        }
+
+        public ArchivedProjectBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ArchivedProjectBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
         public ArchivedProjectBuilder archivedAt(Instant archivedAt) {
             this.archivedAt = archivedAt;
             return this;
