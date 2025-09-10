@@ -108,12 +108,12 @@ public abstract class ProjectContractTest {
         assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
-    // @Test
-    // public void tasksWithoutDueDatesShouldNeverBeOverdue() {
-    //     // Instantiate project with a task that has no due date
-    //     Project project;
-    //     assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
-    // }
+    @Test
+    public void tasksWithoutDueDatesShouldNeverBeOverdue() {
+        // Instantiate project with a task that has no due date
+        Project project;
+        assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
+    }
 
     // @Test
     // public void tasksDueInFutureShouldNotBeOverdue() {
