@@ -78,6 +78,10 @@ public class Task {
         return dueDate;
     }
 
+    public TaskStatus getStatus() {
+        return status;
+    }
+
     /**
      * It is inappropriate to write a method only for the sake of testing.
      * If having this getter is meaningful to the domain or other parts of the system might use this,
