@@ -109,6 +109,33 @@ public abstract class ProjectContractTest {
         assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
+    /**
+     * Note: 
+     * I was in a terrible dilemma. I have to set up a test case scenario
+     *  where the project has some particular task. This test case and many others
+     *  have shared behavior for both `ProjectImpl` and `ArchivedProject` and 
+     *  therefore, the generation of a `Project` object had to be agnostic.
+     *  
+     * I used a builder design pattern to achieve this agnostic behavior in this
+     *  abstract test class. But before I could create my desired project for the
+     *  test case using the builder, I had to instantiate a `Task` object to pass on
+     *  to the builder. But to instantiate a `Task` object, business rules required
+     *  me to set a `Project` object as its field via the factory method of `Task`.
+     *  That is due to the business rule that forces me to make the `project` field
+     *  in `Task` to be `final`.
+     * 
+     * There was a circular reference that stopped me from setting up my test case.
+     *  To circumvent this, I assigned an arbitrary `Project` object to the `Task`
+     *  object and then added the task to another project.
+     *  But I am not sure if this violates my business rules, since this workaround
+     *  would only occur in unit tests.
+     * 
+     * As I write this note on my thoughts, I came to realize; was I supposed to
+     *  write and use a test double for `Task` rather than using a real `Task` 
+     *  object that is used for production code?
+     *  Yea, I should most likely write a test stub `TaskStub` and do the 3-1-2 step
+     *  on the `Task.java`.
+     */
     @Test
     public void tasksWithoutDueDatesShouldNeverBeOverdue() {
         // Instantiate project with a task that has no due date
