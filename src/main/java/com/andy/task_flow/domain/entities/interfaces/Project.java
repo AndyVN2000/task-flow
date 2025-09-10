@@ -35,8 +35,11 @@ public interface Project {
     default boolean hasOverdueTasks(Clock clock) {
         Instant now = Instant.now(clock);
         for(Task task : getTasks()) {
-            Instant dueDate = task.getDueDate().get();
-            if(now.isAfter(dueDate)) {
+            Optional<Instant> dueDate = task.getDueDate();
+            if(dueDate.isEmpty()) {
+                continue;
+            }
+            if(now.isAfter(dueDate.get())) {
                 return true;
             }
         }

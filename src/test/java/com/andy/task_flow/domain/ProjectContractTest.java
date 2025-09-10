@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import com.andy.task_flow.domain.entities.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
+import com.andy.task_flow.domain.enums.TaskPriority;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
 /**
@@ -111,7 +112,9 @@ public abstract class ProjectContractTest {
     @Test
     public void tasksWithoutDueDatesShouldNeverBeOverdue() {
         // Instantiate project with a task that has no due date
-        Project project;
+        Task task = Task.of("Baz", createProject(), Optional.empty(), Optional.empty());
+        ProjectBuilder builder = createBuilder();
+        Project project = builder.addTask(task).build();
         assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
