@@ -4,7 +4,9 @@ This project was initialized using the Spring Boot initializer.
 
 ## TODO
 
-Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
+1. Write unit test and implement `ProjectImpl.archive`.
+2. Use the Builder Design Pattern that constructs projects for the purpose of testing.
+3. Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
 
 ## Maven
 
