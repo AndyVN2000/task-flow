@@ -13,6 +13,7 @@ import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
+import com.andy.task_flow.fixtures.builders.ProjectImplBuilder;
 
 public class ProjectImplTest extends ProjectContractTest {
 
@@ -25,7 +26,7 @@ public class ProjectImplTest extends ProjectContractTest {
 
     @Override
     protected ProjectBuilder createBuilder() {
-        return null;
+        return new ProjectImplBuilder();
     }
 
     @BeforeEach
