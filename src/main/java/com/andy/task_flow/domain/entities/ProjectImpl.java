@@ -3,6 +3,7 @@ package com.andy.task_flow.domain.entities;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.MutableProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.interfaces.Task;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

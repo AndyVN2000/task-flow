@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.andy.task_flow.domain.entities.Task;
+import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.CascadeType;

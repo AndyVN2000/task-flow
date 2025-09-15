@@ -1,6 +1,6 @@
 package com.andy.task_flow.domain.repositories;
 
-import com.andy.task_flow.domain.entities.Task;
+import com.andy.task_flow.domain.entities.interfaces.Task;
 
 import java.util.UUID;
 import java.util.Optional;

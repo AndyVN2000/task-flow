@@ -9,6 +9,7 @@ This project was initialized using the Spring Boot initializer.
     - Right now, I have some trouble with getting the builder to add tasks, because of circular reference.
     - Solution: Write test doubles/stub out of `Task` and inject the double/stub into my test cases.
 3. Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
+4. Completely test and implement implementations of `Task` interface.
 
 ## Maven
 

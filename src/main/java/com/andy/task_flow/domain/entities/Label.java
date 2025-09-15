@@ -1,5 +1,7 @@
 package com.andy.task_flow.domain.entities;
 
+import com.andy.task_flow.domain.entities.interfaces.Task;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;

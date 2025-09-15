@@ -3,13 +3,13 @@ package com.andy.task_flow.domain.entities;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
+import com.andy.task_flow.domain.entities.interfaces.Task;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;

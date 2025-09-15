@@ -10,7 +10,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
-import com.andy.task_flow.domain.entities.Task;
+import com.andy.task_flow.domain.entities.TaskImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 

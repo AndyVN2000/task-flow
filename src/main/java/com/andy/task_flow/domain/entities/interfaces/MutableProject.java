@@ -4,7 +4,6 @@ import java.time.Clock;
 import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
-import com.andy.task_flow.domain.entities.Task;
 
 public interface MutableProject extends Project {
 
