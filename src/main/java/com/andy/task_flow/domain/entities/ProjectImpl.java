@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.util.UUID;
+import java.util.List;
 import java.util.Optional;
 import java.time.Clock;
 import java.time.Instant;
@@ -17,13 +18,14 @@ import java.time.Instant;
 public class ProjectImpl extends AbstractProject implements MutableProject {
 
     @Id
-    private final UUID id = UUID.randomUUID();
+    private final UUID id;
 
     public static Project of(String name, String description) {
         return new ProjectImpl(name, description);
     }
 
     private ProjectImpl(String name, String description) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.createdAt = Instant.now();
@@ -85,6 +87,15 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
             fromProject(this).
             archivedAt(clock.instant()).
             build();
+    }
+
+    // Constructor for ProjectImplBuilder.java
+    public ProjectImpl(UUID id, List<Task> tasks, String name, String description, Instant createdAt) {
+        this.id = id;
+        this.tasks = tasks;
+        this.name = name;
+        this.description = description;
+        this.createdAt = createdAt;
     }
 
 }
