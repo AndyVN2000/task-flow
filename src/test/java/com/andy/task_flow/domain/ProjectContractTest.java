@@ -23,6 +23,7 @@ import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.enums.TaskPriority;
 import com.andy.task_flow.domain.enums.TaskStatus;
 import com.andy.task_flow.fixtures.builders.TaskBuilder;
+import com.andy.task_flow.fixtures.builders.TaskStubBuilder;
 
 /**
  * This testing pattern is based on: https://www.baeldung.com/java-junit-verify-interface-contract
@@ -39,7 +40,9 @@ public abstract class ProjectContractTest {
 
     protected abstract ProjectBuilder createProjectBuilder();
 
-    protected abstract TaskBuilder createTaskBuilder();
+    protected TaskBuilder createTaskBuilder() {
+        return new TaskStubBuilder();
+    }
 
     @Test
     public void projectIdShouldNotBeNull() {
@@ -143,7 +146,8 @@ public abstract class ProjectContractTest {
     @Test
     public void tasksWithoutDueDatesShouldNeverBeOverdue() {
         // Instantiate project with a task that has no due date
-        Task task = TaskImpl.of("Baz", createProject(), Optional.empty(), Optional.empty());
+        TaskBuilder taskBuilder = createTaskBuilder();
+        Task task = taskBuilder.setDueDate(Optional.empty()).build();
         ProjectBuilder builder = createProjectBuilder();
         Project project = builder.addTask(task).build();
         assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));

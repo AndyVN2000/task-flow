@@ -1,5 +1,7 @@
 package com.andy.task_flow.fixtures.builders;
 
+import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.interfaces.Task;
@@ -10,6 +12,8 @@ public interface TaskBuilder {
     public TaskBuilder setId(UUID id);
 
     public TaskBuilder setStatus(TaskStatus status);
+
+    public TaskBuilder setDueDate(Optional<Instant> dueDate);
 
     public Task build();
 

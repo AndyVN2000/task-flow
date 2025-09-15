@@ -32,6 +32,12 @@ public class TaskStubBuilder implements TaskBuilder {
     }
 
     @Override
+    public TaskBuilder setDueDate(Optional<Instant> dueDate) {
+        this.dueDate = dueDate;
+        return this;
+    }
+
+    @Override
     public Task build() {
         return new TaskStub(id, title, description, status, dueDate, createdAt, completedAt, project);
     }
