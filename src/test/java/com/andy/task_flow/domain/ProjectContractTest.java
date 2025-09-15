@@ -153,20 +153,25 @@ public abstract class ProjectContractTest {
         assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
-    // @Test
-    // public void tasksDueInFutureShouldNotBeOverdue() {
-    //     Instant futureDueDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
-    //     // Instantiate project with a task that is due in Instant.EPOCH plus 1 day.
-    //     Project project;
+    @Test
+    public void tasksDueInFutureShouldNotBeOverdue() {
+        Instant futureDueDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
+        TaskBuilder taskBuilder = createTaskBuilder();
+        Task taskDueInFuture = taskBuilder.setDueDate(Optional.of(futureDueDate)).build();
+        // Instantiate project with a task that is due in Instant.EPOCH plus 1 day.
+        ProjectBuilder projectBuilder = createProjectBuilder();
+        Project project = projectBuilder.addTask(taskDueInFuture).build();
         
-    //     // Should be equal to Instant.EPOCH.plus(1, ChronoUnit.DAYS)
-    //     Instant taskDueDate = project.getTasks().get(0).getDueDate().get();
+        // Should be equal to Instant.EPOCH.plus(1, ChronoUnit.DAYS)
+        Instant taskDueDate = project.getTasks().get(0).getDueDate().get();
+        assertEquals(futureDueDate, taskDueDate);
 
-    //     Instant currentDate = Instant.EPOCH;
-    //     assertTrue(currentDate.isBefore(taskDueDate));
-
-    //     assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    // }
+        // Verify that the current date is before the due date.
+        Instant currentDate = Instant.EPOCH;
+        assertTrue(currentDate.isBefore(taskDueDate));
+        
+        assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    }
 
     // @Test
     // public void completedTasksShouldNeverBeOverdue() {
