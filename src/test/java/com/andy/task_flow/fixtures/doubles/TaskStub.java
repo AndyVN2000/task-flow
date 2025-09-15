@@ -18,52 +18,56 @@ public class TaskStub implements Task {
     private Optional<Instant> completedAt;
     private Project project;
 
+    public TaskStub(UUID id, String title, String description, TaskStatus status, Optional<Instant> dueDate, 
+                    Instant createdAt, Optional<Instant> completedAt, Project project) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.status = status;
+        this.dueDate = dueDate;
+        this.createdAt = createdAt;
+        this.completedAt = completedAt;
+        this.project = project;
+    }
+
     @Override
     public UUID getId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
+        return id;
     }
 
     @Override
     public String getTitle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTitle'");
+        return title;
     }
 
     @Override
     public String getDescription() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
+        return description;
     }
 
     @Override
     public TaskStatus getStatus() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStatus'");
+        return status;
     }
 
     @Override
     public Optional<Instant> getDueDate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDueDate'");
+        return dueDate;
     }
 
     @Override
     public Instant getCreatedAt() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCreatedAt'");
+        return createdAt;
     }
 
     @Override
     public Optional<Instant> getCompletedAt() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCompletedAt'");
+        return completedAt;
     }
 
     @Override
     public Project getProject() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProject'");
+        return project;
     }
     
 }
