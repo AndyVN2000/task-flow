@@ -5,10 +5,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.enums.TaskStatus;
 import com.andy.task_flow.fixtures.doubles.TaskStub;
 
-public class TaskStubBuilder {
+public class TaskStubBuilder implements TaskBuilder {
     private UUID id;
     private String title;
     private String description;
@@ -18,17 +19,20 @@ public class TaskStubBuilder {
     private Optional<Instant> completedAt;
     private Project project;
 
-    public TaskStubBuilder setId(UUID id) {
+    @Override
+    public TaskBuilder setId(UUID id) {
         this.id = id;
         return this;
     }
 
-    public TaskStubBuilder setStatus(TaskStatus status) {
+    @Override
+    public TaskBuilder setStatus(TaskStatus status) {
         this.status = status;
         return this;
     }
 
-    public TaskStub build() {
+    @Override
+    public Task build() {
         return new TaskStub(id, title, description, status, dueDate, createdAt, completedAt, project);
     }
 

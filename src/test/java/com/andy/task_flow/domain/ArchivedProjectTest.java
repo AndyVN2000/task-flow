@@ -22,7 +22,7 @@ public class ArchivedProjectTest extends ProjectContractTest {
     }
 
     @Override
-    protected ProjectBuilder createBuilder() {
+    protected ProjectBuilder createProjectBuilder() {
         return new ArchivedProject.ArchivedProjectBuilder();
     }
 
