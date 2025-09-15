@@ -17,6 +17,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.TaskImpl;
+import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.enums.TaskPriority;
@@ -100,7 +101,7 @@ public abstract class ProjectContractTest {
     @Test
     public void noTasksShouldMeanNoOverdueTasks() {
         // Instantiate project with an empty list of tasks.
-        List<TaskImpl> tasks = new ArrayList<>();
+        List<Task> tasks = new ArrayList<>();
         ProjectBuilder builder = createBuilder();
         Project project = builder.
             setTasks(tasks).
