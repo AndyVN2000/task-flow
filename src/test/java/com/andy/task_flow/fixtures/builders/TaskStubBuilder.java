@@ -38,6 +38,12 @@ public class TaskStubBuilder implements TaskBuilder {
     }
 
     @Override
+    public TaskBuilder setCompletedAt(Optional<Instant> completedAt) {
+        this.completedAt = completedAt;
+        return this;
+    }
+
+    @Override
     public Task build() {
         return new TaskStub(id, title, description, status, dueDate, createdAt, completedAt, project);
     }

@@ -9,6 +9,7 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -169,25 +170,33 @@ public abstract class ProjectContractTest {
         // Verify that the current date is before the due date.
         Instant currentDate = Instant.EPOCH;
         assertTrue(currentDate.isBefore(taskDueDate));
-        
+
         assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
     }
 
-    // @Test
-    // public void completedTasksShouldNeverBeOverdue() {
-    //     // Instantiate project with a task that is due in the past, but its status is completed
-    //     Project project;
+    @Test
+    public void completedTasksShouldNeverBeOverdue() {
+        Instant completionDate = Instant.EPOCH;
+        Instant dueDate = completionDate.minus(1, ChronoUnit.DAYS);
+        assertTrue(completionDate.isAfter(dueDate));
+        Instant currentDate = completionDate.plus(1, ChronoUnit.DAYS);
+        assertTrue(dueDate.isBefore(currentDate));
 
-    //     Task task = project.getTasks().get(0);
-    //     assertTrue(task.getStatus() == TaskStatus.DONE);
+        TaskBuilder taskBuilder = createTaskBuilder();
+        Task completedTask = taskBuilder.setStatus(TaskStatus.DONE).
+            setCompletedAt(Optional.of(completionDate)).
+            setDueDate(Optional.of(dueDate)).
+            build();
 
-    //     Instant currentDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
-    //     // dueDate should be Instant.EPOCH
-    //     Instant dueDate = task.getDueDate().get();
-    //     assertTrue(dueDate.isBefore(currentDate));
+        // Instantiate project with a task that is due in the past, but its status is completed
+        ProjectBuilder projectBuilder = createProjectBuilder();
+        Project project = projectBuilder.addTask(completedTask).build();
 
-    //     assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    // }
+        Task task = project.getTasks().get(0);
+        assertTrue(task.getStatus() == TaskStatus.DONE);
+
+        assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    }
 
     // @Test
     // public void taskDueInPastAndNotCompletedShouldBeOverdue() {

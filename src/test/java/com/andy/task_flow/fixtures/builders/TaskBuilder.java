@@ -15,6 +15,8 @@ public interface TaskBuilder {
 
     public TaskBuilder setDueDate(Optional<Instant> dueDate);
 
+    public TaskBuilder setCompletedAt(Optional<Instant> completedAt);
+
     public Task build();
 
 }
