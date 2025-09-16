@@ -15,11 +15,14 @@ import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
+import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.fixtures.builders.ProjectImplBuilder;
+import com.andy.task_flow.fixtures.builders.TaskBuilder;
 
 public class ProjectImplTest extends ProjectContractTest {
 
     private ProjectImpl project;
+    private TaskBuilder taskBuilder;
 
     @Override
     protected Project createProject() {
@@ -34,6 +37,7 @@ public class ProjectImplTest extends ProjectContractTest {
     @BeforeEach
     public void setUp() {
         project = (ProjectImpl) createProject();
+        taskBuilder = createTaskBuilder();
     }
     
     @Test
@@ -59,6 +63,16 @@ public class ProjectImplTest extends ProjectContractTest {
         String oldDescription = project.getDescription();
         project.changeDescription("hello world");
         assertNotEquals(oldDescription, project.getDescription());
+    }
+
+    @Test
+    public void shouldAddTaskToProject() {
+        int oldTaskCount = project.getTasks().size();
+        Task newTask = taskBuilder.build();
+        project.addTask(newTask);
+        int newTaskCount = project.getTasks().size();
+        assertNotEquals(newTaskCount, oldTaskCount);
+        assertEquals(newTaskCount - 1, oldTaskCount);
     }
 
 }

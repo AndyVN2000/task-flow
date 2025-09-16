@@ -75,7 +75,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public void addTask(Task task) {
-
+        this.tasks.add(task);
     }
 
     public void removeTask(UUID taskId) {
