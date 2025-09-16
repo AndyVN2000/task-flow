@@ -9,19 +9,15 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import com.andy.task_flow.domain.entities.TaskImpl;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
-import com.andy.task_flow.domain.enums.TaskPriority;
 import com.andy.task_flow.domain.enums.TaskStatus;
 import com.andy.task_flow.fixtures.builders.TaskBuilder;
 import com.andy.task_flow.fixtures.builders.TaskStubBuilder;
