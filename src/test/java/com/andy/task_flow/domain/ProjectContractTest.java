@@ -237,29 +237,37 @@ public abstract class ProjectContractTest {
         assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
     }
 
-    // /**
-    //  * If there are several tasks that are not overdue but a single is overdue, then
-    //  * project.hasOverdueTasks() returns true.
-    //  */
-    // @Test
-    // public void oneTaskBeingOverdueAmongManyTasksReturnsTrue() {
-    //     // Instantiate a project with two tasks. One is not overdue and the other is.
-    //     Project project;
+    /**
+     * If there are several tasks that are not overdue but a single is overdue, then
+     * project.hasOverdueTasks() returns true.
+     */
+    @Test
+    public void oneTaskBeingOverdueAmongManyTasksReturnsTrue() {
+        Instant currentDate = Instant.EPOCH;
+        // Instantiate a project with two tasks. One is not overdue and the other is.
+        TaskBuilder taskBuilder = createTaskBuilder();
+        Task overdueTask = taskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
+            .build();
+        Task notOverdueTask = taskBuilder.setDueDate(Optional.of(currentDate.plus(1, ChronoUnit.DAYS)))
+            .build();
 
-    //     Task task0 = project.getTasks().get(0);
-    //     Task task1 = project.getTasks().get(1);
+        ProjectBuilder projectBuilder = createProjectBuilder();
+        Project project = projectBuilder.addTask(overdueTask)
+            .addTask(notOverdueTask)
+            .build();
 
-    //     // Due in Instant.EPOCH.minus(1, ChronoUnit.DAYS)
-    //     Instant dueDate0 = task0.getDueDate().get();
-    //     // Due in Instant.EPOCH.plus(1, ChronoUnit.DAYS)
-    //     Instant dueDate1 = task1.getDueDate().get();
+        Task task0 = project.getTasks().get(0);
+        Task task1 = project.getTasks().get(1);
 
-    //     Instant currentDate = Instant.EPOCH;
+        // Due in Instant.EPOCH.minus(1, ChronoUnit.DAYS)
+        Instant dueDate0 = task0.getDueDate().get();
+        // Due in Instant.EPOCH.plus(1, ChronoUnit.DAYS)
+        Instant dueDate1 = task1.getDueDate().get();
 
-    //     assertTrue(dueDate0.isBefore(currentDate));
-    //     assertTrue(dueDate1.isAfter(currentDate));
+        assertTrue(dueDate0.isBefore(currentDate));
+        assertTrue(dueDate1.isAfter(currentDate));
 
-    //     assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    // }
+        assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    }
 
 }
