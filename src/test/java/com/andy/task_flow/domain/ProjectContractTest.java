@@ -12,6 +12,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -247,8 +248,10 @@ public abstract class ProjectContractTest {
         // Instantiate a project with two tasks. One is not overdue and the other is.
         TaskBuilder taskBuilder = createTaskBuilder();
         Task overdueTask = taskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
+            .setId(UUID.randomUUID())
             .build();
         Task notOverdueTask = taskBuilder.setDueDate(Optional.of(currentDate.plus(1, ChronoUnit.DAYS)))
+            .setId(UUID.randomUUID())
             .build();
 
         ProjectBuilder projectBuilder = createProjectBuilder();

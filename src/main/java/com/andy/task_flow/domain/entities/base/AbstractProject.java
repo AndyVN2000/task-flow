@@ -3,7 +3,10 @@ package com.andy.task_flow.domain.entities.base;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.entities.interfaces.Project;
@@ -25,11 +28,13 @@ public abstract class AbstractProject implements Project {
      * to the set. Does it matter for Projects that contains sets of Tasks?
      * For now, we define tasks as a List, since this is what ChatGPT (our fake customer)
      * specifies.
-     * TODO: Ask our 'customer' for user stories on what end user can do with a collection
-     *       of tasks in a project.
+     * 
+     * Update: tasks will be refactored from List<Task> to Map<UUID,Task> because
+     *  operations on this collection (e.g. removeTask()) are ID-based and
+     *  task are identified by IDs in general.
      */
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    protected List<Task> tasks = new ArrayList<>();
+    protected Map<UUID,Task> tasks = new LinkedHashMap<>();
 
     @Column
     protected String name;
@@ -42,7 +47,7 @@ public abstract class AbstractProject implements Project {
     
     @Override
     public List<Task> getTasks() {
-        return Collections.unmodifiableList(tasks);
+        return List.copyOf(tasks.values());
     }
 
 }

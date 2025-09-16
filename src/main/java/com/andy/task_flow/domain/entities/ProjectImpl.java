@@ -9,7 +9,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 import java.util.UUID;
+import java.util.stream.Collectors;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.time.Clock;
 import java.time.Instant;
@@ -75,11 +77,11 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public void addTask(Task task) {
-        this.tasks.add(task);
+        this.tasks.put(task.getId(), task);
     }
 
     public void removeTask(UUID taskId) {
-        
+
     }
 
     public ArchivedProject archive(String archivedBy, Clock clock) {
@@ -92,7 +94,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     // Constructor for ProjectImplBuilder.java
     public ProjectImpl(UUID id, List<Task> tasks, String name, String description, Instant createdAt) {
         this.id = id;
-        this.tasks = tasks;
+        this.tasks = tasks.stream().collect(Collectors.toMap(Task::getId, task -> task));
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;

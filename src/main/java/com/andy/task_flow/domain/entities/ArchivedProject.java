@@ -2,9 +2,12 @@ package com.andy.task_flow.domain.entities;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
@@ -74,7 +77,7 @@ public class ArchivedProject extends AbstractProject implements Project {
     // Builder
     public static class ArchivedProjectBuilder implements ProjectBuilder {
         private UUID id;
-        private List<Task> tasks = new ArrayList<>();
+        private Map<UUID, Task> tasks = new LinkedHashMap<>();
         private String name;
         private String description;
         private Instant createdAt;
@@ -82,7 +85,7 @@ public class ArchivedProject extends AbstractProject implements Project {
 
         public ArchivedProjectBuilder fromProject(Project project) {
             this.id = project.getId();
-            this.tasks = project.getTasks();
+            this.tasks = project.getTasks().stream().collect(Collectors.toMap(Task::getId, task -> task));
             this.name = project.getName();
             this.description = project.getDescription();
             this.createdAt = project.getCreatedAt();
@@ -97,13 +100,13 @@ public class ArchivedProject extends AbstractProject implements Project {
 
         @Override
         public ProjectBuilder setTasks(List<Task> tasks) {
-            this.tasks = tasks;
+            this.tasks = tasks.stream().collect(Collectors.toMap(Task::getId, task -> task));
             return this;
         }
 
         @Override
         public ProjectBuilder addTask(Task task) {
-            this.tasks.add(task);
+            this.tasks.put(task.getId(), task);
             return this;
         }
 
