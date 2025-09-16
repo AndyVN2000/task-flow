@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -73,6 +74,18 @@ public class ProjectImplTest extends ProjectContractTest {
         int newTaskCount = project.getTasks().size();
         assertNotEquals(newTaskCount, oldTaskCount);
         assertEquals(newTaskCount - 1, oldTaskCount);
+    }
+
+    @Test
+    public void shouldRemoveTaskByGivenId() {
+        UUID id = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
+        Task taskToRemove = taskBuilder.setId(id).build();
+        int taskCountBeforeAdd = project.getTasks().size();
+        project.addTask(taskToRemove);
+        assertEquals(taskCountBeforeAdd + 1, project.getTasks().size());
+
+        project.removeTask(id);
+        assertEquals(taskCountBeforeAdd, project.getTasks().size());
     }
 
 }

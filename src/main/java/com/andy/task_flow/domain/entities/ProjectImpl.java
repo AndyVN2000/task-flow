@@ -79,7 +79,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public void removeTask(UUID taskId) {
-
+        
     }
 
     public ArchivedProject archive(String archivedBy, Clock clock) {
