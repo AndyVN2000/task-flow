@@ -4,11 +4,13 @@ This project was initialized using the Spring Boot initializer.
 
 ## TODO
 
-- Write unit test and implement `ProjectImpl.archive`.
-- [DONE] Use the Builder Design Pattern that constructs projects for the purpose of testing.
+- Think of user stories based on `project_domain_spec.md` and write unit tests.
+  - `[DONE]` Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
+  - Write unit test and implement `ProjectImpl.archive`.
+- `[DONE]` Use the Builder Design Pattern that constructs projects for the purpose of testing.
   - Right now, I have some trouble with getting the builder to add tasks, because of circular reference.
   - Solution: Write test doubles/stub out of `Task` and inject the double/stub into my test cases.
-- Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
+
 - Completely test and implement implementations of `Task` interface.
 
 ## Maven
