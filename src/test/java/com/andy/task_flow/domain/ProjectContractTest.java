@@ -217,18 +217,25 @@ public abstract class ProjectContractTest {
         assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
     }
 
-    // @Test
-    // public void tasksDueExactlyAtCurrentTimeShouldNotBeOverdue() {
-    //     // Instantiate project with task due at Instant.EPOCH
-    //     Project project;
+    @Test
+    public void tasksDueExactlyAtCurrentTimeShouldNotBeOverdue() {
+        Instant currentDate = Instant.EPOCH;
 
-    //     Task task = project.getTasks().get(0);
-    //     Instant dueDate = task.getDueDate().get();
-    //     Instant currentDate = Instant.EPOCH;
-    //     assertEquals(dueDate, currentDate);
+        TaskBuilder taskBuilder = createTaskBuilder();
+        Task taskDueToday = taskBuilder.setDueDate(Optional.of(currentDate))
+            .build();
+
+        // Instantiate project with task due at Instant.EPOCH
+        ProjectBuilder projectBuilder = createProjectBuilder();
+        Project project = projectBuilder.addTask(taskDueToday)
+            .build();
+
+        Task task = project.getTasks().get(0);
+        Instant dueDate = task.getDueDate().get();
+        assertEquals(dueDate, currentDate);
         
-    //     assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
-    // }
+        assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
+    }
 
     // /**
     //  * If there are several tasks that are not overdue but a single is overdue, then
