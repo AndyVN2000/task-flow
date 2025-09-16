@@ -67,7 +67,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
 
     // MutableProject methods
     public void rename(String newName) {
-
+        this.name = newName;
     }
 
     public void changeDescription(String newDescription) {

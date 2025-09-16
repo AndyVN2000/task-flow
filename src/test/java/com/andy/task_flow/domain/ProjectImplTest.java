@@ -1,6 +1,7 @@
 package com.andy.task_flow.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Clock;
@@ -44,6 +45,13 @@ public class ProjectImplTest extends ProjectContractTest {
         assertEquals(archivedProject.getDescription(), project.getDescription());
         assertEquals(archivedProject.getCreatedAt(), project.getCreatedAt());
         assertEquals(archivedProject.getTasks(), project.getTasks());
+    }
+
+    @Test
+    public void projectCanBeRenamed() {
+        String oldName = project.getName();
+        project.rename("baz");
+        assertNotEquals(oldName, project.getName());
     }
 
 }
