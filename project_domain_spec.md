@@ -41,6 +41,7 @@ On all Projects (Project interface):
 Notes:
 - All getters must return consistent, non-null (or Optional) values.
 - getTasks() should not allow external mutation.
+- When a project is archived, it preserves its unique identifier (id), so archived and active projects share the same identity
 
 On active/mutable Projects (MutableProject interface):
 - void rename(String newName)

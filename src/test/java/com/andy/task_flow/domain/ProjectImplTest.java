@@ -1,5 +1,6 @@
 package com.andy.task_flow.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Clock;
@@ -38,6 +39,11 @@ public class ProjectImplTest extends ProjectContractTest {
     public void projectCanBeArchived() {
         Project archivedProject = project.archive("John Doe", Clock.fixed(Instant.EPOCH, ZoneId.of("Europe/Paris")));
         assertTrue(archivedProject instanceof ArchivedProject);
+        assertEquals(archivedProject.getId(), project.getId());
+        assertEquals(archivedProject.getName(), project.getName());
+        assertEquals(archivedProject.getDescription(), project.getDescription());
+        assertEquals(archivedProject.getCreatedAt(), project.getCreatedAt());
+        assertEquals(archivedProject.getTasks(), project.getTasks());
     }
 
 }
