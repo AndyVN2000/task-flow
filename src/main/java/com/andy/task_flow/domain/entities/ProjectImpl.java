@@ -71,7 +71,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public void changeDescription(String newDescription) {
-
+        this.description = newDescription;
     }
 
     public void addTask(Task task) {

@@ -54,4 +54,11 @@ public class ProjectImplTest extends ProjectContractTest {
         assertNotEquals(oldName, project.getName());
     }
 
+    @Test
+    public void projectCanGetNewDescription() {
+        String oldDescription = project.getDescription();
+        project.changeDescription("hello world");
+        assertNotEquals(oldDescription, project.getDescription());
+    }
+
 }
