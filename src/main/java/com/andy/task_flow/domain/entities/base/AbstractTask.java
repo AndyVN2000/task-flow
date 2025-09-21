@@ -1,9 +1,12 @@
 package com.andy.task_flow.domain.entities.base;
 
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.Label;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.enums.TaskStatus;
@@ -34,6 +37,16 @@ public abstract class AbstractTask implements Task {
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
+
+    // TODO: Study @ManyToMany and @JoinTable on how they work.
+    // This tutorial shows how to use the annotations: https://www.baeldung.com/jpa-many-to-many
+    @ManyToMany
+    @JoinTable(
+        name = "task_label",
+        joinColumns = @JoinColumn(name = "task_id"),
+        inverseJoinColumns = @JoinColumn(name = "label_id")
+    )
+    private Set<Label> labels = new HashSet<>();
 
     protected AbstractTask(String title, String description, Project project, Optional<Instant> dueDate) {
         this.title = title;
