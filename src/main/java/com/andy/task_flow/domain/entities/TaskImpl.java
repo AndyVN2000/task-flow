@@ -1,8 +1,8 @@
 package com.andy.task_flow.domain.entities;
 
 import com.andy.task_flow.domain.enums.*;
+import com.andy.task_flow.domain.entities.interfaces.MutableTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -16,10 +16,11 @@ import java.util.UUID;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Optional;
+import java.time.Clock;
 import java.time.Instant;
 
 @Entity
-public class TaskImpl implements Task {
+public class TaskImpl implements MutableTask {
 
     @Id
     private final UUID id = UUID.randomUUID();
@@ -123,6 +124,50 @@ public class TaskImpl implements Task {
     @Override
     public Project getProject() {
         return project;
+    }
+
+    // Mutator methods
+
+    @Override
+    public void rename(String newName) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'rename'");
+    }
+
+    @Override
+    public void changeDescription(String newDescription) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'changeDescription'");
+    }
+
+    @Override
+    public void setDueDate(Instant dueDate) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDueDate'");
+    }
+
+    @Override
+    public void clearDueDate() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'clearDueDate'");
+    }
+
+    @Override
+    public void start() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'start'");
+    }
+
+    @Override
+    public void complete(Clock clock) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'complete'");
+    }
+
+    @Override
+    public void reopen() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'reopen'");
     }
 
 }
