@@ -38,20 +38,20 @@ This will also run all test classes.
 Perfect to see how it fits with Spring Web & JPA
 - adamsiemion/springboot-with-spring_data-and-onion_architecture
   - Uses in-memory DB (Fongo) for simplicity
-  - Includes only one REST endpoint, ideal for quick learning <br>
+  - Includes only one REST endpoint, ideal for quick learning  
     Focuses on core principles: domain → application → infrastructure layers
 
 ### Many-To-Many
 
-Handling many-to-many relationships using JPA: https://www.baeldung.com/jpa-many-to-many
+Handling many-to-many relationships using JPA: [baeldung tutorial on JPA ManyToMany](https://www.baeldung.com/jpa-many-to-many)
 
 ### Many-To-One
 
-Handling many-to-one relationships using JPA: https://www.bezkoder.com/jpa-manytoone/
+Handling many-to-one relationships using JPA: [baeldung tutorial on JPA ManyToOne](https://www.bezkoder.com/jpa-manytoone/)
 
 It is typically preferable to use the `@ManyToOne` annotation rather than `@OneToMany`.
-The reasons are as follows: <br>
-With `@OneToMany`, we need to declare a collection (Comments) inside parent class (Tutorial), we cannot limit the size of that collection, for example, in case of pagination. <br>
+The reasons are as follows:  
+With `@OneToMany`, we need to declare a collection (Comments) inside parent class (Tutorial), we cannot limit the size of that collection, for example, in case of pagination.  
 With `@ManyToOne`, you can modify the Repository:
 
 - to work with Pagination
