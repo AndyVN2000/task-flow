@@ -23,6 +23,7 @@ import java.time.Instant;
 @Entity
 public class TaskImpl extends AbstractTask implements MutableTask {
 
+    /* 
     @Id
     private final UUID id = UUID.randomUUID();
 
@@ -60,72 +61,68 @@ public class TaskImpl extends AbstractTask implements MutableTask {
         inverseJoinColumns = @JoinColumn(name = "label_id")
     )
     private Set<Label> labels = new HashSet<>();
-    
+*/    
 
-    private TaskImpl(String title, Project project, TaskPriority priority, Optional<Instant> dueDate) {
-        this.title = title;
-        this.project = project;
-        this.priority = priority;
-        this.dueDate = dueDate;
+    private TaskImpl(String title, String description, Project project, Optional<Instant> dueDate) {
+        super(title, description, project, dueDate);
     }
     
-    public static TaskImpl of(String title, Project project, Optional<TaskPriority> priority, Optional<Instant> dueDate) {
+    public static TaskImpl of(String title, String description, Project project, Optional<Instant> dueDate) {
         if (project == null) {
             throw new NullPointerException("Task must belong to a project");
         }
-        TaskPriority a = priority.isPresent() ? priority.get() : TaskPriority.MEDIUM;
-        return new TaskImpl(title, project, a, dueDate);
+        return new TaskImpl(title, description, project, dueDate);
     }
 
-    @Override
-    public UUID getId() {
-        return id;
-    }
+    // @Override
+    // public UUID getId() {
+    //     return id;
+    // }
 
-    @Override
-    public String getTitle() {
-        return title;
-    }
+    // @Override
+    // public String getTitle() {
+    //     return title;
+    // }
 
-    @Override
-    public String getDescription() {
-        return description;
-    }
+    // @Override
+    // public String getDescription() {
+    //     return description;
+    // }
 
-    @Override
-    public TaskStatus getStatus() {
-        return status;
-    }
+    // @Override
+    // public TaskStatus getStatus() {
+    //     return status;
+    // }
 
-    @Override
-    public Optional<Instant> getDueDate() {
-        return dueDate;
-    }
+    // @Override
+    // public Optional<Instant> getDueDate() {
+    //     return dueDate;
+    // }
 
-    @Override
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
+    // @Override
+    // public Instant getCreatedAt() {
+    //     return createdAt;
+    // }
 
-    @Override
-    public Optional<Instant> getCompletedAt() {
-        return Optional.empty();
-    }
+    // @Override
+    // public Optional<Instant> getCompletedAt() {
+    //     return Optional.empty();
+    // }
 
-    /**
-     * It is inappropriate to write a method only for the sake of testing.
-     * If having this getter is meaningful to the domain or other parts of the system might use this,
-     *  then it is acceptable to have this method.
-     * But I only wrote it for the sake of testing, so this is deprecated for now and to be considered
-     *  non-existent.
-     * UPDATE: Product owner (ChatGPT) has clarified that getProject() is part of domain. This
-     *  method is no longer deprecated.
-     * @return
-     */
-    @Override
-    public Project getProject() {
-        return project;
-    }
+    // /**
+    //  * It is inappropriate to write a method only for the sake of testing.
+    //  * If having this getter is meaningful to the domain or other parts of the system might use this,
+    //  *  then it is acceptable to have this method.
+    //  * But I only wrote it for the sake of testing, so this is deprecated for now and to be considered
+    //  *  non-existent.
+    //  * UPDATE: Product owner (ChatGPT) has clarified that getProject() is part of domain. This
+    //  *  method is no longer deprecated.
+    //  * @return
+    //  */
+    // @Override
+    // public Project getProject() {
+    //     return project;
+    // }
 
     // Mutator methods
 

@@ -22,13 +22,13 @@ public class TaskTest {
     @BeforeEach
     public void setup() {
         Project project = ProjectImpl.of("Foo", "Lorem ipsum");
-        task = TaskImpl.of("Bar", project, Optional.empty(), Optional.of(Instant.MAX));
+        task = TaskImpl.of("Bar", "dolor sit amet", project, Optional.of(Instant.MAX));
     }
 
     @Test
     public void taskShouldBelongToProject() {
         assertThrows(NullPointerException.class, () -> 
-            TaskImpl.of("Foo", null, Optional.empty(), Optional.of(Instant.MAX)));
+            TaskImpl.of("Foo", "Baz", null, Optional.of(Instant.MAX)));
     }
 
     @Test

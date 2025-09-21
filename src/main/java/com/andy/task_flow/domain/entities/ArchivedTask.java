@@ -14,52 +14,8 @@ import jakarta.persistence.Entity;
 @Entity
 public class ArchivedTask extends AbstractTask implements Task {
 
-    @Override
-    public UUID getId() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getId'");
-    }
-
-    @Override
-    public String getTitle() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getTitle'");
-    }
-
-    @Override
-    public String getDescription() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDescription'");
-    }
-
-    @Override
-    public TaskStatus getStatus() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getStatus'");
-    }
-
-    @Override
-    public Optional<Instant> getDueDate() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getDueDate'");
-    }
-
-    @Override
-    public Instant getCreatedAt() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCreatedAt'");
-    }
-
-    @Override
-    public Optional<Instant> getCompletedAt() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCompletedAt'");
-    }
-
-    @Override
-    public Project getProject() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProject'");
+    private ArchivedTask(String title, String description, Project project, Optional<Instant> dueDate) {
+        super(title, description, project, dueDate);
     }
 
 }
