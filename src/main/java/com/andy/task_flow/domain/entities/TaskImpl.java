@@ -1,6 +1,7 @@
 package com.andy.task_flow.domain.entities;
 
 import com.andy.task_flow.domain.enums.*;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.MutableTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
@@ -20,7 +21,7 @@ import java.time.Clock;
 import java.time.Instant;
 
 @Entity
-public class TaskImpl implements MutableTask {
+public class TaskImpl extends AbstractTask implements MutableTask {
 
     @Id
     private final UUID id = UUID.randomUUID();

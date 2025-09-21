@@ -4,11 +4,15 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
-public class ArchivedTask implements Task {
+import jakarta.persistence.Entity;
+
+@Entity
+public class ArchivedTask extends AbstractTask implements Task {
 
     @Override
     public UUID getId() {
