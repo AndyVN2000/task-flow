@@ -246,13 +246,19 @@ public abstract class ProjectContractTest {
     public void oneTaskBeingOverdueAmongManyTasksReturnsTrue() {
         Instant currentDate = Instant.EPOCH;
         // Instantiate a project with two tasks. One is not overdue and the other is.
-        TaskBuilder taskBuilder = createTaskBuilder();
-        Task overdueTask = taskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
-            .setId(UUID.randomUUID())
+        TaskBuilder overdueTaskBuilder = createTaskBuilder();
+        Task overdueTask = overdueTaskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
+            .setId(UUID.fromString("00000000-0000-0000-0000-000000000001"))
             .build();
-        Task notOverdueTask = taskBuilder.setDueDate(Optional.of(currentDate.plus(1, ChronoUnit.DAYS)))
-            .setId(UUID.randomUUID())
+
+        assertTrue(overdueTask.getDueDate().get().isBefore(currentDate));
+        
+        TaskBuilder notOverdueTaskBuilder = createTaskBuilder();
+        Task notOverdueTask = notOverdueTaskBuilder.setDueDate(Optional.of(currentDate.plus(1, ChronoUnit.DAYS)))
+            .setId(UUID.fromString("00000000-0000-0000-0000-000000000002"))
             .build();
+
+        assertTrue(notOverdueTask.getDueDate().get().isAfter(currentDate));
 
         ProjectBuilder projectBuilder = createProjectBuilder();
         Project project = projectBuilder.addTask(overdueTask)
