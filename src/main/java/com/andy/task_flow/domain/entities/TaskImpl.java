@@ -35,7 +35,7 @@ public class TaskImpl implements Task {
     private final Project project;
 
     @Column(nullable = false)
-    private TaskStatus status = TaskStatus.TODO;
+    private TaskStatus status = TaskStatus.CREATED;
 
     @Column(nullable = false)
     private TaskPriority priority;

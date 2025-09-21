@@ -40,7 +40,7 @@ public interface Project {
             if(dueDate.isEmpty()) {
                 continue;
             }
-            if(task.getStatus() == TaskStatus.DONE) {
+            if(task.getStatus() == TaskStatus.COMPLETED) {
                 continue;
             }
 

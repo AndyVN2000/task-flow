@@ -180,7 +180,7 @@ public abstract class ProjectContractTest {
         assertTrue(dueDate.isBefore(currentDate));
 
         TaskBuilder taskBuilder = createTaskBuilder();
-        Task completedTask = taskBuilder.setStatus(TaskStatus.DONE).
+        Task completedTask = taskBuilder.setStatus(TaskStatus.COMPLETED).
             setCompletedAt(Optional.of(completionDate)).
             setDueDate(Optional.of(dueDate)).
             build();
@@ -190,7 +190,7 @@ public abstract class ProjectContractTest {
         Project project = projectBuilder.addTask(completedTask).build();
 
         Task task = project.getTasks().get(0);
-        assertTrue(task.getStatus() == TaskStatus.DONE);
+        assertTrue(task.getStatus() == TaskStatus.COMPLETED);
 
         assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
     }
@@ -203,7 +203,7 @@ public abstract class ProjectContractTest {
         TaskBuilder taskBuilder = createTaskBuilder();
         Task overdueTask = taskBuilder.setCompletedAt(Optional.empty()).
             setDueDate(Optional.of(dueDate)).
-            setStatus(TaskStatus.TODO).
+            setStatus(TaskStatus.CREATED).
             build();
         // Instantiate project with a task that is due in the past and is not completed
         ProjectBuilder projectBuilder = createProjectBuilder();
@@ -211,7 +211,7 @@ public abstract class ProjectContractTest {
 
         Task task = project.getTasks().get(0);
         TaskStatus status = task.getStatus();
-        assertTrue(status != TaskStatus.DONE);
+        assertTrue(status != TaskStatus.COMPLETED);
         Instant taskDueDate = task.getDueDate().get();
         assertTrue(currentDate.isAfter(taskDueDate));
 
