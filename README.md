@@ -26,6 +26,14 @@ This project was initialized using the Spring Boot initializer.
 
 This will also run all test classes.
 
+### JaCoCo test report
+
+```bash
+./mvnw clean test
+```
+
+Runs my test classes and JaCoCo plugin will generate a report on its code coverage found at `target\site\jacoco\index.html`.
+
 ## Relevant tutorials
 
 ### Inspiration from other onion architecture projects
