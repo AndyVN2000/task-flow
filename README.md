@@ -13,6 +13,8 @@ This project was initialized using the Spring Boot initializer.
   - Solution: Write test doubles/stub out of `Task` and inject the double/stub into my test cases.
 
 - Completely test and implement implementations of `Task` interface.
+  - Implement an `ArchivedTask` class that is immutable.
+  - Implement the mutator methods of `TaskImpl`.
 
 ## Maven
 
