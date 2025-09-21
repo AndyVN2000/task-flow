@@ -8,7 +8,6 @@ This project was initialized using the Spring Boot initializer.
   - `[DONE]` Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
   - `[DONE]` Write unit test and implement `ProjectImpl.archive`.
   - `[DONE]` Refactor the collection of tasks in a project from `List<Task>` to `Map<UUID,Task>`.
-  - Mutators in `ArchivedProject` should throw `UnsupportedOperationException`.
 - `[DONE]` Use the Builder Design Pattern that constructs projects for the purpose of testing.
   - Right now, I have some trouble with getting the builder to add tasks, because of circular reference.
   - Solution: Write test doubles/stub out of `Task` and inject the double/stub into my test cases.

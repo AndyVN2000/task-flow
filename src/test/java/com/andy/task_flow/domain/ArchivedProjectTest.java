@@ -52,5 +52,7 @@ public class ArchivedProjectTest extends ProjectContractTest {
 
         assertTrue(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
     }
+
+    
     
 }
