@@ -18,4 +18,8 @@ public class ArchivedTask extends AbstractTask implements Task {
         super(title, description, project, dueDate);
     }
 
+    public static ArchivedTask of(String title, String description, Project project, Optional<Instant> dueDate) {
+        return new ArchivedTask(title, description, project, dueDate);
+    }
+
 }
