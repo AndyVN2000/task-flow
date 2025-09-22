@@ -69,6 +69,9 @@ public class ProjectApplicationService {
         );
     }
 
+    // TODO: According to ChatGPT, the logic for filtering the list should be the responsibility of the  
+    //   repository class. Meaning that ProjectRepository should have a 'findAllActiveProjects()' and
+    //   'findAllArchivedProjects()' methods that does the filtering.
     public List<ProjectSummary> listActiveProjects() {
         List<Project> allProjects = projectRepository.findAll();
         Stream<Project> filteredProjects = allProjects.stream().filter(project -> !(project.isArchived()));

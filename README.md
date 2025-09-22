@@ -18,6 +18,7 @@ This project was initialized using the Spring Boot initializer.
   - Create a `TaskContractTest.java` that tests on common logic for all subclasses of `AbstractTask`
   - Implement an `ArchivedTask` class that is immutable.
   - Implement the mutator methods of `TaskImpl`.
+  - Two tasks are duplicates if they have the same `UUID`. Enforce this business rule.
 
 Development on Domain layer is sufficient. Remaining TODOs are put on hold to spend time on Application layer.
 
