@@ -1,6 +1,7 @@
 package com.andy.task_flow.application.services;
 
 import java.time.Clock;
+import java.util.List;
 import java.util.UUID;
 
 import com.andy.task_flow.application.exceptions.ProjectNotFoundException;
@@ -39,6 +40,30 @@ public class ProjectApplicationService {
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
         project.addTask(task);
         projectRepository.save(project);
+    }
+
+    public void removeTask(UUID projectId, UUID taskId) {
+        Project project = projectRepository.findById(projectId)
+            .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
+        project.removeTask(taskId);
+        projectRepository.save(project);
+    }
+
+    // TODO: This might be the where I need to use DTOs (Data Transfer Objects)
+    public ProjectSummary getProjectDetails(UUID projectId) {
+        
+    }
+
+    public List<Project> listActiveProjects() {
+
+    }
+
+    public List<Project> listArchivedProjects() {
+        
+    }
+
+    public boolean hasOverdueTasks(UUID projectId, Clock clock) {
+        
     }
 
 }
