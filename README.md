@@ -25,7 +25,7 @@ This project was initialized using the Spring Boot initializer.
 ./mvnw clean install
 ```
 
-This will also run all test classes.
+Cleans: deletes `target` folder. Compiles main code. Compiles test code. Runs tests. Builds the `.jar`/`.war`/artifact. Copy the artifact into local Maven repo.
 
 ### JaCoCo test report
 
@@ -33,7 +33,9 @@ This will also run all test classes.
 ./mvnw clean test
 ```
 
-Runs my test classes and JaCoCo plugin will generate a report on its code coverage found at `target\site\jacoco\index.html`.
+Only compiles main and test code along with running tests. Practically a subset of operations done with `mvn clean install`.
+
+JaCoCo plugin will generate a report on its code coverage found at `target\site\jacoco\index.html`.
 
 ## Relevant tutorials
 
