@@ -69,26 +69,9 @@ public class ProjectApplicationService {
         );
     }
 
-    // TODO: According to ChatGPT, the logic for filtering the list should be the responsibility of the  
-    //   repository class. Meaning that ProjectRepository should have a 'findAllActiveProjects()' and
-    //   'findAllArchivedProjects()' methods that does the filtering.
     public List<ProjectSummary> listActiveProjects() {
-        List<Project> allProjects = projectRepository.findAll();
-        Stream<Project> filteredProjects = allProjects.stream().filter(project -> !(project.isArchived()));
-        return filteredProjects.map(project -> {
-            return new ProjectSummary(
-                project.getId(), 
-                project.getName(), 
-                project.getDescription(),
-                project.getCreatedAt(),
-                project.isArchived());
-        }).toList();
-    }
-
-    public List<ProjectSummary> listArchivedProjects() {
-        List<Project> allProjects = projectRepository.findAll();
-        Stream<Project> filteredProjects = allProjects.stream().filter(project -> project.isArchived());
-        return filteredProjects.map(project -> {
+        List<Project> activeProjects = projectRepository.findActiveProjects();
+        return activeProjects.stream().map(project -> {
             return new ProjectSummary(
                 project.getId(),
                 project.getName(),
@@ -98,6 +81,50 @@ public class ProjectApplicationService {
             );
         }).toList();
     }
+
+    public List<ProjectSummary> listArchivedProjects() {
+        List<Project> archivedProjects = projectRepository.findArchivedProjects();
+        return archivedProjects.stream().map(project -> {
+            return new ProjectSummary(
+                project.getId(),
+                project.getName(),
+                project.getDescription(),
+                project.getCreatedAt(),
+                project.isArchived()
+            );
+        }).toList();
+    }
+
+    /*
+     * The following methods are commented out. The filtering logic should be the responsibility of ProjectRepository.
+     * Though I will keep this old, commented-out-code because I think my usage of Java Stream is cool.
+     */
+    // public List<ProjectSummary> listActiveProjects() {
+    //     List<Project> allProjects = projectRepository.findAll();
+    //     Stream<Project> filteredProjects = allProjects.stream().filter(project -> !(project.isArchived()));
+    //     return filteredProjects.map(project -> {
+    //         return new ProjectSummary(
+    //             project.getId(), 
+    //             project.getName(), 
+    //             project.getDescription(),
+    //             project.getCreatedAt(),
+    //             project.isArchived());
+    //     }).toList();
+    // }
+
+    // public List<ProjectSummary> listArchivedProjects() {
+    //     List<Project> allProjects = projectRepository.findAll();
+    //     Stream<Project> filteredProjects = allProjects.stream().filter(project -> project.isArchived());
+    //     return filteredProjects.map(project -> {
+    //         return new ProjectSummary(
+    //             project.getId(),
+    //             project.getName(),
+    //             project.getDescription(),
+    //             project.getCreatedAt(),
+    //             project.isArchived()
+    //         );
+    //     }).toList();
+    // }
 
     public boolean hasOverdueTasks(UUID projectId, Clock clock) {
         Project project = projectRepository.findById(projectId)

@@ -14,6 +14,10 @@ public interface ProjectRepository {
 
     List<Project> findAll();
 
+    List<Project> findActiveProjects();
+
+    List<Project> findArchivedProjects();
+
     void delete(Project project);
     
 }
