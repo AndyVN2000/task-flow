@@ -23,7 +23,9 @@ Development on Domain layer is sufficient. Remaining TODOs are put on hold to sp
 
 ### Application layer
 
-- 
+- Get user stories to derive the Application Service classes to write.
+- Refactor the mutator methods of `MutableProject` to be defined in `Project` due to issues in implementing Application layer.  
+  Probably do the same with `MutableTask` and `Task`
 
 ## Maven
 
