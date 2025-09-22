@@ -19,6 +19,9 @@ public class ArchivedTask extends AbstractTask implements Task {
     }
 
     public static ArchivedTask of(String title, String description, Project project, Optional<Instant> dueDate) {
+        if (project == null) {
+            throw new NullPointerException("Task must belong to a project");
+        }
         return new ArchivedTask(title, description, project, dueDate);
     }
 
