@@ -1,8 +1,38 @@
 package com.andy.task_flow.application;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.andy.task_flow.application.services.ProjectApplicationService;
+import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.repositories.ProjectRepository;
+
+@ExtendWith(MockitoExtension.class)
 public class ProjectApplicationServiceTest {
 
+    @Mock
+    private ProjectRepository projectRepository;
+
+    @InjectMocks
+    private ProjectApplicationService projectApplicationService;
+
     // User creates a project named 'Foo' with description 'Bar'
+    @Test
+    public void shouldCreateProject() {
+        String title = "Foo";
+        String description = "Bar";
+        projectApplicationService.createProject(title, description);
+        ArgumentCaptor<Project> projectCaptor = ArgumentCaptor.forClass(Project.class);
+        verify(projectRepository).save(projectCaptor.capture());
+        assertEquals(title, projectCaptor.getValue().getName());
+        assertEquals(description, projectCaptor.getValue().getDescription());
+    }
 
     // User archives a project
 
