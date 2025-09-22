@@ -1,5 +1,6 @@
 package com.andy.task_flow.domain.entities;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -139,6 +140,31 @@ public class ArchivedProject extends AbstractProject implements Project {
         this.description = builder.description;
         this.createdAt = builder.createdAt;
         this.archivedAt = builder.archivedAt;
+    }
+
+    @Override
+    public void rename(String newName) {
+        throw new UnsupportedOperationException("Archived project can not be renamed");
+    }
+
+    @Override
+    public void changeDescription(String newDescription) {
+        throw new UnsupportedOperationException("Archived project can not get description changed");
+    }
+
+    @Override
+    public void addTask(Task task) {
+        throw new UnsupportedOperationException("Can not add new tasks to archived project");
+    }
+
+    @Override
+    public void removeTask(UUID taskId) {
+        throw new UnsupportedOperationException("Can not remove task from archived project");
+    }
+
+    @Override
+    public ArchivedProject archive(String archivedBy, Clock clock) {
+        throw new IllegalStateException("Already archived");
     }
     
 }

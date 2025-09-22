@@ -1,10 +1,12 @@
 package com.andy.task_flow.fixtures.doubles;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 
@@ -62,6 +64,36 @@ public class ProjectStub implements Project {
     public int getCompletedTaskCount() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getCompletedTaskCount'");
+    }
+
+    @Override
+    public void rename(String newName) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'rename'");
+    }
+
+    @Override
+    public void changeDescription(String newDescription) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'changeDescription'");
+    }
+
+    @Override
+    public void addTask(Task task) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addTask'");
+    }
+
+    @Override
+    public void removeTask(UUID taskId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeTask'");
+    }
+
+    @Override
+    public ArchivedProject archive(String archivedBy, Clock clock) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'archive'");
     }
 
 }
