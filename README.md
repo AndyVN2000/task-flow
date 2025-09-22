@@ -4,6 +4,8 @@ This project was initialized using the Spring Boot initializer.
 
 ## TODO
 
+### Domain layer
+
 - Think of user stories based on `project_domain_spec.md` and write unit tests.
   - `[DONE]` Thoroughly test and implement `hasOverdueTasks()` from `Project.java`
   - `[DONE]` Write unit test and implement `ProjectImpl.archive`.
@@ -16,6 +18,12 @@ This project was initialized using the Spring Boot initializer.
   - Create a `TaskContractTest.java` that tests on common logic for all subclasses of `AbstractTask`
   - Implement an `ArchivedTask` class that is immutable.
   - Implement the mutator methods of `TaskImpl`.
+
+Development on Domain layer is sufficient. Remaining TODOs are put on hold to spend time on Application layer.
+
+### Application layer
+
+- 
 
 ## Maven
 
