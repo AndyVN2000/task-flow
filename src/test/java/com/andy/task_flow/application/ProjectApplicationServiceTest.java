@@ -2,6 +2,12 @@ package com.andy.task_flow.application;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -12,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
+import com.andy.task_flow.fixtures.constants.TestConstant;
 
 @ExtendWith(MockitoExtension.class)
 public class ProjectApplicationServiceTest {
@@ -35,6 +42,13 @@ public class ProjectApplicationServiceTest {
     }
 
     // User archives a project
+    @Test
+    public void shouldArchiveAProject() {
+        UUID projectId = TestConstant.PROJECT_ID_0;
+        String archivedBy = "John Doe";
+        Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
+        projectApplicationService.archiveProject(projectId, archivedBy, clock);
+    }
 
     // User tries to archive a non-existent project
 
