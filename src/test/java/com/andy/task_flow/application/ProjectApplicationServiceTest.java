@@ -1,11 +1,13 @@
 package com.andy.task_flow.application;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
@@ -15,7 +17,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.andy.task_flow.application.exceptions.ProjectNotFoundException;
 import com.andy.task_flow.application.services.ProjectApplicationService;
+import com.andy.task_flow.domain.entities.ArchivedProject;
+import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 import com.andy.task_flow.fixtures.constants.TestConstant;
@@ -44,13 +49,44 @@ public class ProjectApplicationServiceTest {
     // User archives a project
     @Test
     public void shouldArchiveAProject() {
+        // Setup
         UUID projectId = TestConstant.PROJECT_ID_0;
         String archivedBy = "John Doe";
         Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
+        Project project = ProjectImpl.of("Foo", "Bar");
+
+        // Set the behavior of the mock repository.
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
+
+        // Execute the user story
         projectApplicationService.archiveProject(projectId, archivedBy, clock);
+        
+        // Assertions
+        ArgumentCaptor<Project> projectCaptor = ArgumentCaptor.forClass(Project.class);
+        verify(projectRepository).save(projectCaptor.capture());
+
+        Project savedProject = projectCaptor.getValue();
+        assertTrue(savedProject.isArchived());
+        assertTrue(savedProject instanceof ArchivedProject);
     }
 
     // User tries to archive a non-existent project
+    @Test
+    public void shouldThrowExceptionWhenArchivingNonExistingProject() {
+        // Setup
+        UUID projectId = TestConstant.PROJECT_ID_0;
+        String archivedBy = "John Doe";
+        Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
+
+        // Set behavior of mock repository
+        when(projectRepository.findById(projectId)).thenReturn(Optional.empty());
+
+        // Execute user story and assert
+        assertThrows(ProjectNotFoundException.class, 
+            () -> projectApplicationService.archiveProject(projectId, archivedBy, clock));
+
+        verify(projectRepository, never()).save(any());
+    }
 
     // User tries to archive a project that is already archived
 
