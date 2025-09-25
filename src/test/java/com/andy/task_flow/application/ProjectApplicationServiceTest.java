@@ -22,6 +22,7 @@ import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 import com.andy.task_flow.fixtures.constants.TestConstant;
 
@@ -89,6 +90,23 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to archive a project that is already archived
+    @Test
+    public void shouldThrowExceptionWhenArchivingAnArchivedProject() {
+        // Setup
+        UUID projectId = TestConstant.PROJECT_ID_0;
+        String archivedBy = "John Doe";
+        Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
+        Project archivedProject = ArchivedProject.of("Foo", "Bar", Instant.EPOCH, "Jane Doe", projectId);
+
+        // Set the behavior of mock repository
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(archivedProject));
+
+        // Execute user story and assert
+        assertThrows(ProjectAlreadyArchivedException.class, 
+            () -> projectApplicationService.archiveProject(projectId, archivedBy, clock));
+        
+        verify(projectRepository, never()).save(any());
+    }
 
     // User adds a task to a project
 
