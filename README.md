@@ -2,6 +2,14 @@
 
 This project was initialized using the Spring Boot initializer.
 
+## Tech stack
+
+- Java
+  - Maven
+  - junit
+  - Mockito
+  - JaCoCo
+
 ## TODO
 
 ### Domain layer
