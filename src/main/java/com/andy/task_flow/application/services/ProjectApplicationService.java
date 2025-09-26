@@ -1,5 +1,7 @@
 package com.andy.task_flow.application.services;
 
+import static org.mockito.ArgumentMatchers.booleanThat;
+
 import java.time.Clock;
 import java.util.List;
 import java.util.UUID;
@@ -9,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.andy.task_flow.application.data_transfer_objects.ProjectSummary;
 import com.andy.task_flow.application.exceptions.ProjectNotFoundException;
+import com.andy.task_flow.application.exceptions.TaskNotFoundException;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
@@ -54,7 +57,10 @@ public class ProjectApplicationService {
     public void removeTask(UUID projectId, UUID taskId) {
         Project project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
-        project.removeTask(taskId);
+        boolean removed = project.removeTask(taskId);
+        if (!removed) {
+            throw new TaskNotFoundException(taskId.toString());
+        }
         projectRepository.save(project);
     }
 

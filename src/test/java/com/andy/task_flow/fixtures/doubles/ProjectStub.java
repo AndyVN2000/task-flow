@@ -85,7 +85,7 @@ public class ProjectStub implements Project {
     }
 
     @Override
-    public void removeTask(UUID taskId) {
+    public boolean removeTask(UUID taskId) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeTask'");
     }
