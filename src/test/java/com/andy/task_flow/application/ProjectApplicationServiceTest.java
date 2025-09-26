@@ -1,12 +1,12 @@
 package com.andy.task_flow.application;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,9 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.andy.task_flow.application.exceptions.ProjectNotFoundException;
 import com.andy.task_flow.application.services.ProjectApplicationService;
-import com.andy.task_flow.domain.entities.ArchivedProject;
-import com.andy.task_flow.domain.entities.ProjectImpl;
-import com.andy.task_flow.domain.entities.interfaces.Project;
+import com.andy.task_flow.domain.entities.*;
+import com.andy.task_flow.domain.entities.interfaces.*;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 import com.andy.task_flow.fixtures.constants.TestConstant;
@@ -109,6 +108,21 @@ public class ProjectApplicationServiceTest {
     }
 
     // User adds a task to a project
+    @Test
+    public void shouldAddTaskToProject() {
+        // Setup
+        Project project = mock(Project.class);
+        Task newTask = mock(Task.class);
+        UUID projectId = TestConstant.PROJECT_ID_0;
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
+        
+        // Execute user story
+        projectApplicationService.addTask(projectId, newTask);
+
+        // Assert
+        verify(project).addTask(newTask);
+        verify(projectRepository).save(project);
+    }
 
     // User tries to add a task to a non-existent project
 
