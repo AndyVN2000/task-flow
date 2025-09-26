@@ -45,13 +45,9 @@ public class ProjectApplicationService {
     public void addTask(UUID projectId, Task task) {
         Project project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
-        try {
-            project.addTask(task);
-            projectRepository.save(project);
-        } catch (DuplicateTaskException e) {
-            throw e;
-        }
         
+        project.addTask(task);
+        projectRepository.save(project);
     }
 
     @Transactional
