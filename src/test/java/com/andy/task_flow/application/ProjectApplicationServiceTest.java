@@ -188,9 +188,18 @@ public class ProjectApplicationServiceTest {
     // User tries to remove a non-existent task from a project
     @Test
     public void shouldThrowExceptionWhenRemovingNonExistentTask() {
+        // Setup
+        UUID projectId = TestConstant.PROJECT_ID_0;
+        UUID taskId = TestConstant.TASK_ID_0;
+        Project project = projectBuilder.setId(projectId).build();
+        Project projectSpy = spy(project);
+
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(projectSpy));
 
         // Execute user story and assert
-        assertThrows(TaskNotFoundException.class, null)
+        assertThrows(TaskNotFoundException.class, 
+            () -> projectApplicationService.removeTask(projectId, taskId)
+        );
     }
 
     // User tries to remove a task from a non-existent project
