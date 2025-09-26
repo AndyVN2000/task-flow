@@ -86,8 +86,13 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
         this.tasks.put(task.getId(), task);
     }
 
-    public void removeTask(UUID taskId) {
+    public boolean removeTask(UUID taskId) {
+        if (!tasks.containsKey(taskId)) {
+            return false;
+        }
+        
         this.tasks.remove(taskId);
+        return true;
     }
 
     public ArchivedProject archive(String archivedBy, Clock clock) {

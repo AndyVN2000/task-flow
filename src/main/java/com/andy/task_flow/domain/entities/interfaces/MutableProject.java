@@ -27,11 +27,11 @@ public interface MutableProject extends Project {
     public void addTask(Task task);
 
     /**
-     * Dev note: I prefer that it throws some `IllegalArgumentException` if the task ID is not found.
-     *           Getting feedback on software behavior is good.
+     * Removes a task given an id
      * @param taskId
+     * @return True if task exists and is thus promptly removed. False if task is not found and nothing happens.
      */
-    public void removeTask(UUID taskId);
+    public boolean removeTask(UUID taskId);
     
     /**
      * Archives the project so it becomes immutable.

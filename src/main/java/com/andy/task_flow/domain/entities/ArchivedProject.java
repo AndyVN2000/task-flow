@@ -158,7 +158,7 @@ public class ArchivedProject extends AbstractProject implements Project {
     }
 
     @Override
-    public void removeTask(UUID taskId) {
+    public boolean removeTask(UUID taskId) {
         throw new UnsupportedOperationException("Can not remove task from archived project");
     }
 
