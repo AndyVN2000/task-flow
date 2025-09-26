@@ -125,6 +125,17 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to add a task to a non-existent project
+    @Test
+    public void shouldThrowExceptionWhenAddingTaskToNonExistingProject() {
+        // Setup
+        Task newTask = mock(Task.class);
+        UUID projectId = TestConstant.PROJECT_ID_0;
+        when(projectRepository.findById(projectId)).thenReturn(Optional.empty());
+        
+        // Execute user story and assert
+        assertThrows(ProjectNotFoundException.class, 
+            () -> projectApplicationService.addTask(projectId, newTask));
+    }
 
     // User tries to add a task that already exists in the project
 
