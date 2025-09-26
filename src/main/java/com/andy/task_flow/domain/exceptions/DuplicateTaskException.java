@@ -1,4 +1,4 @@
-package com.andy.task_flow.application.exceptions;
+package com.andy.task_flow.domain.exceptions;
 
 public class DuplicateTaskException extends RuntimeException {
 

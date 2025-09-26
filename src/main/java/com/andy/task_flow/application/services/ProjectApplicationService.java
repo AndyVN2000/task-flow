@@ -12,6 +12,7 @@ import com.andy.task_flow.application.exceptions.ProjectNotFoundException;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 
@@ -44,8 +45,13 @@ public class ProjectApplicationService {
     public void addTask(UUID projectId, Task task) {
         Project project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
-        project.addTask(task);
-        projectRepository.save(project);
+        try {
+            project.addTask(task);
+            projectRepository.save(project);
+        } catch (DuplicateTaskException e) {
+            throw e;
+        }
+        
     }
 
     @Transactional

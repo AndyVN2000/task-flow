@@ -4,6 +4,7 @@ import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.MutableProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -76,6 +77,12 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     public void addTask(Task task) {
+        UUID taskId = task.getId();
+        if (tasks.containsKey(taskId)) {
+            throw new DuplicateTaskException(
+                "Task with id " + task.getId() + " is already in project with id " + this.getId()
+            );
+        }
         this.tasks.put(task.getId(), task);
     }
 

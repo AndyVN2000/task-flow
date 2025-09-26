@@ -22,6 +22,7 @@ import com.andy.task_flow.application.exceptions.*;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.*;
 import com.andy.task_flow.domain.entities.interfaces.*;
+import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 import com.andy.task_flow.fixtures.constants.TestConstant;
