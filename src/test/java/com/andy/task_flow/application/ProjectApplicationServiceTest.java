@@ -39,6 +39,8 @@ public class ProjectApplicationServiceTest {
 
     private TaskBuilder taskBuilder;
     private ProjectBuilder projectBuilder;
+    private final UUID projectId0 = TestConstant.PROJECT_ID_0;
+    private final UUID taskId0 = TestConstant.TASK_ID_0;
 
     @BeforeEach
     public void setUp() {
@@ -62,16 +64,15 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldArchiveAProject() {
         // Setup
-        UUID projectId = TestConstant.PROJECT_ID_0;
         String archivedBy = "John Doe";
         Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
         Project project = ProjectImpl.of("Foo", "Bar");
 
         // Set the behavior of the mock repository.
-        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
 
         // Execute the user story
-        projectApplicationService.archiveProject(projectId, archivedBy, clock);
+        projectApplicationService.archiveProject(projectId0, archivedBy, clock);
         
         // Assertions
         ArgumentCaptor<Project> projectCaptor = ArgumentCaptor.forClass(Project.class);
@@ -86,16 +87,15 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldThrowExceptionWhenArchivingNonExistingProject() {
         // Setup
-        UUID projectId = TestConstant.PROJECT_ID_0;
         String archivedBy = "John Doe";
         Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
 
         // Set behavior of mock repository
-        when(projectRepository.findById(projectId)).thenReturn(Optional.empty());
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.empty());
 
         // Execute user story and assert
         assertThrows(ProjectNotFoundException.class, 
-            () -> projectApplicationService.archiveProject(projectId, archivedBy, clock));
+            () -> projectApplicationService.archiveProject(projectId0, archivedBy, clock));
 
         verify(projectRepository, never()).save(any());
     }
@@ -104,17 +104,16 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldThrowExceptionWhenArchivingAnArchivedProject() {
         // Setup
-        UUID projectId = TestConstant.PROJECT_ID_0;
         String archivedBy = "John Doe";
         Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
-        Project archivedProject = ArchivedProject.of("Foo", "Bar", Instant.EPOCH, "Jane Doe", projectId);
+        Project archivedProject = ArchivedProject.of("Foo", "Bar", Instant.EPOCH, "Jane Doe", projectId0);
 
         // Set the behavior of mock repository
-        when(projectRepository.findById(projectId)).thenReturn(Optional.of(archivedProject));
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(archivedProject));
 
         // Execute user story and assert
         assertThrows(ProjectAlreadyArchivedException.class, 
-            () -> projectApplicationService.archiveProject(projectId, archivedBy, clock));
+            () -> projectApplicationService.archiveProject(projectId0, archivedBy, clock));
         
         verify(projectRepository, never()).save(any());
     }
@@ -125,11 +124,10 @@ public class ProjectApplicationServiceTest {
         // Setup
         Project project = mock(Project.class);
         Task newTask = mock(Task.class);
-        UUID projectId = TestConstant.PROJECT_ID_0;
-        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
         
         // Execute user story
-        projectApplicationService.addTask(projectId, newTask);
+        projectApplicationService.addTask(projectId0, newTask);
 
         // Assert
         verify(project).addTask(newTask);
@@ -141,12 +139,11 @@ public class ProjectApplicationServiceTest {
     public void shouldThrowExceptionWhenAddingTaskToNonExistingProject() {
         // Setup
         Task newTask = mock(Task.class);
-        UUID projectId = TestConstant.PROJECT_ID_0;
-        when(projectRepository.findById(projectId)).thenReturn(Optional.empty());
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.empty());
         
         // Execute user story and assert
         assertThrows(ProjectNotFoundException.class, 
-            () -> projectApplicationService.addTask(projectId, newTask));
+            () -> projectApplicationService.addTask(projectId0, newTask));
     }
 
     // User tries to add a task that already exists in the project
@@ -156,13 +153,12 @@ public class ProjectApplicationServiceTest {
         Task task0 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
         Task task1 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
         
-        UUID projectId = TestConstant.PROJECT_ID_0;
         Project project = projectBuilder.addTask(task0).build();
-        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
 
         // Execute user story and assert
         assertThrows(DuplicateTaskException.class, 
-            () -> projectApplicationService.addTask(projectId, task1));
+            () -> projectApplicationService.addTask(projectId0, task1));
     }
 
     // User removes a task from a project
@@ -173,12 +169,11 @@ public class ProjectApplicationServiceTest {
         Task task = taskBuilder.setId(taskId).build();
         Project project = projectBuilder.addTask(task).build();
         Project projectSpy = spy(project);
-        UUID projectId = TestConstant.PROJECT_ID_0;
 
-        when(projectRepository.findById(projectId)).thenReturn(Optional.of(projectSpy));
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
 
         // Execute user story
-        projectApplicationService.removeTask(projectId, taskId);
+        projectApplicationService.removeTask(projectId0, taskId);
 
         // Assert
         verify(projectSpy).removeTask(taskId);
@@ -189,20 +184,27 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldThrowExceptionWhenRemovingNonExistentTask() {
         // Setup
-        UUID projectId = TestConstant.PROJECT_ID_0;
         UUID taskId = TestConstant.TASK_ID_0;
-        Project project = projectBuilder.setId(projectId).build();
+        Project project = projectBuilder.setId(projectId0).build();
         Project projectSpy = spy(project);
 
-        when(projectRepository.findById(projectId)).thenReturn(Optional.of(projectSpy));
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
 
         // Execute user story and assert
         assertThrows(TaskNotFoundException.class, 
-            () -> projectApplicationService.removeTask(projectId, taskId)
+            () -> projectApplicationService.removeTask(projectId0, taskId)
         );
     }
 
     // User tries to remove a task from a non-existent project
+    // @Test
+    // public void shouldThrowExceptionWhenRemovingTaskFromNonExistentProject() {
+
+    //     // Execute user story and assert
+    //     assertThrows(ProjectNotFoundException.class,
+    //         () -> projectApplicationService.removeTask(projectId, taskId);
+    //     )
+    // }
 
     // User tries to remove a task that belongs to a different project
 

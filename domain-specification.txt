@@ -1,7 +1,9 @@
 
 🧾 Domain Context: Project Management Platform
 
-We are building a lightweight internal project management system used by teams to track tasks across different projects. Our goal is simplicity, traceability, and clarity in roles and responsibilities.
+We are building a lightweight internal project management system used by teams 
+to track tasks across different projects. Our goal is simplicity, traceability, 
+and clarity in roles and responsibilities.
 
 📘 Domain Entities Required in the First Iteration:
 
