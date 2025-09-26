@@ -9,4 +9,6 @@ public class TestConstant {
     public static final UUID PROJECT_ID_0 = UUID.fromString("00000000-0000-0000-0000-000000000001");
     public static final UUID PROJECT_ID_1 = UUID.fromString("00000000-0000-0000-0000-000000000002");
 
+    public static final UUID TASK_ID_0 = UUID.fromString("00000000-0000-0000-0001-000000000001");
+
 }

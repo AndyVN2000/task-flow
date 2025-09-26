@@ -10,6 +10,7 @@ import java.time.ZoneId;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -17,13 +18,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.andy.task_flow.application.exceptions.ProjectNotFoundException;
+import com.andy.task_flow.application.exceptions.*;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.*;
 import com.andy.task_flow.domain.entities.interfaces.*;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 import com.andy.task_flow.fixtures.constants.TestConstant;
+import com.andy.task_flow.fixtures.builders.*;;
 
 @ExtendWith(MockitoExtension.class)
 public class ProjectApplicationServiceTest {
@@ -33,6 +35,15 @@ public class ProjectApplicationServiceTest {
 
     @InjectMocks
     private ProjectApplicationService projectApplicationService;
+
+    private TaskBuilder taskBuilder;
+    private ProjectBuilder projectBuilder;
+
+    @BeforeEach
+    public void setUp() {
+        taskBuilder = new TaskStubBuilder();
+        projectBuilder = new ProjectImplBuilder();
+    }
 
     // User creates a project named 'Foo' with description 'Bar'
     @Test
@@ -138,6 +149,21 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to add a task that already exists in the project
+    @Test
+    public void shouldThrowExceptionWhenAddingDuplicateTasks() {
+        // Setup
+        Task task0 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
+        Task task1 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
+        
+        UUID projectId = TestConstant.PROJECT_ID_0;
+        Project project = projectBuilder.addTask(task0).build();
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(project));
+
+        // Execute user story and assert
+        assertThrows(DuplicateTaskException.class, 
+            () -> projectApplicationService.addTask(projectId, task1));
+
+    }
 
     // User removes a task from a project
 
