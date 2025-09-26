@@ -186,6 +186,12 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to remove a non-existent task from a project
+    @Test
+    public void shouldThrowExceptionWhenRemovingNonExistentTask() {
+
+        // Execute user story and assert
+        assertThrows(TaskNotFoundException.class, null)
+    }
 
     // User tries to remove a task from a non-existent project
 
