@@ -197,14 +197,17 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to remove a task from a non-existent project
-    // @Test
-    // public void shouldThrowExceptionWhenRemovingTaskFromNonExistentProject() {
+    @Test
+    public void shouldThrowExceptionWhenRemovingTaskFromNonExistentProject() {
+        // Setup
+        UUID taskId = TestConstant.TASK_ID_0;
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.empty());
 
-    //     // Execute user story and assert
-    //     assertThrows(ProjectNotFoundException.class,
-    //         () -> projectApplicationService.removeTask(projectId, taskId);
-    //     )
-    // }
+        // Execute user story and assert
+        assertThrows(ProjectNotFoundException.class,
+            () -> projectApplicationService.removeTask(projectId0, taskId)
+        );
+    }
 
     // User tries to remove a task that belongs to a different project
 
