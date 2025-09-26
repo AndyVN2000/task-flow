@@ -163,10 +163,27 @@ public class ProjectApplicationServiceTest {
         // Execute user story and assert
         assertThrows(DuplicateTaskException.class, 
             () -> projectApplicationService.addTask(projectId, task1));
-
     }
 
     // User removes a task from a project
+    @Test
+    public void shouldRemoveTask() {
+        // Setup
+        UUID taskId = TestConstant.TASK_ID_0;
+        Task task = taskBuilder.setId(taskId).build();
+        Project project = projectBuilder.addTask(task).build();
+        Project projectSpy = spy(project);
+        UUID projectId = TestConstant.PROJECT_ID_0;
+
+        when(projectRepository.findById(projectId)).thenReturn(Optional.of(projectSpy));
+
+        // Execute user story
+        projectApplicationService.removeTask(projectId, taskId);
+
+        // Assert
+        verify(projectSpy).removeTask(taskId);
+        verify(projectRepository).save(projectSpy);
+    }
 
     // User tries to remove a non-existent task from a project
 
