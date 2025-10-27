@@ -276,6 +276,23 @@ public class ProjectApplicationServiceTest {
     }
 
     // User accesses details on an archived project
+    @Test
+    public void shouldReturnProjectSummaryOfArchivedProject() {
+        // Setup
+        ProjectBuilder archivedBuilder = new ArchivedProject.ArchivedProjectBuilder();
+        Project project = archivedBuilder.setId(projectId0)
+            .setName("Baz")
+            .setDescription("Bar")
+            .build();
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
+
+        // Execute story
+        ProjectSummary summary = projectApplicationService.getProjectDetails(projectId0);
+
+        // Assert
+        assertEquals(project.getName(), summary.name());
+        assertEquals(project.getDescription(), summary.description());
+    }
 
     // User accesses all active projects
 
