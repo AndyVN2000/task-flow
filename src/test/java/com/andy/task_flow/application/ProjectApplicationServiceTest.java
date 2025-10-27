@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.andy.task_flow.application.data_transfer_objects.ProjectSummary;
 import com.andy.task_flow.application.exceptions.*;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.*;
@@ -246,6 +247,22 @@ public class ProjectApplicationServiceTest {
     }
 
     // User accesses project details
+    @Test
+    public void shouldReturnProjectSummary() {
+        // Setup
+        Project project = projectBuilder.setId(projectId0)
+            .setName("Foo")
+            .setDescription("Bar")
+            .build();
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
+
+        // Execute story
+        ProjectSummary summary = projectApplicationService.getProjectDetails(projectId0);
+
+        // Assert
+        assertEquals(project.getName(), summary.title());
+        assertEquals(project.getDescription(), summary.description());
+    }
 
     // User tries to access details on a non-existent project
 
