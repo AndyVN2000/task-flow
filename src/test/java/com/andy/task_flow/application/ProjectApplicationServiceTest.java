@@ -265,6 +265,15 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to access details on a non-existent project
+    @Test
+    public void shouldThrowExceptionWhenAccessingDetailsOnNonExistentProject() {
+        // Setup
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.empty());
+
+        // Assert
+        assertThrows(ProjectNotFoundException.class, 
+        () -> projectApplicationService.getProjectDetails(projectId0));
+    }
 
     // User accesses details on an archived project
 
