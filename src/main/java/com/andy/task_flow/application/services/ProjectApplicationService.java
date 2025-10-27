@@ -36,12 +36,9 @@ public class ProjectApplicationService {
     public void archiveProject(UUID projectId, String archivedBy, Clock clock) {
         Project project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
-        try {
+        
             Project archivedProject = project.archive(archivedBy, clock);
             projectRepository.save(archivedProject);
-        } catch (IllegalStateException e) {
-            throw new ProjectAlreadyArchivedException(projectId.toString(), e);
-        }
     }
 
     @Transactional

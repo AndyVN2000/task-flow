@@ -14,6 +14,7 @@ import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
+import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -165,7 +166,7 @@ public class ArchivedProject extends AbstractProject implements Project {
 
     @Override
     public ArchivedProject archive(String archivedBy, Clock clock) {
-        throw new IllegalStateException("Already archived");
+        throw new ProjectAlreadyArchivedException("Already archived");
     }
     
 }
