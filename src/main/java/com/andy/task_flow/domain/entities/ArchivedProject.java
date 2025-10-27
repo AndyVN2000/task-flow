@@ -13,6 +13,7 @@ import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -159,7 +160,7 @@ public class ArchivedProject extends AbstractProject implements Project {
 
     @Override
     public boolean removeTask(UUID taskId) {
-        throw new UnsupportedOperationException("Can not remove task from archived project");
+        throw new ChangeNotAllowedException("Can not remove task from archived project");
     }
 
     @Override

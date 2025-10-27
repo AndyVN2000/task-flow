@@ -22,6 +22,7 @@ import com.andy.task_flow.application.exceptions.*;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.*;
 import com.andy.task_flow.domain.entities.interfaces.*;
+import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
 import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
@@ -228,6 +229,21 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to add or remove a task from an archived project (not allowed)
+    @Test
+    public void shouldThrowExceptionWhenRemovingTaskFromArchivedProject() {
+        // Setup
+        ProjectBuilder archivedBuilder = new ArchivedProject.ArchivedProjectBuilder();
+        Task task = taskBuilder.setId(taskId0).build();
+        Project archivedProject = archivedBuilder.setId(projectId0)
+            .addTask(task)
+            .build();
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(archivedProject));
+
+        // Assert
+        assertThrows(ChangeNotAllowedException.class, 
+            () -> projectApplicationService.removeTask(projectId0, taskId0)
+        );
+    }
 
     // User accesses project details
 
