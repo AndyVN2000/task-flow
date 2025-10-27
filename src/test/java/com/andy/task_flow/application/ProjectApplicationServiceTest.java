@@ -260,7 +260,7 @@ public class ProjectApplicationServiceTest {
         ProjectSummary summary = projectApplicationService.getProjectDetails(projectId0);
 
         // Assert
-        assertEquals(project.getName(), summary.title());
+        assertEquals(project.getName(), summary.name());
         assertEquals(project.getDescription(), summary.description());
     }
 
