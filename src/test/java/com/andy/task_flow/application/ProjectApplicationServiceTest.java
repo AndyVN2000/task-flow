@@ -219,8 +219,12 @@ public class ProjectApplicationServiceTest {
             .setProject(otherProject)
             .build();
         otherProject.addTask(taskToRemove);
-        
-        
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(invokedProject));
+
+        // Assert
+        assertThrows(TaskNotFoundException.class,
+            () -> projectApplicationService.removeTask(projectId0, taskId0)
+        );
     }
 
     // User tries to add or remove a task from an archived project (not allowed)
