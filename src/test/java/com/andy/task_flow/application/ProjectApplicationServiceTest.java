@@ -210,6 +210,18 @@ public class ProjectApplicationServiceTest {
     }
 
     // User tries to remove a task that belongs to a different project
+    @Test
+    public void shouldThrowExceptionWhenInvokingProjectToDeleteTaskInAnotherProject() {
+        // Setup
+        Project invokedProject = projectBuilder.setId(projectId0).build();
+        Project otherProject = projectBuilder.setId(TestConstant.PROJECT_ID_1).build();
+        Task taskToRemove = taskBuilder.setId(taskId0)
+            .setProject(otherProject)
+            .build();
+        otherProject.addTask(taskToRemove);
+        
+        
+    }
 
     // User tries to add or remove a task from an archived project (not allowed)
 

@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
@@ -16,6 +17,8 @@ public interface TaskBuilder {
     public TaskBuilder setDueDate(Optional<Instant> dueDate);
 
     public TaskBuilder setCompletedAt(Optional<Instant> completedAt);
+
+    public TaskBuilder setProject(Project project);
 
     public Task build();
 

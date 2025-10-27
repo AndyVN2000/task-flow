@@ -44,6 +44,12 @@ public class TaskStubBuilder implements TaskBuilder {
     }
 
     @Override
+    public TaskBuilder setProject(Project project) {
+        this.project = project;
+        return this;
+    }
+
+    @Override
     public Task build() {
         return new TaskStub(id, title, description, status, dueDate, createdAt, completedAt, project);
     }
