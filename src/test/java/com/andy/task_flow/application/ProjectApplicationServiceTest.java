@@ -7,6 +7,8 @@ import static org.mockito.Mockito.*;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -295,6 +297,31 @@ public class ProjectApplicationServiceTest {
     }
 
     // User accesses all active projects
+    @Test
+    public void shouldGetAllActiveProjects() {
+        // Setup
+        Project project0 = projectBuilder.setName("Foo")
+            .setDescription("Bar")
+            .build();
+        Project project1 = projectBuilder.setName("Baz")
+            .setDescription("Qux")
+            .build();
+        List<Project> projects = new ArrayList<>();
+        projects.add(project0);
+        projects.add(project1);
+        when(projectRepository.findActiveProjects()).thenReturn(projects);
+
+        // Execute story
+        List<ProjectSummary> activeProjects = projectApplicationService.listActiveProjects();
+
+        // Assert
+        for (int i = 0; i < activeProjects.size(); ++i) {
+            Project project = projects.get(i);
+            ProjectSummary summary = activeProjects.get(i);
+            assertEquals(project.getName(), summary.name());
+            assertEquals(project.getDescription(), summary.description());
+        }
+    }
 
     // User accesses all archived projects
 
