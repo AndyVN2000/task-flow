@@ -35,7 +35,10 @@ Development on Domain layer is sufficient. Remaining TODOs are put on hold to sp
 - Get user stories to derive the Application Service classes to write.
 - `[DONE]` Refactor the mutator methods of `MutableProject` to be defined in `Project` due to issues in implementing Application layer.  
   Probably do the same with `MutableTask` and `Task`
-- Add Mockito for unit testing Application Layer.
+- `[DONE]` Add Mockito for unit testing Application Layer.
+- In `ProjectApplicationServiceTest.java`, remember to add calls on Mockito to `verify`
+  interaction between `ProjectApplicationService` and `projectRepository`. The mock object
+  is also like a spy that records interactions.
 
 ## Maven
 
