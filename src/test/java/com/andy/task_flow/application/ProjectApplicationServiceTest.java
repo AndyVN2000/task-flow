@@ -324,6 +324,32 @@ public class ProjectApplicationServiceTest {
     }
 
     // User accesses all archived projects
+    @Test
+    public void shouldGetAllArchivedProjects() {
+        // Setup
+        ProjectBuilder archiveBuilder = new ArchivedProject.ArchivedProjectBuilder();
+        Project project0 = archiveBuilder.setName("Foo")
+            .setDescription("Bar")
+            .build();
+        Project project1 = archiveBuilder.setName("Baz")
+            .setDescription("Qux")
+            .build();
+        List<Project> projects = new ArrayList<>();
+        projects.add(project0);
+        projects.add(project1);
+        when(projectRepository.findArchivedProjects()).thenReturn(projects);
+
+        // Execute story
+        List<ProjectSummary> archivedProjects = projectApplicationService.listArchivedProjects();
+
+        // Assert
+        for (int i = 0; i < archivedProjects.size(); ++i) {
+            Project project = projects.get(i);
+            ProjectSummary summary = archivedProjects.get(i);
+            assertEquals(project.getName(), summary.name());
+            assertEquals(project.getDescription(), summary.description());
+        }
+    }
 
     // User lists active projects when none exist (should return empty list)
 
