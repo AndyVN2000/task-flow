@@ -408,6 +408,17 @@ public class ProjectApplicationServiceTest {
     }
 
     // User queries whether a non-existent project has overdue tasks
+    @Test
+    public void shouldThrowExceptionWhenCheckingOverdueTaskInNonExistentProject() {
+        // Setup
+        Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.empty());
+
+        // Assert
+        assertThrows(ProjectNotFoundException.class,
+            () -> projectApplicationService.hasOverdueTasks(projectId0, clock));
+        verify(projectRepository).findById(projectId0);
+    }
 
     /*
      * I am unsure of the remaining test cases. The success of the story is tied to
