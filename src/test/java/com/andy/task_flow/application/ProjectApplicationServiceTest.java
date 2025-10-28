@@ -380,6 +380,32 @@ public class ProjectApplicationServiceTest {
         verify(projectSpy).hasOverdueTasks(clock);
     }
 
+    // User queries whether a project has overdue tasks (Negative)
+    @Test
+    public void shouldFalseTrueWhenNoOverdueTask() {
+        // Setup
+        Instant dueDate = Instant.EPOCH;
+        Instant currentDate = dueDate.minus(1, ChronoUnit.DAYS);
+        Clock clock = Clock.fixed(currentDate, ZoneId.of(TestConstant.FIXED_ZONE_ID));
+        Task overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
+            .setDueDate(Optional.of(dueDate))
+            .build();
+        Project project = projectBuilder.setId(projectId0)
+            .addTask(overdueTask)
+            .build();
+        Project projectSpy = spy(project);
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
+
+        // Execute story
+        Boolean hasOverdueTasks = projectApplicationService.hasOverdueTasks(
+            projectId0, 
+            clock
+        );
+
+        // Assert
+        assertFalse(hasOverdueTasks);
+        verify(projectSpy).hasOverdueTasks(clock);
+    }
 
     // User queries whether a non-existent project has overdue tasks
 
