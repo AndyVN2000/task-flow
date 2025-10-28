@@ -7,6 +7,7 @@ import static org.mockito.Mockito.*;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,7 @@ import com.andy.task_flow.application.exceptions.*;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.*;
 import com.andy.task_flow.domain.entities.interfaces.*;
+import com.andy.task_flow.domain.enums.TaskStatus;
 import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
 import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
@@ -351,7 +353,33 @@ public class ProjectApplicationServiceTest {
         }
     }
 
-    // User queries whether a project has overdue tasks
+    // User queries whether a project has overdue tasks (Positive)
+    @Test
+    public void shouldReturnTrueWhenOverdueTask() {
+        // Setup
+        Instant dueDate = Instant.EPOCH;
+        Instant currentDate = dueDate.plus(1, ChronoUnit.DAYS);
+        Clock clock = Clock.fixed(currentDate, ZoneId.of(TestConstant.FIXED_ZONE_ID));
+        Task overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
+            .setDueDate(Optional.of(dueDate))
+            .build();
+        Project project = projectBuilder.setId(projectId0)
+            .addTask(overdueTask)
+            .build();
+        Project projectSpy = spy(project);
+        when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
+
+        // Execute story
+        Boolean hasOverdueTasks = projectApplicationService.hasOverdueTasks(
+            projectId0, 
+            clock
+        );
+
+        // Assert
+        assertTrue(hasOverdueTasks);
+        verify(projectSpy).hasOverdueTasks(clock);
+    }
+
 
     // User queries whether a non-existent project has overdue tasks
 
