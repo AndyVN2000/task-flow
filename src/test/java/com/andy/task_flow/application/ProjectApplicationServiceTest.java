@@ -351,12 +351,19 @@ public class ProjectApplicationServiceTest {
         }
     }
 
+    // User queries whether a project has overdue tasks
+
+    // User queries whether a non-existent project has overdue tasks
+
+    /*
+     * I am unsure of the remaining test cases. The success of the story is tied to
+     * how the projectRepository behaves. Will it return an empty list to 
+     * ProjectApplicationService? Am I rather testing how the application service
+     * handles empty lists?
+     */
     // User lists active projects when none exist (should return empty list)
 
     // User lists archived projects when none exist (should return empty list)
 
-    // User queries whether a project has overdue tasks
-
-    // User queries whether a non-existent project has overdue tasks
 
 }
