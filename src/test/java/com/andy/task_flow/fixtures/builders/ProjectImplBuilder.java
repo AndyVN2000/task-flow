@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.ProjectImpl;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.interfaces.Task;
@@ -48,7 +49,7 @@ public class ProjectImplBuilder implements ProjectBuilder {
     }
 
     @Override
-    public Project build() {
+    public AbstractProject build() {
         return new ProjectImpl(id, tasks, name, description, createdAt);
     }
     

@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.interfaces.Task;
@@ -22,7 +23,7 @@ public class ArchivedProjectTest extends ProjectContractTest {
     private Instant currentDate;
 
     @Override
-    protected Project createProject() {
+    protected AbstractProject createProject() {
         return ArchivedProject.of("Foo", "Bar", Instant.MIN, "John Doe", UUID.randomUUID());
     }
 

@@ -7,10 +7,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 
-public class ProjectStub implements Project {
+public class ProjectStub extends AbstractProject {
 
     @Override
     public UUID getId() {

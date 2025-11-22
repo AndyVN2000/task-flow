@@ -24,7 +24,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     @Id
     private final UUID id;
 
-    public static Project of(String name, String description) {
+    public static AbstractProject of(String name, String description) {
         return new ProjectImpl(name, description);
     }
 

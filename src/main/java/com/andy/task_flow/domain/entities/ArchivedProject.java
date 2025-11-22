@@ -34,7 +34,7 @@ public class ArchivedProject extends AbstractProject {
     @Column
     private String archivedBy;
 
-    public static Project of(String name, String description, Instant createdAt, String archivedBy, UUID id) {
+    public static AbstractProject of(String name, String description, Instant createdAt, String archivedBy, UUID id) {
         return new ArchivedProject(name, description, createdAt, archivedBy, id);
     }
 
@@ -89,7 +89,7 @@ public class ArchivedProject extends AbstractProject {
         private Instant createdAt;
         private Instant archivedAt;
 
-        public ArchivedProjectBuilder fromProject(Project project) {
+        public ArchivedProjectBuilder fromProject(AbstractProject project) {
             this.id = project.getId();
             this.tasks = project.getTasks().stream().collect(Collectors.toMap(Task::getId, task -> task));
             this.name = project.getName();
@@ -133,7 +133,7 @@ public class ArchivedProject extends AbstractProject {
             return this;
         }
 
-        public Project build() {
+        public AbstractProject build() {
             return new ArchivedProject(this);
         }
 

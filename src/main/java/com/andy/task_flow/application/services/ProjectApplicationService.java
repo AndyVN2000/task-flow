@@ -13,6 +13,7 @@ import com.andy.task_flow.application.data_transfer_objects.ProjectSummary;
 import com.andy.task_flow.application.exceptions.ProjectNotFoundException;
 import com.andy.task_flow.application.exceptions.TaskNotFoundException;
 import com.andy.task_flow.domain.entities.ProjectImpl;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
@@ -28,22 +29,22 @@ public class ProjectApplicationService {
 
     @Transactional
     public void createProject(String title, String description) {
-        Project project = ProjectImpl.of(title, description);
+        AbstractProject project = ProjectImpl.of(title, description);
         projectRepository.save(project);
     }
 
     @Transactional
     public void archiveProject(UUID projectId, String archivedBy, Clock clock) {
-        Project project = projectRepository.findById(projectId)
+        AbstractProject project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
         
-            Project archivedProject = project.archive(archivedBy, clock);
+            AbstractProject archivedProject = project.archive(archivedBy, clock);
             projectRepository.save(archivedProject);
     }
 
     @Transactional
     public void addTask(UUID projectId, Task task) {
-        Project project = projectRepository.findById(projectId)
+        AbstractProject project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
         
         project.addTask(task);
@@ -52,7 +53,7 @@ public class ProjectApplicationService {
 
     @Transactional
     public void removeTask(UUID projectId, UUID taskId) {
-        Project project = projectRepository.findById(projectId)
+        AbstractProject project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
         boolean removed = project.removeTask(taskId);
         if (!removed) {
@@ -62,7 +63,7 @@ public class ProjectApplicationService {
     }
 
     public ProjectSummary getProjectDetails(UUID projectId) {
-        Project project = projectRepository.findById(projectId)
+        AbstractProject project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
         
         return new ProjectSummary(
@@ -75,7 +76,7 @@ public class ProjectApplicationService {
     }
 
     public List<ProjectSummary> listActiveProjects() {
-        List<Project> activeProjects = projectRepository.findActiveProjects();
+        List<AbstractProject> activeProjects = projectRepository.findActiveProjects();
         return activeProjects.stream().map(project -> {
             return new ProjectSummary(
                 project.getId(),
@@ -88,7 +89,7 @@ public class ProjectApplicationService {
     }
 
     public List<ProjectSummary> listArchivedProjects() {
-        List<Project> archivedProjects = projectRepository.findArchivedProjects();
+        List<AbstractProject> archivedProjects = projectRepository.findArchivedProjects();
         return archivedProjects.stream().map(project -> {
             return new ProjectSummary(
                 project.getId(),
@@ -132,7 +133,7 @@ public class ProjectApplicationService {
     // }
 
     public boolean hasOverdueTasks(UUID projectId, Clock clock) {
-        Project project = projectRepository.findById(projectId)
+        AbstractProject project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ProjectNotFoundException(projectId.toString()));
         return project.hasOverdueTasks(clock);
     }

@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
 public interface Task {
@@ -22,6 +23,6 @@ public interface Task {
     
     public Optional<Instant> getCompletedAt();
 
-    public Project getProject();
+    public AbstractProject getProject();
 
 }

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.ProjectImpl;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.interfaces.Task;
@@ -26,7 +27,7 @@ public class ProjectImplTest extends ProjectContractTest {
     private TaskBuilder taskBuilder;
 
     @Override
-    protected Project createProject() {
+    protected AbstractProject createProject() {
         return ProjectImpl.of("Foo", "Bar");
     }
 
@@ -43,7 +44,7 @@ public class ProjectImplTest extends ProjectContractTest {
     
     @Test
     public void projectCanBeArchived() {
-        Project archivedProject = project.archive("John Doe", Clock.fixed(Instant.EPOCH, ZoneId.of("Europe/Paris")));
+        AbstractProject archivedProject = project.archive("John Doe", Clock.fixed(Instant.EPOCH, ZoneId.of("Europe/Paris")));
         assertTrue(archivedProject instanceof ArchivedProject);
         assertEquals(archivedProject.getId(), project.getId());
         assertEquals(archivedProject.getName(), project.getName());

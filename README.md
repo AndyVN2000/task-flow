@@ -66,6 +66,12 @@ Only compiles main and test code along with running tests. Practically a subset 
 
 JaCoCo plugin will generate a report on its code coverage found at `target\site\jacoco\index.html`.
 
+### Running the application
+
+```bash
+./mvnw clean spring-boot:run
+```
+
 ## Relevant tutorials
 
 ### Inspiration from other onion architecture projects

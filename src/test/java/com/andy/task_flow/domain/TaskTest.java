@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.andy.task_flow.domain.entities.TaskImpl;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 
@@ -21,7 +22,7 @@ public class TaskTest {
 
     @BeforeEach
     public void setup() {
-        Project project = ProjectImpl.of("Foo", "Lorem ipsum");
+        AbstractProject project = ProjectImpl.of("Foo", "Lorem ipsum");
         task = TaskImpl.of("Bar", "dolor sit amet", project, Optional.of(Instant.MAX));
     }
 

@@ -36,7 +36,7 @@ public abstract class AbstractTask implements Task {
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
+    private AbstractProject project;
 
     // TODO: Study @ManyToMany and @JoinTable on how they work.
     // This tutorial shows how to use the annotations: https://www.baeldung.com/jpa-many-to-many
@@ -48,7 +48,7 @@ public abstract class AbstractTask implements Task {
     )
     private Set<Label> labels = new HashSet<>();
 
-    protected AbstractTask(String title, String description, Project project, Optional<Instant> dueDate) {
+    protected AbstractTask(String title, String description, AbstractProject project, Optional<Instant> dueDate) {
         this.title = title;
         this.description = description;
         this.project = project;
@@ -88,7 +88,7 @@ public abstract class AbstractTask implements Task {
     }
 
     @Override
-    public Project getProject() {
+    public AbstractProject getProject() {
         return project;
     }
 }

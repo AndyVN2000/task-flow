@@ -1,5 +1,6 @@
 package com.andy.task_flow.domain.repositories;
 
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 
@@ -14,7 +15,7 @@ public interface TaskRepository {
 
     Optional<Task> findById(UUID id);
 
-    List<Task> findByProject(Project project);
+    List<Task> findByProject(AbstractProject project);
 
     List<Task> findAll();
 

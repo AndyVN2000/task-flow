@@ -25,6 +25,7 @@ import com.andy.task_flow.application.data_transfer_objects.ProjectSummary;
 import com.andy.task_flow.application.exceptions.*;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.*;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.*;
 import com.andy.task_flow.domain.enums.TaskStatus;
 import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
@@ -60,7 +61,7 @@ public class ProjectApplicationServiceTest {
         String title = "Foo";
         String description = "Bar";
         projectApplicationService.createProject(title, description);
-        ArgumentCaptor<Project> projectCaptor = ArgumentCaptor.forClass(Project.class);
+        ArgumentCaptor<AbstractProject> projectCaptor = ArgumentCaptor.forClass(AbstractProject.class);
         verify(projectRepository).save(projectCaptor.capture());
         assertEquals(title, projectCaptor.getValue().getName());
         assertEquals(description, projectCaptor.getValue().getDescription());
@@ -72,7 +73,7 @@ public class ProjectApplicationServiceTest {
         // Setup
         String archivedBy = "John Doe";
         Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
-        Project project = ProjectImpl.of("Foo", "Bar");
+        AbstractProject project = ProjectImpl.of("Foo", "Bar");
 
         // Set the behavior of the mock repository.
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
@@ -81,10 +82,10 @@ public class ProjectApplicationServiceTest {
         projectApplicationService.archiveProject(projectId0, archivedBy, clock);
         
         // Assertions
-        ArgumentCaptor<Project> projectCaptor = ArgumentCaptor.forClass(Project.class);
+        ArgumentCaptor<AbstractProject> projectCaptor = ArgumentCaptor.forClass(AbstractProject.class);
         verify(projectRepository).save(projectCaptor.capture());
 
-        Project savedProject = projectCaptor.getValue();
+        AbstractProject savedProject = projectCaptor.getValue();
         assertTrue(savedProject.isArchived());
         assertTrue(savedProject instanceof ArchivedProject);
     }
@@ -112,7 +113,7 @@ public class ProjectApplicationServiceTest {
         // Setup
         String archivedBy = "John Doe";
         Clock clock = Clock.fixed(Instant.EPOCH, ZoneId.of(TestConstant.FIXED_ZONE_ID));
-        Project archivedProject = ArchivedProject.of("Foo", "Bar", Instant.EPOCH, "Jane Doe", projectId0);
+        AbstractProject archivedProject = ArchivedProject.of("Foo", "Bar", Instant.EPOCH, "Jane Doe", projectId0);
 
         // Set the behavior of mock repository
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(archivedProject));
@@ -128,7 +129,7 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldAddTaskToProject() {
         // Setup
-        Project project = mock(Project.class);
+        AbstractProject project = mock(AbstractProject.class);
         Task newTask = mock(Task.class);
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
         
@@ -159,7 +160,7 @@ public class ProjectApplicationServiceTest {
         Task task0 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
         Task task1 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
         
-        Project project = projectBuilder.addTask(task0).build();
+        AbstractProject project = projectBuilder.addTask(task0).build();
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
 
         // Execute user story and assert
@@ -173,8 +174,8 @@ public class ProjectApplicationServiceTest {
         // Setup
         UUID taskId = TestConstant.TASK_ID_0;
         Task task = taskBuilder.setId(taskId).build();
-        Project project = projectBuilder.addTask(task).build();
-        Project projectSpy = spy(project);
+        AbstractProject project = projectBuilder.addTask(task).build();
+        AbstractProject projectSpy = spy(project);
 
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
 
@@ -191,8 +192,8 @@ public class ProjectApplicationServiceTest {
     public void shouldThrowExceptionWhenRemovingNonExistentTask() {
         // Setup
         UUID taskId = TestConstant.TASK_ID_0;
-        Project project = projectBuilder.setId(projectId0).build();
-        Project projectSpy = spy(project);
+        AbstractProject project = projectBuilder.setId(projectId0).build();
+        AbstractProject projectSpy = spy(project);
 
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
 
@@ -219,8 +220,8 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldThrowExceptionWhenInvokingProjectToDeleteTaskInAnotherProject() {
         // Setup
-        Project invokedProject = projectBuilder.setId(projectId0).build();
-        Project otherProject = projectBuilder.setId(TestConstant.PROJECT_ID_1).build();
+        AbstractProject invokedProject = projectBuilder.setId(projectId0).build();
+        AbstractProject otherProject = projectBuilder.setId(TestConstant.PROJECT_ID_1).build();
         Task taskToRemove = taskBuilder.setId(taskId0)
             .setProject(otherProject)
             .build();
@@ -239,7 +240,7 @@ public class ProjectApplicationServiceTest {
         // Setup
         ProjectBuilder archivedBuilder = new ArchivedProject.ArchivedProjectBuilder();
         Task task = taskBuilder.setId(taskId0).build();
-        Project archivedProject = archivedBuilder.setId(projectId0)
+        AbstractProject archivedProject = archivedBuilder.setId(projectId0)
             .addTask(task)
             .build();
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(archivedProject));
@@ -254,7 +255,7 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldReturnProjectSummary() {
         // Setup
-        Project project = projectBuilder.setId(projectId0)
+        AbstractProject project = projectBuilder.setId(projectId0)
             .setName("Foo")
             .setDescription("Bar")
             .build();
@@ -284,7 +285,7 @@ public class ProjectApplicationServiceTest {
     public void shouldReturnProjectSummaryOfArchivedProject() {
         // Setup
         ProjectBuilder archivedBuilder = new ArchivedProject.ArchivedProjectBuilder();
-        Project project = archivedBuilder.setId(projectId0)
+        AbstractProject project = archivedBuilder.setId(projectId0)
             .setName("Baz")
             .setDescription("Bar")
             .build();
@@ -302,13 +303,13 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldGetAllActiveProjects() {
         // Setup
-        Project project0 = projectBuilder.setName("Foo")
+        AbstractProject project0 = projectBuilder.setName("Foo")
             .setDescription("Bar")
             .build();
-        Project project1 = projectBuilder.setName("Baz")
+        AbstractProject project1 = projectBuilder.setName("Baz")
             .setDescription("Qux")
             .build();
-        List<Project> projects = new ArrayList<>();
+        List<AbstractProject> projects = new ArrayList<>();
         projects.add(project0);
         projects.add(project1);
         when(projectRepository.findActiveProjects()).thenReturn(projects);
@@ -318,7 +319,7 @@ public class ProjectApplicationServiceTest {
 
         // Assert
         for (int i = 0; i < activeProjects.size(); ++i) {
-            Project project = projects.get(i);
+            AbstractProject project = projects.get(i);
             ProjectSummary summary = activeProjects.get(i);
             assertEquals(project.getName(), summary.name());
             assertEquals(project.getDescription(), summary.description());
@@ -330,13 +331,13 @@ public class ProjectApplicationServiceTest {
     public void shouldGetAllArchivedProjects() {
         // Setup
         ProjectBuilder archiveBuilder = new ArchivedProject.ArchivedProjectBuilder();
-        Project project0 = archiveBuilder.setName("Foo")
+        AbstractProject project0 = archiveBuilder.setName("Foo")
             .setDescription("Bar")
             .build();
-        Project project1 = archiveBuilder.setName("Baz")
+        AbstractProject project1 = archiveBuilder.setName("Baz")
             .setDescription("Qux")
             .build();
-        List<Project> projects = new ArrayList<>();
+        List<AbstractProject> projects = new ArrayList<>();
         projects.add(project0);
         projects.add(project1);
         when(projectRepository.findArchivedProjects()).thenReturn(projects);
@@ -346,7 +347,7 @@ public class ProjectApplicationServiceTest {
 
         // Assert
         for (int i = 0; i < archivedProjects.size(); ++i) {
-            Project project = projects.get(i);
+            AbstractProject project = projects.get(i);
             ProjectSummary summary = archivedProjects.get(i);
             assertEquals(project.getName(), summary.name());
             assertEquals(project.getDescription(), summary.description());
@@ -363,10 +364,10 @@ public class ProjectApplicationServiceTest {
         Task overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
             .setDueDate(Optional.of(dueDate))
             .build();
-        Project project = projectBuilder.setId(projectId0)
+        AbstractProject project = projectBuilder.setId(projectId0)
             .addTask(overdueTask)
             .build();
-        Project projectSpy = spy(project);
+        AbstractProject projectSpy = spy(project);
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
 
         // Execute story
@@ -390,10 +391,10 @@ public class ProjectApplicationServiceTest {
         Task overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
             .setDueDate(Optional.of(dueDate))
             .build();
-        Project project = projectBuilder.setId(projectId0)
+        AbstractProject project = projectBuilder.setId(projectId0)
             .addTask(overdueTask)
             .build();
-        Project projectSpy = spy(project);
+        AbstractProject projectSpy = spy(project);
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(projectSpy));
 
         // Execute story

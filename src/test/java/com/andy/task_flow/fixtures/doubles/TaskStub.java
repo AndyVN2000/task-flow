@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.enums.TaskStatus;
@@ -16,10 +17,10 @@ public class TaskStub implements Task {
     private Optional<Instant> dueDate;
     private Instant createdAt;
     private Optional<Instant> completedAt;
-    private Project project;
+    private AbstractProject project;
 
     public TaskStub(UUID id, String title, String description, TaskStatus status, Optional<Instant> dueDate, 
-                    Instant createdAt, Optional<Instant> completedAt, Project project) {
+                    Instant createdAt, Optional<Instant> completedAt, AbstractProject project) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -66,7 +67,7 @@ public class TaskStub implements Task {
     }
 
     @Override
-    public Project getProject() {
+    public AbstractProject getProject() {
         return project;
     }
     

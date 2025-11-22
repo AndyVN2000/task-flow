@@ -4,20 +4,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
 public interface ProjectRepository {
 
-    Project save(Project project);
+    AbstractProject save(AbstractProject project);
 
-    Optional<Project> findById(UUID id);
+    Optional<AbstractProject> findById(UUID id);
 
-    List<Project> findAll();
+    List<AbstractProject> findAll();
 
-    List<Project> findActiveProjects();
+    List<AbstractProject> findActiveProjects();
 
-    List<Project> findArchivedProjects();
+    List<AbstractProject> findArchivedProjects();
 
-    void delete(Project project);
+    void delete(AbstractProject project);
     
 }

@@ -3,6 +3,8 @@ package com.andy.task_flow.domain.entities.interfaces;
 import java.util.List;
 import java.util.UUID;
 
+import com.andy.task_flow.domain.entities.base.AbstractProject;
+
 public interface ProjectBuilder {
 
     ProjectBuilder setId(UUID id);
@@ -15,6 +17,6 @@ public interface ProjectBuilder {
 
     ProjectBuilder setDescription(String description);
 
-    Project build();
+    AbstractProject build();
 
 }

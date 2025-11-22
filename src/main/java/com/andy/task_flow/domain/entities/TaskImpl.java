@@ -1,6 +1,7 @@
 package com.andy.task_flow.domain.entities;
 
 import com.andy.task_flow.domain.enums.*;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.MutableTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
@@ -63,11 +64,11 @@ public class TaskImpl extends AbstractTask implements MutableTask {
     private Set<Label> labels = new HashSet<>();
 */    
 
-    private TaskImpl(String title, String description, Project project, Optional<Instant> dueDate) {
+    private TaskImpl(String title, String description, AbstractProject project, Optional<Instant> dueDate) {
         super(title, description, project, dueDate);
     }
     
-    public static TaskImpl of(String title, String description, Project project, Optional<Instant> dueDate) {
+    public static TaskImpl of(String title, String description, AbstractProject project, Optional<Instant> dueDate) {
         if (project == null) {
             throw new NullPointerException("Task must belong to a project");
         }

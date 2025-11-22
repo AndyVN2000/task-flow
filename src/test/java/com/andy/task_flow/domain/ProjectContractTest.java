@@ -17,6 +17,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.enums.TaskStatus;
@@ -34,7 +35,7 @@ import com.andy.task_flow.fixtures.builders.TaskStubBuilder;
 
 public abstract class ProjectContractTest {
     
-    protected abstract Project createProject();
+    protected abstract AbstractProject createProject();
 
     protected abstract ProjectBuilder createProjectBuilder();
 
@@ -44,61 +45,61 @@ public abstract class ProjectContractTest {
 
     @Test
     public void projectIdShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.getId());
     }
 
     @Test
     public void nameShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.getName());
     }
     
     @Test
     public void descriptionShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.getDescription());
     }
 
     @Test
     public void taskListShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.getTasks());
     }
 
     @Test
     public void createdAtShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.getCreatedAt());
     }
 
     @Test
     public void archivedAtIsAnOptional() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertTrue(project.getArchivedAt() instanceof Optional);
     }
 
     @Test
     public void archivedByIsAnOptional() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertTrue(project.getArchivedBy() instanceof Optional);
     }
 
     @Test
     public void isArchivedShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.isArchived());
     }
 
     @Test
     public void getCompletedTaskCountShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.getCompletedTaskCount());
     }
 
     @Test
     public void hasOverdueTasksShouldNotBeNull() {
-        Project project = createProject();
+        AbstractProject project = createProject();
         assertNotNull(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
@@ -107,7 +108,7 @@ public abstract class ProjectContractTest {
         // Instantiate project with an empty list of tasks.
         List<Task> tasks = new ArrayList<>();
         ProjectBuilder builder = createProjectBuilder();
-        Project project = builder.
+        AbstractProject project = builder.
             setTasks(tasks).
             build();
 
@@ -119,18 +120,18 @@ public abstract class ProjectContractTest {
      * I was in a terrible dilemma. I have to set up a test case scenario
      *  where the project has some particular task. This test case and many others
      *  have shared behavior for both `ProjectImpl` and `ArchivedProject` and 
-     *  therefore, the generation of a `Project` object had to be agnostic.
+     *  therefore, the generation of a `AbstractProject` object had to be agnostic.
      *  
      * I used a builder design pattern to achieve this agnostic behavior in this
      *  abstract test class. But before I could create my desired project for the
      *  test case using the builder, I had to instantiate a `Task` object to pass on
      *  to the builder. But to instantiate a `Task` object, business rules required
-     *  me to set a `Project` object as its field via the factory method of `Task`.
+     *  me to set a `AbstractProject` object as its field via the factory method of `Task`.
      *  That is due to the business rule that forces me to make the `project` field
      *  in `Task` to be `final`.
      * 
      * There was a circular reference that stopped me from setting up my test case.
-     *  To circumvent this, I assigned an arbitrary `Project` object to the `Task`
+     *  To circumvent this, I assigned an arbitrary `AbstractProject` object to the `Task`
      *  object and then added the task to another project.
      *  But I am not sure if this violates my business rules, since this workaround
      *  would only occur in unit tests.
@@ -147,7 +148,7 @@ public abstract class ProjectContractTest {
         TaskBuilder taskBuilder = createTaskBuilder();
         Task task = taskBuilder.setDueDate(Optional.empty()).build();
         ProjectBuilder builder = createProjectBuilder();
-        Project project = builder.addTask(task).build();
+        AbstractProject project = builder.addTask(task).build();
         assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
     }
 
@@ -158,7 +159,7 @@ public abstract class ProjectContractTest {
         Task taskDueInFuture = taskBuilder.setDueDate(Optional.of(futureDueDate)).build();
         // Instantiate project with a task that is due in Instant.EPOCH plus 1 day.
         ProjectBuilder projectBuilder = createProjectBuilder();
-        Project project = projectBuilder.addTask(taskDueInFuture).build();
+        AbstractProject project = projectBuilder.addTask(taskDueInFuture).build();
         
         // Should be equal to Instant.EPOCH.plus(1, ChronoUnit.DAYS)
         Instant taskDueDate = project.getTasks().get(0).getDueDate().get();
@@ -187,7 +188,7 @@ public abstract class ProjectContractTest {
 
         // Instantiate project with a task that is due in the past, but its status is completed
         ProjectBuilder projectBuilder = createProjectBuilder();
-        Project project = projectBuilder.addTask(completedTask).build();
+        AbstractProject project = projectBuilder.addTask(completedTask).build();
 
         Task task = project.getTasks().get(0);
         assertTrue(task.getStatus() == TaskStatus.COMPLETED);
@@ -207,7 +208,7 @@ public abstract class ProjectContractTest {
             build();
         // Instantiate project with a task that is due in the past and is not completed
         ProjectBuilder projectBuilder = createProjectBuilder();
-        Project project = projectBuilder.addTask(overdueTask).build();
+        AbstractProject project = projectBuilder.addTask(overdueTask).build();
 
         Task task = project.getTasks().get(0);
         TaskStatus status = task.getStatus();
@@ -228,7 +229,7 @@ public abstract class ProjectContractTest {
 
         // Instantiate project with task due at Instant.EPOCH
         ProjectBuilder projectBuilder = createProjectBuilder();
-        Project project = projectBuilder.addTask(taskDueToday)
+        AbstractProject project = projectBuilder.addTask(taskDueToday)
             .build();
 
         Task task = project.getTasks().get(0);
@@ -261,7 +262,7 @@ public abstract class ProjectContractTest {
         assertTrue(notOverdueTask.getDueDate().get().isAfter(currentDate));
 
         ProjectBuilder projectBuilder = createProjectBuilder();
-        Project project = projectBuilder.addTask(overdueTask)
+        AbstractProject project = projectBuilder.addTask(overdueTask)
             .addTask(notOverdueTask)
             .build();
 
