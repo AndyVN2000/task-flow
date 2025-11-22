@@ -105,3 +105,18 @@ With `@ManyToOne`, you can modify the Repository:
 - or to sort/order by multiple fields
 
 I do not completely understand these reasons. I might need to find other sources.
+
+## Reflection
+
+### Wrong mapped entities
+
+Reached a terrible headache where my entities 'targets' the interface that they were implementing. To be more precise,
+`ProjectImpl` and `ArchivedProject` are my concrete entity classes and when I tried to run the application, an error
+occurs. The problem was that `Project` (an interface) was targeted by its implementing classes, `ProjectImpl` and `ArchivedProject`. Thusly, Hibernate misreads `Project` as the mapped entity. Rather, Hibernate is supposed to read `AbstractProject` as the mapped entity instead.
+
+To avoid this problem, I had to edit my usage of the JPA decorators accordingly, and even worse rewrite all usages of the interface type `Project` to abstract class type `AbstractProject` in order to stop Hibernate from misreading the wrong mapped entity.
+
+Then to the more interesting part, which was my choices of arguments to the JPA decorators. Regarding to `@Inheritance`, I deemed the `SINGLE_TABLE` strategy as the
+most suitable choice apart from `JOINED` and `TABLE_PER_CLASS`, because the only distinction between the two concrete classes `ProjectImpl` and `ArchivedProject` is that one allows writing while the other only allows reading (read more on: [JPA Overview](https://www.geeksforgeeks.org/java/jpa-inheritance-overview/)).
+
+Given my choice of strategy, I also had to use the `@DiscriminatorColumn` decorator to declare on how to distinguish between the entities. I chose to use String as the discriminator type and the column would be named `"isArchived"` where discriminator value for `ProjectImpl` and `ArchivedProject` are set to `FALSE` and `TRUE` respectively. I believe this approach would best convey the meaning behind the hiearchy.
