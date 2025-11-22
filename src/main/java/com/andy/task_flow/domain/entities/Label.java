@@ -4,6 +4,7 @@ import com.andy.task_flow.domain.entities.interfaces.Task;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
 import java.util.Set;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 public class Label {
 
+    @Id
     @Column
     private String label;
 
