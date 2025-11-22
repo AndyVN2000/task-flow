@@ -14,7 +14,10 @@ import com.andy.task_flow.domain.enums.TaskStatus;
 
 import jakarta.persistence.*;
 
-@MappedSuperclass
+@Entity
+@Table(name = "tasks")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "isArchived", discriminatorType = DiscriminatorType.STRING)
 public abstract class AbstractTask implements Task {
 
     public AbstractTask(){}

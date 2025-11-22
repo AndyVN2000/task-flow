@@ -11,9 +11,11 @@ import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
+@DiscriminatorValue("TRUE")
 public class ArchivedTask extends AbstractTask {
 
     private ArchivedTask(String title, String description, AbstractProject project, Optional<Instant> dueDate) {

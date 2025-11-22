@@ -9,6 +9,7 @@ import com.andy.task_flow.domain.entities.interfaces.Project;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinTable;
@@ -22,6 +23,7 @@ import java.time.Clock;
 import java.time.Instant;
 
 @Entity
+@DiscriminatorValue("FALSE")
 public class TaskImpl extends AbstractTask implements MutableTask {
 
     /* 
