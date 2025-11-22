@@ -17,8 +17,10 @@ import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@Entity
 public class ArchivedProject extends AbstractProject implements Project {
 
     @Id
