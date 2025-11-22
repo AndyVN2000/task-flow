@@ -6,10 +6,10 @@ import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
-public class TaskStub implements Task {
+public class TaskStub extends AbstractTask {
     private UUID id;
     private String title;
     private String description;

@@ -1,9 +1,11 @@
 package com.andy.task_flow.domain.entities;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.MutableProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 
 import jakarta.persistence.DiscriminatorValue;
@@ -78,7 +80,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
         this.description = newDescription;
     }
 
-    public void addTask(Task task) {
+    public void addTask(AbstractTask task) {
         UUID taskId = task.getId();
         if (tasks.containsKey(taskId)) {
             throw new DuplicateTaskException(
@@ -105,7 +107,7 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     // Constructor for ProjectImplBuilder.java
-    public ProjectImpl(UUID id, List<Task> tasks, String name, String description, Instant createdAt) {
+    public ProjectImpl(UUID id, List<AbstractTask> tasks, String name, String description, Instant createdAt) {
         this.id = id;
         this.tasks = tasks.stream().collect(Collectors.toMap(Task::getId, task -> task));
         this.name = name;

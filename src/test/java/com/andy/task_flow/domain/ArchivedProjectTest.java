@@ -16,7 +16,7 @@ import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.fixtures.builders.TaskBuilder;
 
 public class ArchivedProjectTest extends ProjectContractTest {
@@ -41,12 +41,12 @@ public class ArchivedProjectTest extends ProjectContractTest {
     public void archivedProjectStillReportsOverdueTasks() {
         // Instantiate project with an overdue task
         TaskBuilder taskBuilder = createTaskBuilder();
-        Task overdueTask = taskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
+        AbstractTask overdueTask = taskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
             .build();
         ProjectBuilder projectBuilder = createProjectBuilder();
         ArchivedProject project = (ArchivedProject) projectBuilder.addTask(overdueTask).build();
 
-        Task task = project.getTasks().get(0);
+        AbstractTask task = project.getTasks().get(0);
         Instant dueDate = task.getDueDate().get();
 
         assertTrue(dueDate.isBefore(currentDate));

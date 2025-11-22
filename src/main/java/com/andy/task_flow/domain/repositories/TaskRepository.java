@@ -1,8 +1,9 @@
 package com.andy.task_flow.domain.repositories;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 import java.util.UUID;
 import java.util.List;
@@ -11,13 +12,13 @@ import java.util.Optional;
 public interface TaskRepository {
     
     // Accounts for both creating a new task or updating existing task (id already exists)
-    Task save(Task task);
+    AbstractTask save(AbstractTask task);
 
-    Optional<Task> findById(UUID id);
+    Optional<AbstractTask> findById(UUID id);
 
-    List<Task> findByProject(AbstractProject project);
+    List<AbstractTask> findByProject(AbstractProject project);
 
-    List<Task> findAll();
+    List<AbstractTask> findAll();
 
     void delete(UUID id);
 

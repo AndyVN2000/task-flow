@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.enums.TaskStatus;
 import com.andy.task_flow.fixtures.doubles.TaskStub;
 
@@ -51,7 +51,7 @@ public class TaskStubBuilder implements TaskBuilder {
     }
 
     @Override
-    public Task build() {
+    public AbstractTask build() {
         return new TaskStub(id, title, description, status, dueDate, createdAt, completedAt, project);
     }
 

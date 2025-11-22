@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.CascadeType;
@@ -45,7 +45,7 @@ public abstract class AbstractProject implements Project {
      *  task are identified by IDs in general.
      */
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
-    protected Map<UUID,Task> tasks = new LinkedHashMap<>();
+    protected Map<UUID, AbstractTask> tasks = new LinkedHashMap<>();
 
     @Column
     protected String name;
@@ -57,7 +57,7 @@ public abstract class AbstractProject implements Project {
     protected Instant createdAt;
     
     @Override
-    public List<Task> getTasks() {
+    public List<AbstractTask> getTasks() {
         return List.copyOf(tasks.values());
     }
 

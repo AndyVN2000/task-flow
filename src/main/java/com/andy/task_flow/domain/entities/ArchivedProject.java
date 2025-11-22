@@ -10,9 +10,11 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 
@@ -83,7 +85,7 @@ public class ArchivedProject extends AbstractProject {
     // Builder
     public static class ArchivedProjectBuilder implements ProjectBuilder {
         private UUID id;
-        private Map<UUID, Task> tasks = new LinkedHashMap<>();
+        private Map<UUID, AbstractTask> tasks = new LinkedHashMap<>();
         private String name;
         private String description;
         private Instant createdAt;
@@ -105,13 +107,13 @@ public class ArchivedProject extends AbstractProject {
         }
 
         @Override
-        public ProjectBuilder setTasks(List<Task> tasks) {
+        public ProjectBuilder setTasks(List<AbstractTask> tasks) {
             this.tasks = tasks.stream().collect(Collectors.toMap(Task::getId, task -> task));
             return this;
         }
 
         @Override
-        public ProjectBuilder addTask(Task task) {
+        public ProjectBuilder addTask(AbstractTask task) {
             this.tasks.put(task.getId(), task);
             return this;
         }
@@ -159,7 +161,7 @@ public class ArchivedProject extends AbstractProject {
     }
 
     @Override
-    public void addTask(Task task) {
+    public void addTask(AbstractTask task) {
         throw new UnsupportedOperationException("Can not add new tasks to archived project");
     }
 

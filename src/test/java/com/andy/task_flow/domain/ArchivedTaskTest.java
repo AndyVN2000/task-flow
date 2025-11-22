@@ -7,12 +7,12 @@ import com.andy.task_flow.domain.entities.ArchivedTask;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.fixtures.doubles.ProjectStub;
 import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 public class ArchivedTaskTest extends TaskContractTest {
 
     @Override
-    protected Task createTask() {
+    protected AbstractTask createTask() {
         AbstractProject project = new ProjectStub();
         return ArchivedTask.of("Foo", "Bar", project, Optional.of(Instant.EPOCH));
     }

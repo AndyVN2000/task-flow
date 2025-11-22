@@ -17,7 +17,7 @@ import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.fixtures.builders.ProjectImplBuilder;
 import com.andy.task_flow.fixtures.builders.TaskBuilder;
 
@@ -70,7 +70,7 @@ public class ProjectImplTest extends ProjectContractTest {
     @Test
     public void shouldAddTaskToProject() {
         int oldTaskCount = project.getTasks().size();
-        Task newTask = taskBuilder.build();
+        AbstractTask newTask = taskBuilder.build();
         project.addTask(newTask);
         int newTaskCount = project.getTasks().size();
         assertNotEquals(newTaskCount, oldTaskCount);
@@ -80,7 +80,7 @@ public class ProjectImplTest extends ProjectContractTest {
     @Test
     public void shouldRemoveTaskByGivenId() {
         UUID id = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
-        Task taskToRemove = taskBuilder.setId(id).build();
+        AbstractTask taskToRemove = taskBuilder.setId(id).build();
         int taskCountBeforeAdd = project.getTasks().size();
         project.addTask(taskToRemove);
         assertEquals(taskCountBeforeAdd + 1, project.getTasks().size());

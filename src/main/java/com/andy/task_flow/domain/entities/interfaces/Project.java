@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
 public interface Project {
@@ -27,7 +28,7 @@ public interface Project {
      * External mutation on the list of tasks should not be possible.
      * @return an immutable list of tasks.
      */
-    List<Task> getTasks();
+    List<AbstractTask> getTasks();
 
     boolean isArchived();
 
@@ -35,7 +36,7 @@ public interface Project {
 
     default boolean hasOverdueTasks(Clock clock) {
         Instant now = Instant.now(clock);
-        for(Task task : getTasks()) {
+        for(AbstractTask task : getTasks()) {
             Optional<Instant> dueDate = task.getDueDate();
             // Bail-out-fast guards
             if(dueDate.isEmpty()) {
@@ -73,7 +74,7 @@ public interface Project {
      * If null or adding a duplicate task, throws `IllegalArgumentException`.
      * @param task must not be null and has unique ID within the project.
      */
-    public void addTask(Task task);
+    public void addTask(AbstractTask task);
 
     /**
      * Removes a task given an id

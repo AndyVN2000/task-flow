@@ -9,7 +9,7 @@ import java.util.UUID;
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 public class ProjectStub extends AbstractProject {
 
@@ -50,7 +50,7 @@ public class ProjectStub extends AbstractProject {
     }
 
     @Override
-    public List<Task> getTasks() {
+    public List<AbstractTask> getTasks() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getTasks'");
     }
@@ -80,7 +80,7 @@ public class ProjectStub extends AbstractProject {
     }
 
     @Override
-    public void addTask(Task task) {
+    public void addTask(AbstractTask task) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addTask'");
     }

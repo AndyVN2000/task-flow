@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
 public interface TaskBuilder {
@@ -21,6 +21,6 @@ public interface TaskBuilder {
 
     public TaskBuilder setProject(AbstractProject project);
 
-    public Task build();
+    public AbstractTask build();
 
 }

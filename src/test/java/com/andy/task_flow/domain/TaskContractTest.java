@@ -10,21 +10,21 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.TaskImpl;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 public abstract class TaskContractTest {
 
-    protected abstract Task createTask();
+    protected abstract AbstractTask createTask();
 
     @Test
     public void idShouldBeNonNull() {
-        Task task = createTask();
+        AbstractTask task = createTask();
         assertNotNull(task.getId());
     }
 
     @Test
     public void dueDateShouldBeAnOptionalObject() {
-        Task task = createTask();
+        AbstractTask task = createTask();
         assertTrue(task.getDueDate() instanceof Optional);
     }
 

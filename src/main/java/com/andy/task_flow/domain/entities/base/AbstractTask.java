@@ -9,12 +9,16 @@ import java.util.UUID;
 import com.andy.task_flow.domain.entities.Label;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.enums.TaskStatus;
 
 import jakarta.persistence.*;
 
 @MappedSuperclass
 public abstract class AbstractTask implements Task {
+
+    public AbstractTask(){}
+
     @Id
     @GeneratedValue
     private final UUID id = UUID.randomUUID();

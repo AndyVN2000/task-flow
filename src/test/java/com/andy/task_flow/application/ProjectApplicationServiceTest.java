@@ -26,6 +26,7 @@ import com.andy.task_flow.application.exceptions.*;
 import com.andy.task_flow.application.services.ProjectApplicationService;
 import com.andy.task_flow.domain.entities.*;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.*;
 import com.andy.task_flow.domain.enums.TaskStatus;
 import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
@@ -130,7 +131,7 @@ public class ProjectApplicationServiceTest {
     public void shouldAddTaskToProject() {
         // Setup
         AbstractProject project = mock(AbstractProject.class);
-        Task newTask = mock(Task.class);
+        AbstractTask newTask = mock(AbstractTask.class);
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
         
         // Execute user story
@@ -145,7 +146,7 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldThrowExceptionWhenAddingTaskToNonExistingProject() {
         // Setup
-        Task newTask = mock(Task.class);
+        AbstractTask newTask = mock(AbstractTask.class);
         when(projectRepository.findById(projectId0)).thenReturn(Optional.empty());
         
         // Execute user story and assert
@@ -157,8 +158,8 @@ public class ProjectApplicationServiceTest {
     @Test
     public void shouldThrowExceptionWhenAddingDuplicateTasks() {
         // Setup
-        Task task0 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
-        Task task1 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
+        AbstractTask task0 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
+        AbstractTask task1 = taskBuilder.setId(TestConstant.TASK_ID_0).build();
         
         AbstractProject project = projectBuilder.addTask(task0).build();
         when(projectRepository.findById(projectId0)).thenReturn(Optional.of(project));
@@ -173,7 +174,7 @@ public class ProjectApplicationServiceTest {
     public void shouldRemoveTask() {
         // Setup
         UUID taskId = TestConstant.TASK_ID_0;
-        Task task = taskBuilder.setId(taskId).build();
+        AbstractTask task = taskBuilder.setId(taskId).build();
         AbstractProject project = projectBuilder.addTask(task).build();
         AbstractProject projectSpy = spy(project);
 
@@ -222,7 +223,7 @@ public class ProjectApplicationServiceTest {
         // Setup
         AbstractProject invokedProject = projectBuilder.setId(projectId0).build();
         AbstractProject otherProject = projectBuilder.setId(TestConstant.PROJECT_ID_1).build();
-        Task taskToRemove = taskBuilder.setId(taskId0)
+        AbstractTask taskToRemove = taskBuilder.setId(taskId0)
             .setProject(otherProject)
             .build();
         otherProject.addTask(taskToRemove);
@@ -239,7 +240,7 @@ public class ProjectApplicationServiceTest {
     public void shouldThrowExceptionWhenRemovingTaskFromArchivedProject() {
         // Setup
         ProjectBuilder archivedBuilder = new ArchivedProject.ArchivedProjectBuilder();
-        Task task = taskBuilder.setId(taskId0).build();
+        AbstractTask task = taskBuilder.setId(taskId0).build();
         AbstractProject archivedProject = archivedBuilder.setId(projectId0)
             .addTask(task)
             .build();
@@ -361,7 +362,7 @@ public class ProjectApplicationServiceTest {
         Instant dueDate = Instant.EPOCH;
         Instant currentDate = dueDate.plus(1, ChronoUnit.DAYS);
         Clock clock = Clock.fixed(currentDate, ZoneId.of(TestConstant.FIXED_ZONE_ID));
-        Task overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
+        AbstractTask overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
             .setDueDate(Optional.of(dueDate))
             .build();
         AbstractProject project = projectBuilder.setId(projectId0)
@@ -388,7 +389,7 @@ public class ProjectApplicationServiceTest {
         Instant dueDate = Instant.EPOCH;
         Instant currentDate = dueDate.minus(1, ChronoUnit.DAYS);
         Clock clock = Clock.fixed(currentDate, ZoneId.of(TestConstant.FIXED_ZONE_ID));
-        Task overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
+        AbstractTask overdueTask = taskBuilder.setStatus(TaskStatus.IN_PROGRESS)
             .setDueDate(Optional.of(dueDate))
             .build();
         AbstractProject project = projectBuilder.setId(projectId0)

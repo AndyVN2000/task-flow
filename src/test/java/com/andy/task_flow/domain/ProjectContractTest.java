@@ -16,7 +16,7 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
@@ -106,7 +106,7 @@ public abstract class ProjectContractTest {
     @Test
     public void noTasksShouldMeanNoOverdueTasks() {
         // Instantiate project with an empty list of tasks.
-        List<Task> tasks = new ArrayList<>();
+        List<AbstractTask> tasks = new ArrayList<>();
         ProjectBuilder builder = createProjectBuilder();
         AbstractProject project = builder.
             setTasks(tasks).
@@ -124,29 +124,29 @@ public abstract class ProjectContractTest {
      *  
      * I used a builder design pattern to achieve this agnostic behavior in this
      *  abstract test class. But before I could create my desired project for the
-     *  test case using the builder, I had to instantiate a `Task` object to pass on
-     *  to the builder. But to instantiate a `Task` object, business rules required
-     *  me to set a `AbstractProject` object as its field via the factory method of `Task`.
+     *  test case using the builder, I had to instantiate a `AbstractTask` object to pass on
+     *  to the builder. But to instantiate a `AbstractTask` object, business rules required
+     *  me to set a `AbstractProject` object as its field via the factory method of `AbstractTask`.
      *  That is due to the business rule that forces me to make the `project` field
-     *  in `Task` to be `final`.
+     *  in `AbstractTask` to be `final`.
      * 
      * There was a circular reference that stopped me from setting up my test case.
-     *  To circumvent this, I assigned an arbitrary `AbstractProject` object to the `Task`
+     *  To circumvent this, I assigned an arbitrary `AbstractProject` object to the `AbstractTask`
      *  object and then added the task to another project.
      *  But I am not sure if this violates my business rules, since this workaround
      *  would only occur in unit tests.
      * 
      * As I write this note on my thoughts, I came to realize; was I supposed to
-     *  write and use a test double for `Task` rather than using a real `Task` 
+     *  write and use a test double for `AbstractTask` rather than using a real `AbstractTask` 
      *  object that is used for production code?
      *  Yea, I should most likely write a test stub `TaskStub` and do the 3-1-2 step
-     *  on the `Task.java`.
+     *  on the `AbstractTask.java`.
      */
     @Test
     public void tasksWithoutDueDatesShouldNeverBeOverdue() {
         // Instantiate project with a task that has no due date
         TaskBuilder taskBuilder = createTaskBuilder();
-        Task task = taskBuilder.setDueDate(Optional.empty()).build();
+        AbstractTask task = taskBuilder.setDueDate(Optional.empty()).build();
         ProjectBuilder builder = createProjectBuilder();
         AbstractProject project = builder.addTask(task).build();
         assertFalse(project.hasOverdueTasks(Clock.fixed(Instant.MAX, ZoneId.of("Europe/Paris"))));
@@ -156,7 +156,7 @@ public abstract class ProjectContractTest {
     public void tasksDueInFutureShouldNotBeOverdue() {
         Instant futureDueDate = Instant.EPOCH.plus(1, ChronoUnit.DAYS);
         TaskBuilder taskBuilder = createTaskBuilder();
-        Task taskDueInFuture = taskBuilder.setDueDate(Optional.of(futureDueDate)).build();
+        AbstractTask taskDueInFuture = taskBuilder.setDueDate(Optional.of(futureDueDate)).build();
         // Instantiate project with a task that is due in Instant.EPOCH plus 1 day.
         ProjectBuilder projectBuilder = createProjectBuilder();
         AbstractProject project = projectBuilder.addTask(taskDueInFuture).build();
@@ -181,7 +181,7 @@ public abstract class ProjectContractTest {
         assertTrue(dueDate.isBefore(currentDate));
 
         TaskBuilder taskBuilder = createTaskBuilder();
-        Task completedTask = taskBuilder.setStatus(TaskStatus.COMPLETED).
+        AbstractTask completedTask = taskBuilder.setStatus(TaskStatus.COMPLETED).
             setCompletedAt(Optional.of(completionDate)).
             setDueDate(Optional.of(dueDate)).
             build();
@@ -190,7 +190,7 @@ public abstract class ProjectContractTest {
         ProjectBuilder projectBuilder = createProjectBuilder();
         AbstractProject project = projectBuilder.addTask(completedTask).build();
 
-        Task task = project.getTasks().get(0);
+        AbstractTask task = project.getTasks().get(0);
         assertTrue(task.getStatus() == TaskStatus.COMPLETED);
 
         assertFalse(project.hasOverdueTasks(Clock.fixed(currentDate, ZoneId.of("Europe/Paris"))));
@@ -202,7 +202,7 @@ public abstract class ProjectContractTest {
         Instant dueDate = currentDate.minus(1, ChronoUnit.DAYS);
 
         TaskBuilder taskBuilder = createTaskBuilder();
-        Task overdueTask = taskBuilder.setCompletedAt(Optional.empty()).
+        AbstractTask overdueTask = taskBuilder.setCompletedAt(Optional.empty()).
             setDueDate(Optional.of(dueDate)).
             setStatus(TaskStatus.CREATED).
             build();
@@ -210,7 +210,7 @@ public abstract class ProjectContractTest {
         ProjectBuilder projectBuilder = createProjectBuilder();
         AbstractProject project = projectBuilder.addTask(overdueTask).build();
 
-        Task task = project.getTasks().get(0);
+        AbstractTask task = project.getTasks().get(0);
         TaskStatus status = task.getStatus();
         assertTrue(status != TaskStatus.COMPLETED);
         Instant taskDueDate = task.getDueDate().get();
@@ -224,7 +224,7 @@ public abstract class ProjectContractTest {
         Instant currentDate = Instant.EPOCH;
 
         TaskBuilder taskBuilder = createTaskBuilder();
-        Task taskDueToday = taskBuilder.setDueDate(Optional.of(currentDate))
+        AbstractTask taskDueToday = taskBuilder.setDueDate(Optional.of(currentDate))
             .build();
 
         // Instantiate project with task due at Instant.EPOCH
@@ -232,7 +232,7 @@ public abstract class ProjectContractTest {
         AbstractProject project = projectBuilder.addTask(taskDueToday)
             .build();
 
-        Task task = project.getTasks().get(0);
+        AbstractTask task = project.getTasks().get(0);
         Instant dueDate = task.getDueDate().get();
         assertEquals(dueDate, currentDate);
         
@@ -248,14 +248,14 @@ public abstract class ProjectContractTest {
         Instant currentDate = Instant.EPOCH;
         // Instantiate a project with two tasks. One is not overdue and the other is.
         TaskBuilder overdueTaskBuilder = createTaskBuilder();
-        Task overdueTask = overdueTaskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
+        AbstractTask overdueTask = overdueTaskBuilder.setDueDate(Optional.of(currentDate.minus(1, ChronoUnit.DAYS)))
             .setId(UUID.fromString("00000000-0000-0000-0000-000000000001"))
             .build();
 
         assertTrue(overdueTask.getDueDate().get().isBefore(currentDate));
         
         TaskBuilder notOverdueTaskBuilder = createTaskBuilder();
-        Task notOverdueTask = notOverdueTaskBuilder.setDueDate(Optional.of(currentDate.plus(1, ChronoUnit.DAYS)))
+        AbstractTask notOverdueTask = notOverdueTaskBuilder.setDueDate(Optional.of(currentDate.plus(1, ChronoUnit.DAYS)))
             .setId(UUID.fromString("00000000-0000-0000-0000-000000000002"))
             .build();
 
@@ -266,8 +266,8 @@ public abstract class ProjectContractTest {
             .addTask(notOverdueTask)
             .build();
 
-        Task task0 = project.getTasks().get(0);
-        Task task1 = project.getTasks().get(1);
+        AbstractTask task0 = project.getTasks().get(0);
+        AbstractTask task1 = project.getTasks().get(1);
 
         // Due in Instant.EPOCH.minus(1, ChronoUnit.DAYS)
         Instant dueDate0 = task0.getDueDate().get();

@@ -9,11 +9,11 @@ import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
-import com.andy.task_flow.domain.entities.interfaces.Task;
+import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 public class ProjectImplBuilder implements ProjectBuilder {
     private UUID id;
-    private List<Task> tasks = new ArrayList<>();
+    private List<AbstractTask> tasks = new ArrayList<>();
     private String name;
     private String description;
     private Instant createdAt;
@@ -25,13 +25,13 @@ public class ProjectImplBuilder implements ProjectBuilder {
     }
 
     @Override
-    public ProjectBuilder setTasks(List<Task> tasks) {
+    public ProjectBuilder setTasks(List<AbstractTask> tasks) {
         this.tasks = tasks;
         return this;
     }
 
     @Override
-    public ProjectBuilder addTask(Task task) {
+    public ProjectBuilder addTask(AbstractTask task) {
         this.tasks.add(task);
         return this;
     }
