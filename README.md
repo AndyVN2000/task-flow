@@ -40,6 +40,12 @@ Development on Domain layer is sufficient. Remaining TODOs are put on hold to sp
   interaction between `ProjectApplicationService` and `projectRepository`. The mock object
   is also like a spy that records interactions.
 
+### Infrastructure layer
+
+- For now, start by implementing `InMemory` repository classes.
+- Add H2 database for testing.
+- If possible integrate real SQL database such as Postgres to project.
+
 ## Maven
 
 ### Build project
