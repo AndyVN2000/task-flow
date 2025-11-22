@@ -11,12 +11,25 @@ import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 
-@MappedSuperclass
+@Entity
+@Table(name = "projects")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "isArchived", discriminatorType = DiscriminatorType.STRING)
 public abstract class AbstractProject implements Project {
+
+    @Id
+    private UUID id;
 
     /**
      * andistoev/onion‑architecture‑with‑spring‑boot

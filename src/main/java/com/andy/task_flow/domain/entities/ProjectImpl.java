@@ -6,6 +6,7 @@ import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
 import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -17,6 +18,7 @@ import java.time.Clock;
 import java.time.Instant;
 
 @Entity
+@DiscriminatorValue("FALSE")
 public class ProjectImpl extends AbstractProject implements MutableProject {
 
     @Id
