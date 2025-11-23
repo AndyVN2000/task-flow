@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.andy.task_flow.domain.entities.Label;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
@@ -35,10 +38,15 @@ public abstract class AbstractTask implements Task {
     @Column(nullable = false)
     private Instant createdAt;
 
+    @Column
+    @JdbcTypeCode(SqlTypes.DATE)
     private Optional<Instant> completedAt;
 
+    @Column
     private TaskStatus status;
 
+    @Column
+    @JdbcTypeCode(SqlTypes.DATE)
     private Optional<Instant> dueDate;
 
     @ManyToOne
