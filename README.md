@@ -88,6 +88,13 @@ Perfect to see how it fits with Spring Web & JPA
   - Includes only one REST endpoint, ideal for quick learning  
     Focuses on core principles: domain → application → infrastructure layers
 
+### CrudRepository vs JpaRepository
+
+[geeksforgeeks tutorial that explains the difference](https://www.geeksforgeeks.org/java/spring-boot-difference-between-crudrepository-and-jparepository/)
+
+In summary, `JpaRepository` extends `CrudsRepository` with additional operations related to pagination.
+It seems that `JpaRepository` is preferable to enable the scalability of databases. I should read more about it.
+
 ### Many-To-Many
 
 Handling many-to-many relationships using JPA: [baeldung tutorial on JPA ManyToMany](https://www.baeldung.com/jpa-many-to-many)
