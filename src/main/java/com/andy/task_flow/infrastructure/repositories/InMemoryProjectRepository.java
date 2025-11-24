@@ -10,6 +10,8 @@ import com.andy.task_flow.domain.repositories.ProjectRepository;
 
 public class InMemoryProjectRepository implements ProjectRepository {
 
+    // ProjectRepository methods
+
     @Override
     public AbstractProject save(AbstractProject project) {
         // TODO Auto-generated method stub
@@ -44,6 +46,56 @@ public class InMemoryProjectRepository implements ProjectRepository {
     public void delete(AbstractProject project) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'delete'");
+    }
+
+    // CrudRepository methods
+
+    @Override
+    public long count() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'count'");
+    }
+
+    @Override
+    public void deleteAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+    }
+
+    @Override
+    public void deleteAll(Iterable<? extends AbstractProject> entities) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAll'");
+    }
+
+    @Override
+    public void deleteAllById(Iterable<? extends UUID> ids) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteAllById'");
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+    }
+
+    @Override
+    public boolean existsById(UUID id) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'existsById'");
+    }
+
+    @Override
+    public Iterable<AbstractProject> findAllById(Iterable<UUID> ids) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAllById'");
+    }
+
+    @Override
+    public <S extends AbstractProject> Iterable<S> saveAll(Iterable<S> entities) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'saveAll'");
     }
     
 }

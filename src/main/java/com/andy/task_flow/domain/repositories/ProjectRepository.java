@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.repository.CrudRepository;
+
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
-public interface ProjectRepository {
+public interface ProjectRepository extends CrudRepository<AbstractProject, UUID>{
 
     AbstractProject save(AbstractProject project);
 
