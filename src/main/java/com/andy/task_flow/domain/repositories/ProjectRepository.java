@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
@@ -17,8 +18,10 @@ public interface ProjectRepository extends CrudRepository<AbstractProject, UUID>
 
     List<AbstractProject> findAll();
 
+    @Query("SELECT p FROM AbstractProject p WHERE TYPE(p) = ProjectImpl")
     List<AbstractProject> findActiveProjects();
 
+    @Query("SELECT p FROM AbstractProject p WHERE TYPE(p) = ArchivedProject")
     List<AbstractProject> findArchivedProjects();
 
     void delete(AbstractProject project);
