@@ -92,8 +92,11 @@ Perfect to see how it fits with Spring Web & JPA
 
 [geeksforgeeks tutorial that explains the difference](https://www.geeksforgeeks.org/java/spring-boot-difference-between-crudrepository-and-jparepository/)
 
-In summary, `JpaRepository` extends `CrudsRepository` with additional operations related to pagination.
+In summary, `JpaRepository` extends `CrudRepository` with additional operations related to pagination.
 It seems that `JpaRepository` is preferable to enable the scalability of databases. I should read more about it.
+For now, to keep it simple, I will be using `CrudRepository` for the sake of learning.
+
+[Tutorial on how to use the additional methods available in `JpaRepository`](https://www.baeldung.com/spring-data-jpa-pagination-sorting)
 
 ### Many-To-Many
 
