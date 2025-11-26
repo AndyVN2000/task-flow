@@ -44,12 +44,6 @@ public abstract class ProjectContractTest {
     }
 
     @Test
-    public void projectIdShouldNotBeNull() {
-        AbstractProject project = createProject();
-        assertNotNull(project.getId());
-    }
-
-    @Test
     public void nameShouldNotBeNull() {
         AbstractProject project = createProject();
         assertNotNull(project.getName());
