@@ -27,7 +27,9 @@ public class TaskFlowApplication {
 	public CommandLineRunner demo(ProjectRepository repository) {
 		return (args) -> {
 			logger.info("Creating projects");
-			repository.save(ProjectImpl.of("Foo", "Bar"));
+			/* Below line causes a `org.hibernate.StaleObjectStateException`
+				Must figure out why this happens */
+			// repository.save(ProjectImpl.of("Foo", "Bar"));
 		};
 	}
 
