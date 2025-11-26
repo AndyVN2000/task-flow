@@ -32,7 +32,6 @@ public class ProjectImpl extends AbstractProject implements MutableProject {
     }
 
     private ProjectImpl(String name, String description) {
-        this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.createdAt = Instant.now();
