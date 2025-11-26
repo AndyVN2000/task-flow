@@ -24,10 +24,6 @@ import java.time.Instant;
 @DiscriminatorValue("FALSE")
 public class ProjectImpl extends AbstractProject implements MutableProject {
 
-    // @Id
-    // @GeneratedValue
-    // private final UUID id;
-
     public static AbstractProject of(String name, String description) {
         return new ProjectImpl(name, description);
     }

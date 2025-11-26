@@ -27,9 +27,6 @@ import jakarta.persistence.Id;
 @DiscriminatorValue("TRUE")
 public class ArchivedProject extends AbstractProject {
 
-    @Id
-    protected final UUID id;
-
     @Column
     private Instant archivedAt;
 
