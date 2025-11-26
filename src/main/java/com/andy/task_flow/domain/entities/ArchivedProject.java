@@ -33,6 +33,9 @@ public class ArchivedProject extends AbstractProject {
     @Column
     private String archivedBy;
 
+    // Default no-argument constructor
+    public ArchivedProject(){}
+
     public static AbstractProject of(String name, String description, Instant createdAt, String archivedBy, UUID id) {
         return new ArchivedProject(name, description, createdAt, archivedBy, id);
     }

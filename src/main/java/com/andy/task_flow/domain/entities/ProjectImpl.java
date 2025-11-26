@@ -24,6 +24,9 @@ import java.time.Instant;
 @DiscriminatorValue("FALSE")
 public class ProjectImpl extends AbstractProject implements MutableProject {
 
+    // Default no-argument constructor
+    public ProjectImpl(){}
+
     public static AbstractProject of(String name, String description) {
         return new ProjectImpl(name, description);
     }

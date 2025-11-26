@@ -18,6 +18,9 @@ import jakarta.persistence.Entity;
 @DiscriminatorValue("TRUE")
 public class ArchivedTask extends AbstractTask {
 
+    // Default no-argument constructor
+    public ArchivedTask(){}
+
     private ArchivedTask(String title, String description, AbstractProject project, Optional<Instant> dueDate) {
         super(title, description, project, dueDate);
     }

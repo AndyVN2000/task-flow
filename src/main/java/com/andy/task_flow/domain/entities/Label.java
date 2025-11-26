@@ -5,6 +5,8 @@ import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
@@ -14,10 +16,16 @@ import java.util.Set;
 public class Label {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
     @Column
     private String label;
 
     @ManyToMany(mappedBy = "labels")
     private Set<AbstractTask> tasks;
     
+    // Default no-argument constructor
+    public Label(){}
+
 }

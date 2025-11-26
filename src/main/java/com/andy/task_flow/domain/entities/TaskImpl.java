@@ -66,6 +66,9 @@ public class TaskImpl extends AbstractTask implements MutableTask {
     private Set<Label> labels = new HashSet<>();
 */    
 
+    // Default no-argument constructor
+    public TaskImpl(){}
+
     private TaskImpl(String title, String description, AbstractProject project, Optional<Instant> dueDate) {
         super(title, description, project, dueDate);
     }
