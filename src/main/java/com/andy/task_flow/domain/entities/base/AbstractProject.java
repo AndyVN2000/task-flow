@@ -9,11 +9,13 @@ import java.util.UUID;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 
+import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -29,7 +31,8 @@ import jakarta.persistence.Table;
 public abstract class AbstractProject implements Project {
 
     @Id
-    private UUID id;
+    @GeneratedValue
+    protected UUID id;
 
     /**
      * andistoev/onion‑architecture‑with‑spring‑boot

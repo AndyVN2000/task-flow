@@ -10,6 +10,7 @@ import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import java.util.UUID;
@@ -23,8 +24,9 @@ import java.time.Instant;
 @DiscriminatorValue("FALSE")
 public class ProjectImpl extends AbstractProject implements MutableProject {
 
-    @Id
-    private final UUID id;
+    // @Id
+    // @GeneratedValue
+    // private final UUID id;
 
     public static AbstractProject of(String name, String description) {
         return new ProjectImpl(name, description);
