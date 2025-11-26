@@ -26,6 +26,10 @@ public class TaskFlowApplication {
 	@Bean
 	public CommandLineRunner demo(ProjectRepository repository) {
 		return (args) -> {
+			logger.info("Type of repository: " + repository.getClass());
+
+			logger.info("");
+
 			logger.info("Creating projects");
 			/* Below line causes a `org.hibernate.StaleObjectStateException`
 				Must figure out why this happens */
