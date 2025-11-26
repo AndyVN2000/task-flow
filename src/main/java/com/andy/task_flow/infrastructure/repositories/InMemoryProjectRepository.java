@@ -1,21 +1,27 @@
 package com.andy.task_flow.infrastructure.repositories;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 
 public class InMemoryProjectRepository implements ProjectRepository {
+    private Map<UUID, AbstractProject> projects = new HashMap<>();
 
     // ProjectRepository methods
 
     @Override
     public AbstractProject save(AbstractProject project) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+        projects.put(project.getId(), project);
+        return project;
     }
 
     @Override

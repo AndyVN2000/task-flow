@@ -33,7 +33,7 @@ public class TaskFlowApplication {
 			logger.info("Creating projects");
 			/* Below line causes a `org.hibernate.StaleObjectStateException`
 				Must figure out why this happens */
-			// repository.save(ProjectImpl.of("Foo", "Bar"));
+			repository.save(ProjectImpl.of("Foo", "Bar"));
 		};
 	}
 
