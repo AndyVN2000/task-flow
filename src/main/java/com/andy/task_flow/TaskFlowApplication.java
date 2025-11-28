@@ -1,6 +1,8 @@
 package com.andy.task_flow;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -51,9 +53,18 @@ public class TaskFlowApplication {
 
 			logger.info("Projects found with findAll()");
 			logger.info("--------------------------");
+			List<UUID> ids = new ArrayList<>();
 			repository.findAll().forEach(p -> {
 				logger.info(p.toString());
+				ids.add(p.getId());
 			});
+
+			logger.info("");
+
+			logger.info("Find project by id");
+			logger.info("--------------------------");
+			AbstractProject project0 = repository.findById(ids.get(0)).get();
+			logger.info(project0.toString());
 		};
 	}
 
