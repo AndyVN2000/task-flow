@@ -65,6 +65,14 @@ public class TaskFlowApplication {
 			logger.info("--------------------------");
 			AbstractProject project0 = repository.findById(ids.get(0)).get();
 			logger.info(project0.toString());
+
+			logger.info("");
+
+			logger.info("Find all ACTIVE projects");
+			logger.info("--------------------------");
+			repository.findActiveProjects().forEach(p -> {
+				logger.info(p.toString());
+			});
 		};
 	}
 
