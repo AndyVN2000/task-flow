@@ -62,6 +62,13 @@ public abstract class AbstractProject implements Project {
 
     @Column
     protected Instant createdAt;
+
+    @Override
+    public String toString() {
+        return String.format(
+            "Project[id=%s, name=%s, description=%s, archived=%b]", 
+            getId().toString(), getName(), getDescription(), isArchived());
+    }
     
     @Override
     public List<AbstractTask> getTasks() {

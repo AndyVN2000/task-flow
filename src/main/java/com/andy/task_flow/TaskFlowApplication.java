@@ -35,6 +35,14 @@ public class TaskFlowApplication {
 			logger.info("Creating projects");
 			logger.info("--------------------------");
 			repository.save(ProjectImpl.of("Foo", "Bar"));
+
+			logger.info("");
+
+			logger.info("Projects found with findAll()");
+			logger.info("--------------------------");
+			repository.findAll().forEach(project -> {
+				logger.info(project.toString());
+			});
 		};
 	}
 
