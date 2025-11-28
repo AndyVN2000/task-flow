@@ -2,14 +2,9 @@ package com.andy.task_flow.domain.entities;
 
 import java.time.Instant;
 import java.util.Optional;
-import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
-import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.interfaces.Task;
-import com.andy.task_flow.domain.entities.base.AbstractTask;
-import com.andy.task_flow.domain.enums.TaskStatus;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

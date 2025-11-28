@@ -3,15 +3,11 @@ package com.andy.task_flow.domain.entities;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.MutableProject;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.Task;
-import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 
 import java.util.UUID;
 import java.util.stream.Collectors;

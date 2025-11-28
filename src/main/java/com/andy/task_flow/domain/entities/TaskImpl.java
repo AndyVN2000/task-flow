@@ -1,23 +1,12 @@
 package com.andy.task_flow.domain.entities;
 
-import com.andy.task_flow.domain.enums.*;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.entities.interfaces.MutableTask;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.JoinColumn;
 
-import java.util.UUID;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Optional;
 import java.time.Clock;
 import java.time.Instant;

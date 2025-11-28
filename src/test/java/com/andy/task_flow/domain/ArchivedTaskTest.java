@@ -6,7 +6,6 @@ import java.util.Optional;
 import com.andy.task_flow.domain.entities.ArchivedTask;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.fixtures.doubles.ProjectStub;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 public class ArchivedTaskTest extends TaskContractTest {

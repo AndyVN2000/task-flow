@@ -2,8 +2,6 @@ package com.andy.task_flow.domain.repositories;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
-import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 import java.util.UUID;
 import java.util.List;

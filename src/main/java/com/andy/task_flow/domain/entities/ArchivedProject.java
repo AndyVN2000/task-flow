@@ -11,17 +11,14 @@ import java.util.stream.Collectors;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.interfaces.Task;
-import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.domain.exceptions.ChangeNotAllowedException;
 import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
 @Entity
 @DiscriminatorValue("TRUE")

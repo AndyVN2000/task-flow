@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.interfaces.ProjectBuilder;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 import com.andy.task_flow.fixtures.builders.TaskBuilder;

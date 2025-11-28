@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import com.andy.task_flow.domain.entities.base.AbstractProject;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 
 public interface ProjectRepository extends CrudRepository<AbstractProject, UUID>{
 

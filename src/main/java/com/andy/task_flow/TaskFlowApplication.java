@@ -1,6 +1,5 @@
 package com.andy.task_flow;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -12,11 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.ArchivedProject.ArchivedProjectBuilder;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 
 @SpringBootApplication

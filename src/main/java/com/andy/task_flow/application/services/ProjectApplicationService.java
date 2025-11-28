@@ -1,11 +1,8 @@
 package com.andy.task_flow.application.services;
 
-import static org.mockito.ArgumentMatchers.booleanThat;
-
 import java.time.Clock;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Stream;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +12,6 @@ import com.andy.task_flow.application.exceptions.TaskNotFoundException;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
-import com.andy.task_flow.domain.entities.interfaces.Project;
-import com.andy.task_flow.domain.entities.base.AbstractTask;
-import com.andy.task_flow.domain.exceptions.DuplicateTaskException;
-import com.andy.task_flow.domain.exceptions.ProjectAlreadyArchivedException;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 
 public class ProjectApplicationService {

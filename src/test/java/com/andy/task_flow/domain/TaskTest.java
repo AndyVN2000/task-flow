@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.andy.task_flow.domain.entities.TaskImpl;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.ProjectImpl;
 
 import java.time.Instant;

@@ -8,7 +8,6 @@ import java.util.UUID;
 
 import com.andy.task_flow.domain.entities.ArchivedProject;
 import com.andy.task_flow.domain.entities.base.AbstractProject;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.entities.base.AbstractTask;
 
 public class ProjectStub extends AbstractProject {

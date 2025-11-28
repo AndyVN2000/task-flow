@@ -6,11 +6,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Repository;
-
 import com.andy.task_flow.domain.entities.base.AbstractProject;
-import com.andy.task_flow.domain.entities.interfaces.Project;
 import com.andy.task_flow.domain.repositories.ProjectRepository;
 
 public class InMemoryProjectRepository implements ProjectRepository {
