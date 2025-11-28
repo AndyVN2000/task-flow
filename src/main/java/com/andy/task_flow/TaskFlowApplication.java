@@ -73,6 +73,14 @@ public class TaskFlowApplication {
 			repository.findActiveProjects().forEach(p -> {
 				logger.info(p.toString());
 			});
+
+			logger.info("");
+
+			logger.info("Find all ARCHIVED project");
+			logger.info("--------------------------");
+			repository.findArchivedProjects().forEach(p -> {
+				logger.info(p.toString());
+			});
 		};
 	}
 
