@@ -81,6 +81,16 @@ public class TaskFlowApplication {
 			repository.findArchivedProjects().forEach(p -> {
 				logger.info(p.toString());
 			});
+
+			logger.info("");
+
+			logger.info("Delete a project");
+			logger.info("--------------------------");
+			repository.delete(project0);
+			logger.info("Then call findAll() to see the project gone");
+			repository.findAll().forEach(p -> {
+				logger.info(p.toString());
+			});
 		};
 	}
 
